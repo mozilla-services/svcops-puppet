@@ -60,6 +60,13 @@ class sudo::params {
           $source = "${source_base}sudoers.archlinux"
           $config_file_group = 'root'
         }
+        redhat: {
+          $package = 'sudo'
+          $config_file = '/etc/sudoers'
+          $config_dir = '/etc/sudoers.d/'
+          $source = "${source_base}sudoers.rhel"
+          $config_file_group = 'root'
+        }
         default: {
           fail("Unsupported platform: ${::osfamily}/${::operatingsystem}")
         }
