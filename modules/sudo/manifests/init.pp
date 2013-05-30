@@ -1,47 +1,55 @@
+# vim: set expandtab ts=2 sw=2 filetype=puppet syntax=puppet:
+#
 # Class: sudo
 #
 # This module manages sudo
 #
 # Parameters:
-#   [*ensure*]
-#     Ensure if present or absent.
-#     Default: present
-#
-#   [*autoupgrade*]
-#     Upgrade package automatically, if there is a newer version.
-#     Default: false
-#
-#   [*package*]
-#     Name of the package.
-#     Only set this, if your platform is not supported or you know,
-#     what you're doing.
-#     Default: auto-set, platform specific
-#
-#   [*purge*]
-#     Whether or not to purge sudoers.d directory
-#     Default: true
+#   [*config_dir*]
+#     Main configuration directory
+#     Default: '/etc/sudoers.d'
 #
 #   [*config_file*]
 #     Main configuration file.
-#     Only set this, if your platform is not supported or you know,
-#     what you're doing.
-#     Default: auto-set, platform specific
+#     Default: '/etc/sudoers'
+#
+#   [*config_file_group*]
+#     Main configuration file 'group' attribute.
+#     Default: '/etc/sudoers'
 #
 #   [*config_file_replace*]
 #     Replace configuration file with that one delivered with this module
 #     Default: true
 #
-#   [*config_dir*]
-#     Main configuration directory
-#     Only set this, if your platform is not supported or you know,
-#     what you're doing.
-#     Default: auto-set, platform specific
+#   [*content*]
+#     Alternate source file content
+#     If you set this it overrides the $template parameter
+#     Default: undef
+#
+#   [*ensure*]
+#     Ensure for $package, $config_file, and $config_dir.
+#     'absent' will remove $package, $config_file, and $config_dir
+#     'present', 'latest', or a package version will set ensure => $ensure
+#     on Package[$package] and ensure => directory/file on $config_dir and
+#     $config_file.
+#     Default: 'present'
+#
+#   [*package*]
+#     Name of the package.
+#     Default: 'sudo'
+#
+#   [*purge*]
+#     Whether or not to purge sudoers.d directory
+#     Default: true
 #
 #   [*source*]
 #     Alternate source file location
-#     Only set this, if your platform is not supported or you know,
-#     what you're doing.
-#     Default: auto-set, platform specific
+#     If you set this it overrides the $template and $content parameters
+#     Default: undef
+#
+#   [*template*]
+#     Sets content of $config_file to template($template)
+#     Default: 'sudo/sudoers'
 #
 # Actions:
 #   Installs locales package and generates specified locales
@@ -54,55 +62,56 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class sudo(
-  $ensure = 'present',
-  $autoupgrade = false,
-  $package = $sudo::params::package,
-  $purge = true,
-  $config_file = $sudo::params::config_file,
+  $config_dir = '/etc/sudoers.d/',
+  $config_file = '/etc/sudoers',
+  $config_file_group = 'root',
   $config_file_replace = true,
-  $config_dir = $sudo::params::config_dir,
-  $source = $sudo::params::source
-) inherits sudo::params {
+  $content = undef,
+  $ensure = 'present',
+  $package = 'sudo',
+  $purge = true,
+  $source = undef,
+  $template = 'sudo/sudoers'
+){
 
-  case $ensure {
-    /(present)/: {
-      $dir_ensure = 'directory'
-      if $autoupgrade == true {
-        $package_ensure = 'latest'
-      } else {
-        $package_ensure = 'present'
-      }
-    }
-    /(absent)/: {
-      $package_ensure = 'absent'
-      $dir_ensure = 'absent'
-    }
-    default: {
-      fail('ensure parameter must be present or absent')
-    }
+  $dir_ensure = $ensure ? {
+    /^absent$/ => 'absent',
+    default    => 'directory',
+  }
+  $file_ensure = $ensure ? {
+    /^absent$/ => 'absent',
+    default    => 'file',
+  }
+
+  if $source != undef {
+    $content_real = undef
+  } elsif $content != undef {
+    $content_real = $content
+  } else {
+    $content_real = template($template)
   }
 
   package { $package:
-    ensure => $package_ensure,
+    ensure => $ensure,
   }
 
-  file { $config_file:
-    ensure  => $ensure,
-    owner   => 'root',
-    group   => $sudo::params::config_file_group,
-    mode    => '0440',
-    replace => $config_file_replace,
-    source  => $source,
-    require => Package[$package],
-  }
-
-  file { $config_dir:
-    ensure  => $dir_ensure,
-    owner   => 'root',
-    group   => $sudo::params::config_file_group,
-    mode    => '0550',
-    recurse => $purge,
-    purge   => $purge,
-    require => Package[$package],
+  file {
+    $config_file:
+      content => $content_real,
+      ensure  => $file_ensure,
+      owner   => 'root',
+      group   => $config_file_group,
+      mode    => '0440',
+      replace => $config_file_replace,
+      source  => $source,
+      require => Package[$package];
+    $config_dir:
+      ensure  => $dir_ensure,
+      owner   => 'root',
+      group   => $config_file_group,
+      mode    => '0550',
+      recurse => $purge,
+      purge   => $purge,
+      require => Package[$package];
   }
 }

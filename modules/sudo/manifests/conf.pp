@@ -1,3 +1,5 @@
+# vim: set expandtab ts=2 sw=2 filetype=puppet syntax=puppet:
+#
 # Define: sudo::conf
 #
 # This module manages sudoa configurations
@@ -42,9 +44,8 @@ define sudo::conf(
   $priority = 10,
   $content = undef,
   $source = undef,
-  $sudo_config_dir = $sudo::params::config_dir
+  $sudo_config_dir = '/etc/sudoers.d'
 ) {
-
   include sudo
 
   Class['sudo'] -> Sudo::Conf[$name]
