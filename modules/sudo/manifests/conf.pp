@@ -43,8 +43,7 @@ define sudo::conf(
   $ensure = present,
   $priority = 10,
   $content = undef,
-  $source = undef,
-  $sudo_config_dir = '/etc/sudoers.d'
+  $source = undef
 ) {
   include sudo
 
@@ -58,9 +57,9 @@ define sudo::conf(
 
   file { "${priority}_${name}":
     ensure  => $ensure,
-    path    => "${sudo_config_dir}${priority}_${name}",
+    path    => "${::sudo::config_dir}${priority}_${name}",
     owner   => 'root',
-    group   => $sudo::params::config_file_group,
+    group   => $::sudo::config_file_group,
     mode    => '0440',
     source  => $source,
     content => $content_real,
