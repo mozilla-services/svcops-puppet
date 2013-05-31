@@ -97,8 +97,8 @@ class sudo(
 
   file {
     $config_file:
-      content => $content_real,
       ensure  => $file_ensure,
+      content => $content_real,
       owner   => 'root',
       group   => $config_file_group,
       mode    => '0440',
