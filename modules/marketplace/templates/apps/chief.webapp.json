@@ -1,0 +1,6 @@
+{
+    "name": "<%= webapp_name %>",
+    "script": "<%= script %>",
+    "pubsub_channel": "deploy.<%= webapp_name %>",
+    "password": "<%= password %>"
+}
