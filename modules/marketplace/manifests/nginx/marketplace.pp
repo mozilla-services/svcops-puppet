@@ -7,10 +7,18 @@ define marketplace::nginx::marketplace(
     $webroot, # /data/www/addons.mozilla.org
     $webpayroot, # /data/www/marketplace.firefox.com-webpay,
     $cdn_hostname, # marketplace.cdn.mozilla.net
-    $netapp_root # /mnt/netapp_amo/addons.mozilla.org
+    $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
+    $marketplace_gunicorn_name = 'marketplace',
+    $fireplace_root = ''
 
 ) {
     $config_name = $name
+
+    if $fireplace_root {
+        $fireplace_webroot = $fireplace_root
+    } else {
+        $fireplace_webroot = $webroot
+    }
 
     nginx::config {
         $config_name:
