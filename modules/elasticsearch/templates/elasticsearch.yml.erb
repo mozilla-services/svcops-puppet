@@ -1,0 +1,46 @@
+# THIS FILE MANAGED BY PUPPET.
+--- 
+  cluster: 
+    name: <%= cluster_name %>
+  node: 
+    name: <%= es_name %>
+  threadpool: 
+    refresh: 
+      type: fixed
+      reject_policy: caller
+      size: <%= es_threads %>
+    bulk: 
+      type: fixed
+      reject_policy: caller
+      size: <%= es_threads %>
+    search: 
+      type: fixed
+      reject_policy: caller
+      size: <%= es_threads %>
+    index: 
+      type: fixed
+      reject_policy: caller
+      size: <%= es_threads %>
+  settings: 
+    number_of_shards: "10"
+    number_of_replicas: "2"
+  gateway: 
+    expected_nodes: "<%= expected_nodes %>"
+    recovery_after_nodes: "2"
+  action: 
+    disable_shutdown: "true"
+    disable_delete_all_indices: "true"
+  index: 
+    analysis: 
+      analyzer: 
+        standardPlusWordDelimiter: 
+          type: custom
+          filter: [standard, wordDelim, lowercase, stop, dict]
+          tokenizer: standard
+      filter: 
+        dict: 
+          type: dictionary_decompounder
+          word_list_path: wordlist.txt
+        wordDelim: 
+          preserve_original: "true"
+          type: word_delimiter
