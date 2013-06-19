@@ -74,6 +74,10 @@ Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES
 Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
 Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
 
+Defaults    env_keep += "SSH_AUTH_SOCK"
+Defaults    umask_override
+Defaults    umask=0022
+
 #
 # Adding HOME to env_keep may enable a user to run unrestricted
 # commands via sudo.
