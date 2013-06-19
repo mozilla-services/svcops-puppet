@@ -10,6 +10,7 @@ define git::clone(
 
         "git config remote.origin.url ${repo}":
             require => Exec["/usr/bin/git clone ${repo} ${clone_dir}"],
+            cwd     => $clone_dir,
             path    => ['/usr/bin'],
             unless  => "test `git config remote.origin.url` = '${repo}'";
     }
