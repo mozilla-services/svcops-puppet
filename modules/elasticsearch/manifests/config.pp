@@ -18,6 +18,7 @@ class elasticsearch::config(
       '/var/log/elasticsearch',
       '/var/lib/elasticsearch',
       '/var/run/elasticsearch',
+      $es_data_path,
     ]:
       ensure  => directory,
       owner   => "${elasticsearch::user}",
