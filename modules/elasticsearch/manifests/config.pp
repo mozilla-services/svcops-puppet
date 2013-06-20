@@ -1,6 +1,8 @@
 # elasticsearch config class
 class elasticsearch::config(
   $cluster_name = undef,
+  $nodes = undef,
+  $datacenter = 'phx1',
   $es_data_path = '/var/lib/elasticsearch',
   $expected_nodes = '3',
   $nofile_limit = '65535'
