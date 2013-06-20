@@ -45,4 +45,13 @@ class base::yum {
         failovermethod => priority,
     }
 
+    @yumrepo { 'percona':
+        baseurl        => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.percona',
+        descr          => 'Percona packages',
+        enabled        => 1,
+        priority       => 1,
+        gpgcheck       => 0,
+        failovermethod => priority,
+    }
+
 }
