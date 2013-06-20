@@ -4,8 +4,8 @@ ENV = '<%= env %>'
 SSH_KEY = '<%= ssh_key %>'
 PYREPO = '<%= pyrepo %>'
 CRON_NAME = '<%= cron_name %>'
-GUNICORN = '<%= gunicorn %>'.split(';')
-MULTI_GUNICORN = '<%= multi_gunicorn %>'.split(';')
+GUNICORN = filter(None, '<%= gunicorn %>'.split(';'))
+MULTI_GUNICORN = filter(None, '<%= multi_gunicorn %>'.split(';'))
 CELERY_SERVICE_PREFIX = '<%= celery_service_prefix %>'
 CELERY_SERVICE_MKT_PREFIX = '<%= celery_service_mkt_prefix %>'
 LOAD_TESTING = <%= load_testing %>
