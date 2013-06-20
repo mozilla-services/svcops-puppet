@@ -1,3 +1,4 @@
+# supervisor service
 define supervisord::service(
     $command,
     $app_dir,
@@ -13,20 +14,20 @@ define supervisord::service(
     file {
         "/etc/supervisord.conf.d/${name}.conf":
             require => File['/etc/supervisord.conf.d'],
-            notify => Service['supervisord'],
-            content => template("supervisord/supervisor.conf");
+            notify  => Service['supervisord'],
+            content => template('supervisord/supervisor.conf');
 
         "/etc/init.d/${name}":
-            mode => '0755',
-            content => template("supervisord/init-supervisor");
+            mode    => '0755',
+            content => template('supervisord/init-supervisor');
     }
     service {
         $supervisor_name:
-            require => File["/etc/init.d/${supervisor_name}", "/etc/supervisord.conf.d/${supervisor_name}.conf"],
-            enable => true,
-            ensure => running,
+            ensure     => running,
+            require    => File["/etc/init.d/${supervisor_name}", "/etc/supervisord.conf.d/${supervisor_name}.conf"],
+            enable     => true,
             hasrestart => true,
-            hasstatus => true,
-            status => "/sbin/service ${supervisor_name} status";
+            hasstatus  => true,
+            status     => "/sbin/service ${supervisor_name} status";
     }
 }
