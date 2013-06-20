@@ -9,7 +9,7 @@ define marketplace::apps::zamboni::deploysettings(
     $celery_service_mkt_prefix,
     $gunicorn = '', # should be string separated by ";"
     $multi_gunicorn = '', # should be string separated by ";"
-    $pyrepo = 'http://pyrepo1.addons.phx1.mozilla.com/',
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $update_ref = false,
     $load_testing = 'False' # must be a python boolean
 ) {
