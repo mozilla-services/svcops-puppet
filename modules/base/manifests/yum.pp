@@ -27,7 +27,7 @@ class base::yum {
         failovermethod => priority,
     }
 
-    yumrepo { 'nginx':
+    @yumrepo { 'nginx':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.nginx',
         descr          => 'nginx repo',
         enabled        => 1,

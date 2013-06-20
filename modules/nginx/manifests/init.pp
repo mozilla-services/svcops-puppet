@@ -3,9 +3,13 @@ class nginx(
     $nx_user = 'nginx',
     $version = 'present'
 ){
+
+    realize(Yumrepo['nginx'])
+
     package {
         'nginx':
-            ensure  => $version;
+            ensure  => $version,
+            require => Yumrepo['nginx'];
     }
 
     service {
