@@ -27,6 +27,14 @@ class base::yum {
         failovermethod => priority,
     }
 
+    yumrepo { 'nginx':
+        baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.nginx',
+        descr          => 'nginx repo',
+        enabled        => 1,
+        gpgcheck       => 0,
+        failovermethod => priority,
+    }
+
     yumrepo { 'puppetlabs-dependencies':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.puppetlabs-dependencies',
         descr          => 'Puppet Labs Dependencies El 6 - $basearch',
