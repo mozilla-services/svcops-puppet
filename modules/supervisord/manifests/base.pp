@@ -39,6 +39,10 @@ class supervisord::base inherits supervisord::params {
             mode    => '0755',
             require => Package['supervisor'],
             content => template('supervisord/supervisord-init');
+        '/var/log/supervisor':
+            ensure => directory,
+            before => Service['supervisord'],
+            mode   => '0770';
     }
 
     service {
