@@ -27,7 +27,7 @@ define sysctl::value (
   }
 
   exec { "exec_sysctl_${real_key}" :
-      path    => ['/sbin'],
+      path    => ['/sbin', '/bin'],
       command => $command,
       unless  => $unless,
       require => Sysctl[$real_key],
