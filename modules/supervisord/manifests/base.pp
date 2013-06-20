@@ -1,3 +1,4 @@
+# supervisord base class
 class supervisord::base inherits supervisord::params {
     # It is no longer necessary to 'include supervisord::base'
     # to declare instances of 'supervisord::service'.
@@ -18,42 +19,37 @@ class supervisord::base inherits supervisord::params {
     #
     # The parameters from ::params will be available here automatically.
 
-    include webapp::python
     package {
         'supervisor':
-            require => $::operatingsystemrelease ? {
-                /^6/ => Package['python'],
-                default => Package['python26'],
-            },
             ensure => 'latest';
     }
 
     file {
-        "/etc/supervisord.conf":
-            source => "puppet:///modules/supervisord/supervisord.conf",
+        '/etc/supervisord.conf':
+            source => 'puppet:///modules/supervisord/supervisord.conf',
             notify => Service['supervisord'];
 
-        "/etc/supervisord.conf.d/":
-            ensure => directory,
-            notify => Service['supervisord'],
+        '/etc/supervisord.conf.d/':
+            ensure  => directory,
+            notify  => Service['supervisord'],
             recurse => true,
-            purge => true;
+            purge   => true;
 
-        "/etc/init.d/supervisord":
-            mode => '0755',
+        '/etc/init.d/supervisord':
+            mode    => '0755',
             require => Package['supervisor'],
-            content => template("supervisord/supervisord-init");
+            content => template('supervisord/supervisord-init');
     }
 
     service {
-        "supervisord":
-            require => Package["supervisor"],
-            enable => true,
-            ensure => running,
-            restart => "/usr/bin/supervisorctl update",
-            start => "/sbin/service supervisord start",
-            stop => "/sbin/service supervisord stop",
+        'supervisord':
+            ensure    => running,
+            require   => Package['supervisor'],
+            enable    => true,
+            restart   => '/usr/bin/supervisorctl update',
+            start     => '/sbin/service supervisord start',
+            stop      => '/sbin/service supervisord stop',
             hasstatus => true,
-            status => "/sbin/service supervisord status";
+            status    => '/sbin/service supervisord status';
     }
 }
