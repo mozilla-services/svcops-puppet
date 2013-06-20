@@ -1,8 +1,8 @@
 # elasticsearch class
 class elasticsearch (
-    $version = 'present',
+    $version = '0.20.6-1',
     $package = 'elasticsearch',
-    $java_package = 'java-1.7.0-openjdk',
+    $java_package = 'java-1.7.0-oracle',
     $config_dir = '/etc/elasticsearch',
     $user = elasticsearch,
     $plugins = ['elasticsearch-plugin-site-head']
