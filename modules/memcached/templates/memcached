@@ -1,0 +1,5 @@
+PORT="<%= port %>"
+USER="nobody"
+MAXCONN="<%= max_connections %>"
+CACHESIZE="<%= cachesize %>"
+OPTIONS=""
