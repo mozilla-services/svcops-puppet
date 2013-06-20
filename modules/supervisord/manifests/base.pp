@@ -44,7 +44,7 @@ class supervisord::base inherits supervisord::params {
     service {
         'supervisord':
             ensure    => running,
-            require   => Package['supervisor'],
+            require   => [File['/etc/init.d/supervisord'], Package['supervisor']],
             enable    => true,
             restart   => '/usr/bin/supervisorctl update',
             start     => '/sbin/service supervisord start',
