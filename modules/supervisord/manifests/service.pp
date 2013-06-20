@@ -11,6 +11,7 @@ define supervisord::service(
     include supervisord::base
 
     $supervisor_name = $name
+    $supervisor_user = $user
     file {
         "/etc/supervisord.conf.d/${name}.conf":
             require => File['/etc/supervisord.conf.d'],
