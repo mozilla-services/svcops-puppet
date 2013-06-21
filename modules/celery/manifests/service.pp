@@ -5,6 +5,7 @@ define celery::service (
     $command = undef,
     $workers = '4',
     $python = '/usr/bin/python',
+    $environ = '',
     $log_level = 'INFO',
     $args = ''
 ) {
@@ -27,6 +28,7 @@ define celery::service (
         "celeryd-${celery_name}":
             command => $celery_command,
             app_dir => $app_dir,
+            environ => $environ,
             user    => $user;
     }
 }
