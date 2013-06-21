@@ -9,7 +9,7 @@ define celery::service (
     $log_level = 'INFO',
     $args = ''
 ) {
-    include supervisord
+    include supervisord::base
 
     if $user == 'celery' {
         include celery::user
