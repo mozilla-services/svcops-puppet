@@ -16,7 +16,7 @@ define marketplace::apps::zamboni::deploysettings(
     $zamboni_dir = $name
 
     file {
-        "${zamboni_dir}/scripts/update/deploysettings.py":
+        "${zamboni_dir}/deploysettings.py":
             content => template('marketplace/apps/zamboni/deploysettings.py');
     }
 
