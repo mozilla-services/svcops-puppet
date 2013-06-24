@@ -1,0 +1,52 @@
+{
+    "inputs": [
+    {
+        "type": "UdpInput",
+        "address": "<%= udp_listen_address %>"
+    }
+    ],
+        "decoders": [
+        {"type": "JsonDecoder", "default": true}
+    ],
+        "outputs": [
+        {
+            "type": "CefOutput",
+            "Network": "",
+            "Raddr": ""
+        },
+        {
+            "type": "StatsdOutput",
+            "Url": "<%= statsd_address %>"
+        },
+        {
+            "type": "SentryOutput",
+            "MaxUdpSockets": 100,
+            "MaxSentryBytes": 100000
+        },
+        {
+            "type": "FileOutput",
+            "Path": "<%= log_dir %>/metrics_json.log",
+            "Format": "json"
+        },
+        {
+            "type": "LogOutput"
+        }
+    ],
+        "chains": {
+            "cef": {
+                "message_type": ["cef"],
+                "outputs": ["CefOutput"]
+            },
+            "stats": {
+                "message_type": ["counter", "timer", "gauge"],
+                "outputs": ["StatsdOutput"]
+            },
+            "exceptions": {
+                "message_type": ["sentry"],
+                "outputs": ["SentryOutput"]
+            },
+            "default" : {
+                "outputs": ["FileOutput"]
+            }
+        }
+}
