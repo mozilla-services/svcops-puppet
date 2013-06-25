@@ -1,6 +1,6 @@
 # Creates zamboni settings file.
 define marketplace::apps::webpay::settings(
-    $app_dir,
+    $env,
     $database_default_url,
     $database_slave_url,
     $cache_prefix,
@@ -20,10 +20,11 @@ define marketplace::apps::webpay::settings(
     $statsd_prefix = '',
     $uuid_hmac_key = ''
 ) {
+    $app_dir = $name
     file {
         "${app_dir}/local.py":
             content => template('marketplace/apps/webpay/settings/local.py');
-        "${app_dir}}/private_base.py":
+        "${app_dir}}/settings/sites/${env}/private_base.py":
             content => template('marketplace/apps/webpay/settings/private_base.py');
     }
 }
