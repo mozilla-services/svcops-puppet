@@ -24,7 +24,7 @@ define marketplace::apps::webpay::settings(
     file {
         "${app_dir}/local.py":
             content => template('marketplace/apps/webpay/settings/local.py');
-        "${app_dir}}/settings/sites/${env}/private_base.py":
+        "${app_dir}/settings/sites/${env}/private_base.py":
             content => template('marketplace/apps/webpay/settings/private_base.py');
     }
 }
