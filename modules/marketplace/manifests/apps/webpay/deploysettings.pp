@@ -14,7 +14,7 @@ define marketplace::apps::webpay::deploysettings(
     $webpay_dir = $name
 
     file {
-        "${webpay_dir}/scripts/update/deploysettings.py":
+        "${webpay_dir}/deploysettings.py":
             content => template('marketplace/apps/webpay/deploysettings.py');
     }
 
