@@ -2,6 +2,9 @@
 class marketplace::apps::zamboni::packages {
     # These will probably need to be virtual someday
     package {
+        'python-imaging':
+            ensure => '1.1.7-19.el6';
+
         'python-jinja2':
             ensure => '2.5.5-1';
 
