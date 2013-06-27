@@ -45,6 +45,19 @@ class base::yum {
         failovermethod => priority,
     }
 
+    @yumrepo { 'epel-nagios':
+      baseurl        =>
+      'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.epel',
+      descr          =>
+      'Extra Packages for Enterprise Linux Nagios only $releasever - $basearch',
+      enabled        => '1',
+      includepkgs    => 'nagios*, nrpe*, nsca*, check-mk*',
+      failovermethod => 'priority',
+      gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL',
+      gpgcheck       => '1',
+      require        => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL'];
+    }
+
     @yumrepo { 'nginx':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.nginx',
         descr          => 'nginx repo',
@@ -71,4 +84,10 @@ class base::yum {
         failovermethod => priority,
     }
 
+    file {
+      '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
+        ensure => present,
+        source => "puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-EPEL-${::operatingsystemmajrelease}";
+
+    }
 }
