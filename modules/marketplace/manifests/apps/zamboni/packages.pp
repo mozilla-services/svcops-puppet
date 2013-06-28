@@ -28,5 +28,8 @@ class marketplace::apps::zamboni::packages {
 
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
+
+        'tracemonkey':
+            ensure => '0.1-5.el6';
     }
 }
