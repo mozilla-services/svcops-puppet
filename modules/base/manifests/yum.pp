@@ -58,6 +58,17 @@ class base::yum {
       require        => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL'];
     }
 
+    @yumrepo { 'rpmforge-extras':
+      baseurl  => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.rpmforge-extras',
+      descr    => 'Red Hat Enterprise $releasever - RPMforge.net - extras',
+      enabled  => '1',
+      protect  => '0',
+      gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
+      gpgcheck => '1',
+      exclude  => 'puppet*, facter, sox',
+      require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag'];
+    }
+
     @yumrepo { 'nginx':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.nginx',
         descr          => 'nginx repo',
@@ -88,6 +99,8 @@ class base::yum {
       '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
         ensure => present,
         source => "puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-EPEL-${::operatingsystemmajrelease}";
-
+      '/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag':
+        ensure => present,
+        source => 'puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-rpmforge-dag';
     }
 }
