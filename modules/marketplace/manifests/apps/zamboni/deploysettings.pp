@@ -11,7 +11,8 @@ define marketplace::apps::zamboni::deploysettings(
     $multi_gunicorn = '', # should be string separated by ";"
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $update_ref = false,
-    $load_testing = 'False' # must be a python boolean
+    $load_testing = 'False', # must be a python boolean
+    $dev = false
 ) {
     $zamboni_dir = $name
 
