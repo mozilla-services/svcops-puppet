@@ -21,12 +21,15 @@ class marketplace::apps::zamboni::packages {
             ensure => '2.3.2-1';
 
         'node-less':
-            ensure => '1.4.0-1';
+            ensure => '1.4.0-2';
 
         'node-stylus':
-            ensure => '0.32.1-1';
+            ensure => '0.32.1-2';
 
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
+
+        'tracemonkey':
+            ensure => '0.1-5.el6';
     }
 }
