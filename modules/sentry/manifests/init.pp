@@ -4,4 +4,8 @@ class sentry {
         'sentry':
             ensure => '5.4.5-1';
     }
+    file {
+        '/etc/sentry.d':
+            ensure => directory;
+    }
 }
