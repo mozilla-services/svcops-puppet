@@ -21,4 +21,16 @@ define sentry::service(
             notify  => Service['httpd'],
             content => template('sentry/apache.conf');
     }
+
+    supervisord::service {
+        "sentry-${sentry_name}-http":
+            command => "/opt/sentry/bin/sentry --config=/etc/sentry.d/${sentry_name}.py start http",
+            app_dir => '/tmp',
+            user    => 'apache';
+        "sentry-${sentry_name}-udp":
+            command => "/opt/sentry/bin/sentry --config=/etc/sentry.d/${sentry_name}.py start udp",
+            app_dir => '/tmp',
+            user    => 'apache';
+
+    }
 }
