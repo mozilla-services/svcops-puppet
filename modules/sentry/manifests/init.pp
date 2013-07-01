@@ -6,6 +6,8 @@ class sentry {
     }
     file {
         '/etc/sentry.d':
-            ensure => directory;
+            ensure  => directory,
+            recurse => true,
+            purge   => true;
     }
 }
