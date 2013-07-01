@@ -18,6 +18,6 @@ define sentry::service(
 
     nginx::config {
         "sentry_${sentry_name}":
-            content => template('sentry/nginx/conf');
+            content => template('sentry/nginx.conf');
     }
 }
