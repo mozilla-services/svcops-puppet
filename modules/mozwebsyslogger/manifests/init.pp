@@ -32,8 +32,7 @@ class mozwebsyslogger(
         ['/var/log/syslogs/apps',
         '/var/log/syslogs/hosts']:
             ensure  => directory,
-            mode    => '0755',
-            require => Mount['/var/log/syslogs'];
+            mode    => '0755';
     }
 
     rsyslog::config {
