@@ -16,8 +16,9 @@ define sentry::service(
             content => template('sentry/sentry.conf');
     }
 
-    nginx::config {
-        "sentry_${sentry_name}":
-            content => template('sentry/nginx.conf');
+    file {
+        "/etc/httpd/conf.d/${sentry_name}.conf":
+            notify  => Service['httpd'],
+            content => template('sentry/apache.conf');
     }
 }
