@@ -28,6 +28,7 @@ class elasticsearch (
   if $plugins {
       class {
           'elasticsearch::plugins':
+              plugins => $plugins,
               require => Package[$package];
       }
   }
