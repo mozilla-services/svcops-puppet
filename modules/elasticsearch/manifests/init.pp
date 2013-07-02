@@ -5,7 +5,7 @@ class elasticsearch (
     $java_package = 'java-1.7.0-oracle',
     $config_dir = '/etc/elasticsearch',
     $user = elasticsearch,
-    $plugins = hiera_array('elasticsearch::plugins', 'elasticsearch-plugin-site-head')
+    $plugins = ['elasticsearch-plugin-site-head']
 ){
 
   package {
