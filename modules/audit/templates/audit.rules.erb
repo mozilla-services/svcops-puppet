@@ -1,0 +1,80 @@
+# This file is managed by puppet
+# Version: $Id: audit.rules 20750 2011-09-20 15:18:28Z gdestuynder@mozilla.com $
+#
+# This file contains the auditctl rules that are loaded
+# whenever the audit daemon is started via the initscripts.
+# The rules are simply the parameters that would be passed
+# to auditctl.
+
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 8192
+
+# Feel free to add below this line. See auditctl man page
+-e 1
+
+# Ignore errors (if file path doesn't exists, for example, don't stop processing rules)
+-i
+
+# Rate limit (messages per second)
+-r 500
+
+#exclude from exec logging, capital A to put at the top of the rule list!
+#most used programs, called too often to log
+-A exit,never -F dir=/usr/lib/nagios/plugins -F perm=x
+-A exit,never -F dir=/usr/lib64/nagios/plugins -F perm=x
+-A exit,never -F path=/opt/compaq/utils/usb-device.sh -F perm=x
+-A exit,never -F path=/bin/ls -F perm=x
+-A exit,never -F path=/bin/sh -F perm=x
+-A exit,never -F path=/bin/grep -F perm=x
+-A exit,never -F path=/bin/egrep -F perm=x
+-A exit,never -F path=/bin/less -F perm=x
+-A exit,never -F path=/usr/bin/lesspipe.sh -F perm=x
+-A exit,never -F path=/usr/bin/tail -F perm=x
+-A exit,never -F path=/sbin/consoletype -F perm=x
+-A exit,never -F path=/bin/stty -F perm=x
+-A exit,never -F path=/usr/bin/tty -F perm=x
+-A exit,never -F path=/bin/tput -F perm=x
+-A exit,never -F path=/usr/bin/file -F perm=x
+-A exit,never -F path=/usr/bin/w -F perm=x
+-A exit,never -F path=/bin/netstat -F perm=x
+-A exit,never -F path=/bin/uname -F perm=x
+-A exit,never -F path=/bin/basename -F perm=x
+-A exit,never -F path=/usr/bin/which -F perm=x
+-A exit,never -F path=/bin/netstat -F perm=x
+-A exit,never -F path=/usr/bin/netstat -F perm=x
+-A exit,never -F path=/bin/hostname -F perm=x
+-A exit,never -F path=/usr/bin/wc -F perm=x
+-A exit,never -F path=/usr/bin/gmetric -F perm=x
+-A exit,never -F path=/sbin/ethtool -F perm=x
+-A exit,never -F path=/usr/bin/sed -F perm=x
+-A exit,never -F path=/bin/sed -F perm=x
+-A exit,never -F path=/bin/ping -F perm=x
+-A exit,never -F path=/sbin/lsmod -F perm=x
+-A exit,never -F path=/bin/sleep -F perm=x
+-A exit,never -F path=/bin/cut -F perm=x
+-A exit,never -F path=/bin/touch -F perm=x
+#we're getting the fork'd exec logged, so such programs as env are ok to exclude
+-A exit,never -F path=/bin/env -F perm=x
+
+#Stuff I exclude but I don't want to (=remove me please, when the load is ok)
+-A exit,never -F path=/bin/bash -F perm=x
+-A exit,never -F path=/usr/bin/python -F perm=x
+-A exit,never -F path=/usr/bin/python2.4 -F perm=x
+-A exit,never -F path=/usr/bin/perl -F perm=x
+-A exit,never -F path=/usr/bin/ruby -F perm=x
+
+# Monitor syscalls
+<% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
+-a exit,always -F arch=b64 -S execve -k exec
+-a exit,always -F arch=b32 -S execve -k exec
+<% end -%>
+
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a exit,always -S execve -k exec
+<% end -%>
+# uncomment to temporarily disable auditd
+#-D
