@@ -1,7 +1,7 @@
 # rsyslog cron
 class rsyslog::cron(
     $ensure = present,
-    $syslog_dir = '/var/log/syslogs'
+    $syslog_dir = '/data/syslogs'
 ){
 
     cron {
