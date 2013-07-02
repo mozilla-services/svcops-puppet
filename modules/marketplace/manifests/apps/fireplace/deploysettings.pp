@@ -5,10 +5,10 @@ define marketplace::apps::fireplace::deploysettings(
     $env,
     $ssh_key
 ) {
-    $zamboni_dir = $name
+    $fireplace_dir = $name
 
     file {
-        "${zamboni_dir}/deploysettings.py":
-            content => template('marketplace/apps/zamboni/deploysettings.py');
+        "${fireplace_dir}/deploysettings.py":
+            content => template('marketplace/apps/fireplace/deploysettings.py');
     }
 }
