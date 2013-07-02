@@ -7,6 +7,7 @@ class mozwebsyslogger(
 
 ){
     include rsyslog
+    include rsyslog::cron
 
     if $tls {
         $inputname = 'tlsin'
