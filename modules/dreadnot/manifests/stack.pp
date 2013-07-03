@@ -1,7 +1,7 @@
 # defines dreadnot stack
 define dreadnot::stack(
     $instance_name,
-    $stack # content of stack
+    $stack = template('dreadnot/standardstack.js')
 ) {
     $stack_name = $name
 
