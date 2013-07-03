@@ -1,8 +1,10 @@
 #installs dreadnot
 class dreadnot(
     $version = '0.1.3-1.66b2c8b79c',
-    $instance_root = '/opt/dreadnot/instances'
+    $root = '/opt/dreadnot'
 ){
+    include dreadnot::plugins
+    $instance_root = "${root}/instances"
     package {
         'dreadnot':
             ensure => $version;
