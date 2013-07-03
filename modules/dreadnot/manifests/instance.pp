@@ -6,11 +6,13 @@ define dreadnot::instance(
 
     $instance_name = $name
     file {
-        "/etc/dreadnot.d/${instance_name}":
+        "${dreadnot::instance_root}/${instance_name}":
             ensure => directory;
-        "/etc/dreadnot.d/${instance_name}/stacks":
+        "${dreadnot::instance_root}/${instance_name}/stacks":
             ensure => directory;
-        "/etc/dreadnot.d/${instance_name}/settings.js":
+        "${dreadnot::instance_root}/${instance_name}/settings.js":
             content => $settings;
+        "/var/dreadnot/${instance_name}":
+            ensure => directory;
     }
 }
