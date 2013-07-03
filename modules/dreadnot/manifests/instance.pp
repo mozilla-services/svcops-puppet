@@ -1,21 +1,29 @@
 # start dreadnot instance.
 define dreadnot::instance(
     $settings,
-    $htpasswd = ''
+    $htpasswd = '',
+    $port = '9000'
 ) {
     include dreadnot
 
     $instance_name = $name
+    $root = "${dreadnot::instance_root}/${instance_name}"
     file {
-        "${dreadnot::instance_root}/${instance_name}":
+        $root:
             ensure => directory;
-        "${dreadnot::instance_root}/${instance_name}/stacks":
+        "${root}/stacks":
             ensure => directory;
-        "${dreadnot::instance_root}/${instance_name}/settings.js":
+        "${root}/settings.js":
             content => $settings;
-        "${dreadnot::instance_root}/${instance_name}/htpasswd":
+        "${root}/htpasswd":
             content => $htpasswd;
         "/var/dreadnot/${instance_name}":
             ensure => directory;
+    }
+    supervisord::service {
+        "dreadnot-${instance_name}":
+            command => "/opt/dreadnot/bin/dreadnot -c ${root}/settings.js -s ${root}/stacks -p ${port}",
+            app_dir => "/var/dreadnot/${instance_name}",
+            user    => 'root';
     }
 }
