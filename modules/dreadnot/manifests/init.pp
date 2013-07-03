@@ -9,10 +9,10 @@ class dreadnot(
     }
     file {
         $instance_root:
-            ensure   => directory,
-            requires => Package['dreadnot'],
-            purge    => true,
-            recurse  => true;
+            ensure  => directory,
+            require => Package['dreadnot'],
+            purge   => true,
+            recurse => true;
         '/var/dreadnot':
             ensure => directory;
     }
