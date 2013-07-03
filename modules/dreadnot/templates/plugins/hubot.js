@@ -21,6 +21,10 @@ var log = require('logmagic').local('plugins.hubot');
 var sprintf = require('util/sprintf');
 var spawn = require('util/misc').spawn;
 
+function notify(msg) {
+    spawn(["/usr/bin/pushbotnotify", msg], {}, function(err, stdout, stderr) {});
+}
+
 exports.run = function(dreadnot) {
   var clients = {},
       joined = {},
@@ -33,13 +37,12 @@ exports.run = function(dreadnot) {
                           deployment.region, link),
         endPath = ['stacks', deployment.stack, 'regions', deployment.region, 'deployments', deployment.deployment, 'end'].join('.'),
         i;
-    
-    spawn(["/usr/bin/pushbotnotify", msg], {}, function(err, stdout, stderr) {});
+    notify(msg); 
 
     dreadnot.emitter.once(endPath, function(success) {
       var endMsg = sprintf('deployment #%s of %s to %s:%s %s', deployment.deployment, deployment.stack, dreadnot.config.env,
           deployment.region, success ? 'succeeded' : '\u0002FAILED\u000f');
-      spawn(["/usr/bin/pushbotnotify", endMsg])
+      notify(endMsg);
     });
   });
 
