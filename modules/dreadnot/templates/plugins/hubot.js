@@ -17,6 +17,7 @@
 
 var async = require('async');
 var log = require('logmagic').local('plugins.hubot');
+var irc = require('irc');
 
 var sprintf = require('util/sprintf');
 var spawn = require('util/misc').spawn;
@@ -41,7 +42,7 @@ exports.run = function(dreadnot) {
 
     dreadnot.emitter.once(endPath, function(success) {
       var endMsg = sprintf('deployment #%s of %s to %s:%s %s', deployment.deployment, deployment.stack, dreadnot.config.env,
-          deployment.region, success ? 'succeeded' : '\u0002FAILED\u000f');
+          deployment.region, success ? irc.colors.wrap('light_green', 'SUCCEEDED') : irc.colors.wrap('dark_red', 'FAILED'));
       notify(endMsg);
     });
   });
