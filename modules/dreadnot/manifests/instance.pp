@@ -1,6 +1,7 @@
 # start dreadnot instance.
 define dreadnot::instance(
-    $settings
+    $settings,
+    $htpasswd = ''
 ) {
     include dreadnot
 
@@ -12,6 +13,8 @@ define dreadnot::instance(
             ensure => directory;
         "${dreadnot::instance_root}/${instance_name}/settings.js":
             content => $settings;
+        "${dreadnot::instance_root}/${instance_name}/htpasswd":
+            content => $htpasswd;
         "/var/dreadnot/${instance_name}":
             ensure => directory;
     }
