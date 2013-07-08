@@ -2,5 +2,11 @@
 class base::nrpe_plugins {
   include nrpe::plugins
   realize(
-    Nrpe::Plugin['check_puppet', 'puppet_update', 'uptime', 'check_ro_mounts'])
+    Nrpe::Plugin[
+                'check_puppet',
+                'puppet_update',
+                'uptime',
+                'check_ro_mounts',
+                'auditd'
+                ])
 }
