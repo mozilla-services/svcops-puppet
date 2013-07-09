@@ -45,6 +45,13 @@ class base::yum {
         failovermethod => priority,
     }
 
+    yumrepo { 'hp-utils':
+      descr    => 'hp-utils',
+      baseurl  => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.hp-utils',
+      gpgcheck => 0,
+      enabled  => 1;
+    }
+
     @yumrepo { 'epel-nagios':
       baseurl        =>
       'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.epel',
