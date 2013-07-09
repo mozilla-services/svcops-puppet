@@ -9,7 +9,7 @@ define marketplace::apps::zamboni(
     $timeout = '90',
     $environ = '',
     $newrelic_license_key = '',
-    $gunicorn_set = false, # runs two workers $name-a and $name-b
+    $gunicorn_set = true, # runs two workers $name-a and $name-b
 ) {
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
