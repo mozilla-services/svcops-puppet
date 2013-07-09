@@ -1,5 +1,5 @@
-# define geodude instance.
-define marketplace::apps::geodude(
+# define geoip instance.
+define marketplace::apps::geoip(
     $gunicorn_name,
     $port,
     $app_dir,
@@ -32,7 +32,7 @@ define marketplace::apps::geodude(
                 appmodule => $appmodule,
                 timeout   => $timeout,
                 environ   => $environ,
-                appdir    => "${app_dir}/geodude";
+                appdir    => "${app_dir}/geoip";
 
         }
         } else {
@@ -44,7 +44,7 @@ define marketplace::apps::geodude(
                     appmodule => $appmodule,
                     timeout   => $timeout,
                     environ   => $environ,
-                    appdir    => "${app_dir}/geodude";
+                    appdir    => "${app_dir}/geoip";
             }
         }
 }

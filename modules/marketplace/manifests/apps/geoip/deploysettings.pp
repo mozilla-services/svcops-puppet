@@ -1,5 +1,5 @@
-# $name is the location of geodude
-define marketplace::apps::geodude::deploysettings(
+# $name is the location of geoip
+define marketplace::apps::geoip::deploysettings(
     $cluster,
     $domain,
     $env,
@@ -15,7 +15,7 @@ define marketplace::apps::geodude::deploysettings(
 
     file {
         "${app_dir}/deploysettings.py":
-            content => template('marketplace/apps/geodude/deploysettings.py');
+            content => template('marketplace/apps/geoip/deploysettings.py');
     }
 
 }

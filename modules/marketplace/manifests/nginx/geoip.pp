@@ -1,12 +1,12 @@
 # pfs nginx config
-define marketplace::nginx::geodude(
+define marketplace::nginx::geoip(
     $server_names # ['geoip.marketplace.firefox.com']
 ) {
     $config_name = $name
 
     nginx::config {
         $config_name:
-            content => template('marketplace/nginx/geodude.conf');
+            content => template('marketplace/nginx/geoip.conf');
     }
 
     nginx::logdir {
