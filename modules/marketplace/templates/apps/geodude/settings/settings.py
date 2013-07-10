@@ -8,7 +8,7 @@ def path(*a):
 # Set to True if this is a local development instance.
 DEV = <%= is_dev %>
 
-# Absolute path to the geoip binary data file.
+# Absolute path to the geodude binary data file.
 GEO_DB_PATH = path('<%= geo_db_path %>')
 
 # Allow POSTing of arbitrary IPs to get their location. This setting can not be
