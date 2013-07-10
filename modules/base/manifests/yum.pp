@@ -47,7 +47,7 @@ class base::yum {
 
     yumrepo { 'hp-utils':
       descr    => 'hp-utils',
-      baseurl  => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.hp-utils',
+      baseurl  => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.hp-utils',
       gpgcheck => 0,
       enabled  => 1;
     }
