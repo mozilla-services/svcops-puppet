@@ -8,7 +8,6 @@ class base::packages {
             'sysstat',
             'htop',
             'dstat',
-            'augtool',
             'vim-enhanced',
             'nc',
             'bash-completion',
