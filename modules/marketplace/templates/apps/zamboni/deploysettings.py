@@ -11,3 +11,4 @@ CELERY_SERVICE_MKT_PREFIX = '<%= celery_service_mkt_prefix %>'
 LOAD_TESTING = <%= load_testing %>
 UPDATE_REF = <% if update_ref %>'<%= update_ref %>'<% else %>None<% end %>
 DEV = <%= dev ? 'True' : 'False' %>
+CRON_USER = '<%= cron_user %>'
