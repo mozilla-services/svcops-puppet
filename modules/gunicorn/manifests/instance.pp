@@ -9,8 +9,10 @@ define gunicorn::instance (
     $max_requests = '5000',
     $timeout = '30',
     $environ = '',
-    $nginx_upstream = true
+    $nginx_upstream = true,
+    $user = 'nginx'
 ) {
+    include gunicorn
     include supervisord::base
 
     $app_name = $name
@@ -29,7 +31,7 @@ define gunicorn::instance (
             app_dir            => $appdir,
             environ            => $environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
-            user               => $gunicorn::user;
+            user               => $user;
     }
 
     motd {

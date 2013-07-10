@@ -10,6 +10,7 @@ define gunicorn::set (
     $max_requests = '5000',
     $timeout = '30',
     $environ = '',
+    $user = 'nginx'
 ) {
 
     $set_name = $name
@@ -32,6 +33,7 @@ define gunicorn::set (
             max_requests   => $max_requests,
             timeout        => $timeout,
             environ        => $environ,
+            user           => $user,
             nginx_upstream => false;
 
         "${set_name}-b":
@@ -44,6 +46,7 @@ define gunicorn::set (
             max_requests   => $max_requests,
             timeout        => $timeout,
             environ        => $environ,
+            user           => $user,
             nginx_upstream => false;
     }
 }

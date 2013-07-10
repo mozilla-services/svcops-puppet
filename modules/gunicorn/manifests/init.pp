@@ -1,13 +1,9 @@
 # gunicorn
-class gunicorn(
-    $user = 'nginx'
-){
+class gunicorn {
     file {
         '/var/log/gunicorn':
             ensure => directory,
-            owner  => $user,
-            group  => $user,
-            mode   => '0755';
+            mode   => '1777';
     }
 
     motd {
