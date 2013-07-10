@@ -27,7 +27,7 @@ define gunicorn::instance (
 
     supervisord::service {
         "gunicorn-${app_name}":
-            command            => "${gunicorn} -b 127.0.0.1:${port} -w ${workers} -k ${worker_class} -t ${timeout} --max-requests ${max_requests} -n gunicorn-${app_name} ${appmodule} --log-file /var/log/gunicorn/${app_name}",
+            command            => "${gunicorn} -b 127.0.0.1:${port} -w ${workers} -k ${worker_class} -t ${timeout} --max-requests ${max_requests} -n gunicorn-${app_name} ${appmodule} --log-file /var/log/gunicorn/${user}-${app_name}",
             app_dir            => $appdir,
             environ            => $environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
