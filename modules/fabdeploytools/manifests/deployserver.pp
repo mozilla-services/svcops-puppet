@@ -3,7 +3,8 @@ class fabdeploytools::deployserver(
     $root = '/var/deployserver',
     $server_name = 'deployserver',
     $webserver = 'nginx', # can be nginx or httpd
-    $access = [] # this is a list of hashes, e.g., [{location => /prod, allow_from => '127.0.0.1'}]
+    $access = [], # this is a list of hashes, e.g., [{location => /prod, allow_from => '127.0.0.1'}]
+    $port = '8080'
 ) {
     $package_root = "${root}/packages"
     file {
