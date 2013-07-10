@@ -3,7 +3,7 @@ define marketplace::apps::geodude(
     $gunicorn_name,
     $port,
     $app_dir,
-    $appmodule = 'wsgi.playdoh:application',
+    $appmodule = 'geodude',
     $workers = 12,
     $worker_class = 'sync',
     $timeout = '90',
