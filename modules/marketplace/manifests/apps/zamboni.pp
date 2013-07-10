@@ -10,6 +10,7 @@ define marketplace::apps::zamboni(
     $environ = '',
     $newrelic_license_key = '',
     $gunicorn_set = true, # runs two workers $name-a and $name-b
+    $user = 'nginx'
 ) {
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
@@ -36,6 +37,7 @@ define marketplace::apps::zamboni(
             appmodule => $appmodule,
             timeout   => $timeout,
             environ   => $environ,
+            user      => $user,
             appdir    => "${app_dir}/zamboni";
 
     }
@@ -48,6 +50,7 @@ define marketplace::apps::zamboni(
             appmodule => $appmodule,
             timeout   => $timeout,
             environ   => $environ,
+            user      => $user,
             appdir    => "${app_dir}/zamboni";
     }
     }
