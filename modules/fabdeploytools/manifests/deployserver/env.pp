@@ -2,7 +2,7 @@
 define fabdeploytools::deployserver::env() {
     $env_name = $name
     file {
-        "${fabdeploytools::deployserver::root}/${env_name}":
+        "${fabdeploytools::deployserver::package_root}/${env_name}":
             ensure => directory;
     }
 }
