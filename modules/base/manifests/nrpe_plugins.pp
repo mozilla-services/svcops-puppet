@@ -1,6 +1,7 @@
 # corresponds to infra's nrpe_plugins class
-class base::nrpe_plugins {
+class base::nrpe_plugins ($plugins = []) {
   include nrpe::plugins
+  # base plugins
   realize(
     Nrpe::Plugin[
                 'check_puppet',
@@ -9,4 +10,6 @@ class base::nrpe_plugins {
                 'check_ro_mounts',
                 'auditd'
                 ])
+  # additional plugins via hiera
+  realize(Nrpe::Plugin[$plugins])
 }
