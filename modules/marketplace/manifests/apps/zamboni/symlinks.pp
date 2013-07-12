@@ -20,8 +20,8 @@ define marketplace::apps::zamboni::symlinks(
         "${mkt_webroot}/storage"]:
             ensure => directory;
 
-        "${zamboni_webroot}/storage/shared_storage":
-        "${mkt_webroot}/storage/shared_storage":
+        ["${zamboni_webroot}/storage/shared_storage",
+        "${mkt_webroot}/storage/shared_storage"]:
             ensure => directory;
 
         ["${zamboni_webroot}/storage/files",
