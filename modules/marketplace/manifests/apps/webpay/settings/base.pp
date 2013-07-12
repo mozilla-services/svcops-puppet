@@ -1,5 +1,5 @@
 # Creates zamboni settings file.
-define marketplace::apps::zamboni::settings::base(
+define marketplace::apps::webpay::settings::base(
     $email_host,
     $redirect_secret_key,
     $databases_default_name,
