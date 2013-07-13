@@ -29,6 +29,6 @@ define supervisord::service(
             enable     => true,
             hasrestart => true,
             hasstatus  => true,
-            status     => "/sbin/service ${supervisor_name} status";
+            status     => "/usr/bin/supervisorctl status ${supervisor_name} | /bin/grep -q RUNNING";
     }
 }
