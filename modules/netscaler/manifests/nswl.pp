@@ -11,8 +11,12 @@ class netscaler::nswl(
             ensure => $version;
     }
 
+    if $user == 'nswl' {
     user {
-        $user:;
+        $user:
+            ensure => present,
+            shell  => '/sbin/nologin';
+    }
     }
 
     file {
@@ -22,6 +26,15 @@ class netscaler::nswl(
             ensure  => directory;
 
         '/etc/nswl.conf':
+            require => Package['NSweblog'],
             content => template('netscaler/nswl.conf');
+    }
+
+    supervisord::service {
+        'nswl':
+            require => [File[$logdir], File['/etc/nswl.conf']],
+            command => "/usr/local/netscaler/bin/nswl -start -f /etc/nswl.conf",
+            app_dir => $logdir,
+            user    => $user;
     }
 }
