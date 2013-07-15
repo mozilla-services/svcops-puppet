@@ -15,7 +15,7 @@ SENTRY_DSN = '<%= addons_sentry_dsn %>'
 WEBAPPS_RECEIPT_KEY = '<%= addons_webapps_receipt_key %>'
 <% if @addons_domain -%>
 DOMAIN = '<%= addons_domain %>'
-<% end %>
+<% end -%>
 <% if @addons_static_url -%>
 STATIC_URL = '<%= addons_static_url %>'
-<% end %>
+<% end -%>
