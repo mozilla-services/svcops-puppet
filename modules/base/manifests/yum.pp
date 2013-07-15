@@ -7,6 +7,7 @@ class base::yum {
         enabled        => 1,
         priority       => 1,
         gpgcheck       => 0,
+        exclude        => 'Percona-*',
         failovermethod => priority,
     }
 
