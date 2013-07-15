@@ -63,6 +63,7 @@ define marketplace::apps::zamboni::settings(
     $aws_secret_access_key = '',
     $aws_storage_bucket_name = '',
     $secret_key = '',
+    $addons_domain = undef,
     $addons_paypal_cgi_auth_password = '',
     $addons_paypal_cgi_auth_signature = '',
     $addons_paypal_cgi_auth_user = '',
@@ -70,7 +71,9 @@ define marketplace::apps::zamboni::settings(
     $addons_paypal_email = '',
     $addons_paypal_embedded_auth_password = '',
     $addons_paypal_embedded_auth_signature = '',
+    $addons_static_url = undef,
     $addons_webapps_receipt_key = '',
+    $mkt_domain = undef,
     $mkt_bluevia_secret = '',
     $mkt_paypal_cgi_auth_password = '',
     $mkt_paypal_cgi_auth_signature = '',
@@ -78,7 +81,8 @@ define marketplace::apps::zamboni::settings(
     $mkt_paypal_email = '',
     $mkt_paypal_embedded_auth_password = '',
     $mkt_paypal_embedded_auth_signature = '',
-    $mkt_signed_apps_key = ''
+    $mkt_signed_apps_key = '',
+    $mkt_static_url = undef
 ) {
     $app_dir = $name
     file {
