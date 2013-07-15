@@ -7,7 +7,6 @@ class mozwebsyslogger(
 
 ){
     include rsyslog
-    include rsyslog::cron
 
     if $tls {
         $inputname = 'tlsin'
@@ -40,5 +39,10 @@ class mozwebsyslogger(
         'websyslogger':
             require => [File['/var/log/syslogs/hosts'], File['/var/log/syslogs/apps']],
             content => template('mozwebsyslogger/syslog.conf');
+    }
+
+    file {
+        '/etc/logrotate.d/mozwebsyslogger':
+            content => template('mozwebsyslogger/logrotate');
     }
 }
