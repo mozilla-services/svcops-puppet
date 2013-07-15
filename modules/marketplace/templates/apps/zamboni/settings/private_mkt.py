@@ -32,9 +32,9 @@ WEBAPPS_RECEIPT_KEY = '<%= mkt_webapps_receipt_key %>'
 WEBAPPS_RECEIPT_URL = '<%= mkt_webapps_receipt_url %>'
 WEBTRENDS_PASSWORD = '<%= mkt_webtrends_password %>'
 WEBTRENDS_USERNAME = '<%= mkt_webtrends_username %>'
-<% if mkt_domain -%>
+<% if @mkt_domain -%>
 DOMAIN = '<%= mkt_domain %>'
-<% end %>
-<% if mkt_static_url -%>
+<% end -%>
+<% if @mkt_static_url -%>
 STATIC_URL = '<%= mkt_static_url %>'
-<% end %>
+<% end -%>
