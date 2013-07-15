@@ -16,6 +16,6 @@ WEBAPPS_RECEIPT_KEY = '<%= addons_webapps_receipt_key %>'
 <% if domain -%>
 DOMAIN = '<%= addons_domain %>'
 <% end %>
-<%= if static_url -%>
+<% if static_url -%>
 STATIC_URL = '<%= addons_static_url %>'
 <% end %>

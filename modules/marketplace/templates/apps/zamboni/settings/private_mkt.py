@@ -35,6 +35,6 @@ WEBTRENDS_USERNAME = '<%= mkt_webtrends_username %>'
 <% if domain -%>
 DOMAIN = '<%= mkt_domain %>'
 <% end %>
-<%= if static_url -%>
+<% if static_url -%>
 STATIC_URL = '<%= mkt_static_url %>'
 <% end %>
