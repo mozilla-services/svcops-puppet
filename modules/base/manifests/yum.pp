@@ -16,6 +16,7 @@ class base::yum {
         descr          => 'Mozilla Marketplace Packages',
         enabled        => 1,
         gpgcheck       => 0,
+        cost           => '50'
         failovermethod => priority,
     }
 
