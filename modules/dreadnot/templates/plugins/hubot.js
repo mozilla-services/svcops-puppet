@@ -18,6 +18,7 @@
 var async = require('async');
 var log = require('logmagic').local('plugins.hubot');
 var irc = require('irc');
+var git = require('util/git');
 
 var sprintf = require('util/sprintf');
 var spawn = require('util/misc').spawn;
@@ -34,8 +35,9 @@ exports.run = function(dreadnot) {
   dreadnot.emitter.on('deployments', function(deployment) {
     var link = sprintf('%s/stacks/%s/regions/%s/deployments/%s', dreadnot.config.default_url, deployment.stack, deployment.region,
                           deployment.deployment),
-        msg = sprintf('%s is deploying %s to %s:%s - %s', deployment.user, deployment.stack, dreadnot.config.env,
-                          deployment.region, link),
+        msg = sprintf('%s is deploying %s:%s to %s:%s - %s', deployment.user,
+                      deployment.stack, git.trimRevision(deployment.to_revision),
+                      dreadnot.config.env, deployment.region, link),
         endPath = ['stacks', deployment.stack, 'regions', deployment.region, 'deployments', deployment.deployment, 'end'].join('.'),
         i;
     notify(msg); 
