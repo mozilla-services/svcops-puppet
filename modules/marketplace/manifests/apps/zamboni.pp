@@ -9,6 +9,7 @@ define marketplace::apps::zamboni(
     $timeout = '90',
     $environ = '',
     $newrelic_license_key = '',
+    $newrelic_domain = undef,
     $gunicorn_set = true, # runs two workers $name-a and $name-b
     $user = 'nginx'
 ) {
@@ -22,8 +23,9 @@ define marketplace::apps::zamboni(
         }
         marketplace::newrelic::python {
             $app_name:
-                before      => $newrelic_dep,
-                license_key => $newrelic_license_key;
+                before          => $newrelic_dep,
+                newrelic_domain => $newrelic_domain,
+                license_key     => $newrelic_license_key;
         }
     }
 
