@@ -3,10 +3,10 @@ class memcached (
     $version = 'present',
     $max_connections = '10024',
     $port = '11211',
-    $size = undef
+    $size = ''
 ) {
 
-    if $size {
+    if $size == '' {
         $cachesize = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.05 ).to_i %>')
     }
     else {
