@@ -2,10 +2,16 @@
 class memcached (
     $version = 'present',
     $max_connections = '10024',
-    $port = '11211'
+    $port = '11211',
+    $size = undef
 ) {
 
-    $cachesize = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.05 ).to_i %>')
+    if $size {
+        $cachesize = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.05 ).to_i %>')
+    }
+    else {
+        $cachesize = $size
+    }
 
     package {
         'memcached':
