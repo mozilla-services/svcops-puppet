@@ -10,7 +10,8 @@ define gunicorn::instance (
     $timeout = '30',
     $environ = '',
     $nginx_upstream = true,
-    $user = 'nginx'
+    $user = 'nginx',
+    $preload = false
 ) {
     include gunicorn
     include supervisord::base
@@ -25,9 +26,15 @@ define gunicorn::instance (
         }
     }
 
+    if $preload {
+        $_preload = "--preload"
+    } else {
+        $_preload = ""
+    }
+
     supervisord::service {
         "gunicorn-${app_name}":
-            command            => "${gunicorn} -b 127.0.0.1:${port} -w ${workers} -k ${worker_class} -t ${timeout} --max-requests ${max_requests} -n gunicorn-${app_name} ${appmodule} --log-file /var/log/gunicorn/${user}-${app_name}",
+            command            => "${gunicorn} -b 127.0.0.1:${port} ${_preload} -w ${workers} -k ${worker_class} -t ${timeout} --max-requests ${max_requests} -n gunicorn-${app_name} ${appmodule} --log-file /var/log/gunicorn/${user}-${app_name}",
             app_dir            => $appdir,
             environ            => $environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
