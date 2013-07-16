@@ -34,7 +34,6 @@ define gunicorn::set (
             timeout        => $timeout,
             environ        => $environ,
             user           => $user,
-            preload        => true,
             nginx_upstream => false;
 
         "${set_name}-b":
@@ -47,7 +46,6 @@ define gunicorn::set (
             max_requests   => $max_requests,
             timeout        => $timeout,
             environ        => $environ,
-            preload        => true,
             user           => $user,
             nginx_upstream => false;
     }
