@@ -48,7 +48,7 @@ define gunicorn::instance (
             require            => File["${gunicorn::conf_dir}/${app_name}"],
             command            => "${gunicorn} -c '${gunicorn::conf_dir}/${app_name}' ${appmodule}",
             app_dir            => $appdir,
-            environ            => $environ,
+            environ            => $_environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
             user               => $user;
     }
