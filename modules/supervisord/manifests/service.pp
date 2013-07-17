@@ -6,7 +6,8 @@ define supervisord::service(
     $priority = '999',
     $stopwaitsecs = '60',
     $environ = '',
-    $configtest_command = ''
+    $configtest_command = '',
+    $stopsignal = undef
 ) {
     include supervisord::base
 
