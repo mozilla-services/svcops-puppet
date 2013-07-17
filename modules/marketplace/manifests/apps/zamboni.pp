@@ -18,9 +18,12 @@ define marketplace::apps::zamboni(
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
 
     if $newrelic_license_key {
-        $newrelic_dep = $gunicorn_set ? {
-            true    => Gunicorn::Set[$gunicorn_name],
-            default => Gunicorn::Instance[$gunicorn_name],
+        if $uwsgi {
+            $newrelic_dep = Uwsgi::Instance[$gunicorn_name]
+        } elsif $gunicorn_set {
+            $newrelic_dep = Gunicorn::Set[$gunicorn_name],
+        } else {
+            $newrelic_dep = Gunicorn::Instance[$gunicorn_name]
         }
         marketplace::newrelic::python {
             $app_name:
