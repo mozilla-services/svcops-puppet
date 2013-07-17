@@ -13,7 +13,7 @@ define uwsgi::instance(
     $app_name = $name
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
-            content => template('uwsgi/uwsgi.conf');
+            content => template('uwsgi/uwsgi.ini');
     }
     supervisord::service {
         "uwsgi-${app_name}":
