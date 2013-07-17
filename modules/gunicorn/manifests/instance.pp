@@ -32,9 +32,21 @@ define gunicorn::instance (
         $_preload = ""
     }
 
+    if $environ {
+        $_environ = "${environ},GUNICORN_APP_DIR=${app_dir}" 
+    } else {
+        $_environ = "GUNICORN_APP_DIR=${app_dir}"
+    }
+
+    file {
+        "${gunicorn::conf_dir}/${app_name}":
+            content => template('gunicorn/gunicorn.conf');
+    }
+
     supervisord::service {
         "gunicorn-${app_name}":
-            command            => "${gunicorn} -b 127.0.0.1:${port} ${_preload} -w ${workers} -k ${worker_class} -t ${timeout} --max-requests ${max_requests} -n gunicorn-${app_name} ${appmodule} --log-file /var/log/gunicorn/${user}-${app_name}",
+            require            => File["${gunicorn::conf_dir}/${app_name}"],
+            command            => "${gunicorn} -c '${gunicorn::conf_dir}/${app_name}' ${appmodule}",
             app_dir            => $appdir,
             environ            => $environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
