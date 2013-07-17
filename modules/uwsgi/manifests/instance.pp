@@ -19,7 +19,7 @@ define uwsgi::instance(
         "uwsgi-${app_name}":
             require            => File["${uwsgi::conf_dir}/${app_name}.ini"],
             command            => "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini",
-            app_dir            => $app_dir,
+            app_dir            => '/tmp',
             environ            => $environ,
             user               => $user;
     }
