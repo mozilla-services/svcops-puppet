@@ -16,6 +16,11 @@ class uwsgi(
             recurse => true,
             purge   => true;
     }
+    nginx::config {
+        'uwsgi':
+            suffix  => '.params',
+            content => template('uwsgi/uwsgi.nginx.conf');
+    }
     motd {
         '0-uwsgi':
             order   => '12',
