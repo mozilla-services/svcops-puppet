@@ -43,6 +43,16 @@ define marketplace::apps::zamboni(
             appdir    => "${app_dir}/zamboni";
 
     }
+    uwsgi::instance {
+        $gunicorn_name:
+            app_dir => "${app_dir}/zamboni",
+            module  => $appmodule,
+            port    => "12${port}",
+            home    => "${app_dir}/venv",
+            user    => $user,
+            workers => $workers,
+            environ => $environ;
+    }
     } else {
     gunicorn::instance {
         $gunicorn_name:
@@ -56,4 +66,5 @@ define marketplace::apps::zamboni(
             appdir    => "${app_dir}/zamboni";
     }
     }
+
 }
