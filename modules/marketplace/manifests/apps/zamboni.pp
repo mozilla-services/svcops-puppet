@@ -11,6 +11,7 @@ define marketplace::apps::zamboni(
     $newrelic_license_key = '',
     $newrelic_domain = undef,
     $gunicorn_set = true, # runs two workers $name-a and $name-b
+    $uwsgi = true,
     $user = 'nginx'
 ) {
     $app_name = $name
@@ -29,42 +30,43 @@ define marketplace::apps::zamboni(
         }
     }
 
-    if($gunicorn_set) {
-    gunicorn::set {
-        $gunicorn_name:
-            porta     => "10${port}",
-            portb     => "11${port}",
-            gunicorn  => $gunicorn,
-            workers   => $workers,
-            appmodule => $appmodule,
-            timeout   => $timeout,
-            environ   => $environ,
-            user      => $user,
-            appdir    => "${app_dir}/zamboni";
+    if($uwsgi) {
+        uwsgi::instance {
+            $gunicorn_name:
+                app_dir   => "${app_dir}/zamboni",
+                appmodule => $appmodule,
+                port      => "12${port}",
+                home      => "${app_dir}/venv",
+                user      => $user,
+                workers   => $workers,
+                environ   => $environ;
+        }
 
-    }
-    uwsgi::instance {
-        $gunicorn_name:
-            app_dir   => "${app_dir}/zamboni",
-            appmodule => $appmodule,
-            port      => "12${port}",
-            home      => "${app_dir}/venv",
-            user      => $user,
-            workers   => $workers,
-            environ   => $environ;
-    }
+    } elsif($gunicorn_set) {
+        gunicorn::set {
+            $gunicorn_name:
+                porta     => "10${port}",
+                portb     => "11${port}",
+                gunicorn  => $gunicorn,
+                workers   => $workers,
+                appmodule => $appmodule,
+                timeout   => $timeout,
+                environ   => $environ,
+                user      => $user,
+                appdir    => "${app_dir}/zamboni";
+
+        }
     } else {
-    gunicorn::instance {
-        $gunicorn_name:
-            gunicorn  => $gunicorn,
-            port      => $port,
-            workers   => $workers,
-            appmodule => $appmodule,
-            timeout   => $timeout,
-            environ   => $environ,
-            user      => $user,
-            appdir    => "${app_dir}/zamboni";
+        gunicorn::instance {
+            $gunicorn_name:
+                gunicorn  => $gunicorn,
+                port      => $port,
+                workers   => $workers,
+                appmodule => $appmodule,
+                timeout   => $timeout,
+                environ   => $environ,
+                user      => $user,
+                appdir    => "${app_dir}/zamboni";
+        }
     }
-    }
-
 }
