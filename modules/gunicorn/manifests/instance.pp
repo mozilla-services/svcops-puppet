@@ -11,7 +11,8 @@ define gunicorn::instance (
     $environ = '',
     $nginx_upstream = true,
     $user = 'nginx',
-    $preload = false
+    $preload = false,
+    $use_pid_proxy = true
 ) {
     include gunicorn
     include supervisord::base
@@ -19,6 +20,7 @@ define gunicorn::instance (
     $app_name = $name
     $log_file = "${gunicorn::log_dir}/${user}-${app_name}"
     $gunicorn_timeout = $timeout
+    $pid_file = "${gunicorn::pid_dir}/${app_name}.pid"
 
     if($nginx_upstream) {
         nginx::upstream {
@@ -28,27 +30,28 @@ define gunicorn::instance (
         }
     }
 
-    if $preload {
-        $_preload = "--preload"
-    } else {
-        $_preload = ""
-    }
-
     if $environ {
-        $_environ = "${environ},GUNICORN_APP_DIR=${appdir}" 
+        $_environ = "${environ},GUNICORN_APP_DIR=${appdir}"
     } else {
         $_environ = "GUNICORN_APP_DIR=${appdir}"
     }
 
+    if $use_pid_proxy {
+        $cmd = "/usr/bin/pidproxy ${pid_file} ${gunicorn}"
+    } else {
+        $cmd = $gunicorn
+    }
+
     file {
         "${gunicorn::conf_dir}/${app_name}":
+            require => File[$gunicorn::pid_dir],
             content => template('gunicorn/gunicorn.conf');
     }
 
     supervisord::service {
         "gunicorn-${app_name}":
             require            => File["${gunicorn::conf_dir}/${app_name}"],
-            command            => "${gunicorn} -c '${gunicorn::conf_dir}/${app_name}' ${appmodule}",
+            command            => "${cmd} -c '${gunicorn::conf_dir}/${app_name}' ${appmodule}",
             app_dir            => $appdir,
             environ            => $_environ,
             configtest_command => "cd ${appdir}; ${gunicorn} --check-config ${appmodule}",
