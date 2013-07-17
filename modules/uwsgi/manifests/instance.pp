@@ -21,7 +21,7 @@ define uwsgi::instance(
             command    => "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini",
             app_dir    => '/tmp',
             environ    => $environ,
-            stopsignal => 'QUIT',
+            stopsignal => 'INT',
             user       => $user;
     }
 
