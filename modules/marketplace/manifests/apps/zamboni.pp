@@ -21,7 +21,7 @@ define marketplace::apps::zamboni(
         if $uwsgi {
             $newrelic_dep = Uwsgi::Instance[$gunicorn_name]
         } elsif $gunicorn_set {
-            $newrelic_dep = Gunicorn::Set[$gunicorn_name],
+            $newrelic_dep = Gunicorn::Set[$gunicorn_name]
         } else {
             $newrelic_dep = Gunicorn::Instance[$gunicorn_name]
         }
