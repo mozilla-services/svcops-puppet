@@ -30,7 +30,7 @@ class marketplace::apps::zamboni::packages {
             ensure => '1.2.3-0.3.c1.1.el6';
 
         'python-setproctitle':
-            ensure => present;
+            ensure => absent;
 
         'tracemonkey':
             ensure => '0.1-5.el6';
