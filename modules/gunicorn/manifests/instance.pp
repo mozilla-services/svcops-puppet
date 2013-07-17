@@ -33,9 +33,9 @@ define gunicorn::instance (
     }
 
     if $environ {
-        $_environ = "${environ},GUNICORN_APP_DIR=${app_dir}" 
+        $_environ = "${environ},GUNICORN_APP_DIR=${appdir}" 
     } else {
-        $_environ = "GUNICORN_APP_DIR=${app_dir}"
+        $_environ = "GUNICORN_APP_DIR=${appdir}"
     }
 
     file {
