@@ -1,7 +1,7 @@
 # uwsgi instance.
 define uwsgi::instance(
     $app_dir,
-    $module,
+    $appmodule,
     $port,
     $home, # point at venv
     $user,

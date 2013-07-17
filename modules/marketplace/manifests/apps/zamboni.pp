@@ -45,13 +45,13 @@ define marketplace::apps::zamboni(
     }
     uwsgi::instance {
         $gunicorn_name:
-            app_dir => "${app_dir}/zamboni",
-            module  => $appmodule,
-            port    => "12${port}",
-            home    => "${app_dir}/venv",
-            user    => $user,
-            workers => $workers,
-            environ => $environ;
+            app_dir   => "${app_dir}/zamboni",
+            appmodule => $appmodule,
+            port      => "12${port}",
+            home      => "${app_dir}/venv",
+            user      => $user,
+            workers   => $workers,
+            environ   => $environ;
     }
     } else {
     gunicorn::instance {
