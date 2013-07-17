@@ -12,7 +12,7 @@ define gunicorn::instance (
     $nginx_upstream = true,
     $user = 'nginx',
     $preload = false,
-    $use_pid_proxy = true
+    $use_pid_proxy = false
 ) {
     include gunicorn
     include supervisord::base
