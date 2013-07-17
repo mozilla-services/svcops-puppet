@@ -17,7 +17,7 @@ define gunicorn::instance (
     include supervisord::base
 
     $app_name = $name
-    $log_file = "${gunicorn::log_dir}/${user}/${app_name}"
+    $log_file = "${gunicorn::log_dir}/${user}-${app_name}"
     $gunicorn_timeout = $timeout
 
     if($nginx_upstream) {
