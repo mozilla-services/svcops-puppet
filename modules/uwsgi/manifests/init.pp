@@ -2,6 +2,8 @@
 class uwsgi(
     $version = '1.9.13-1'
 ) {
+    include uwsgi::groups
+
     $conf_dir = '/etc/uwsgi.d'
     $pid_dir = '/var/run/uwsgi'
 
@@ -9,11 +11,6 @@ class uwsgi(
         'python-uwsgi':
             ensure => $version;
         'python-uwsgitop':
-            ensure => present;
-    }
-    group {
-        'uwsgi':
-            gid    => '756',
             ensure => present;
     }
 
