@@ -6,12 +6,15 @@ class memcached (
     $size = ''
 ) {
 
+    $threads = $::processorcount - 1
+
     if $size == '' {
         $cachesize = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.05 ).to_i %>')
     }
     else {
         $cachesize = $size
     }
+
 
     package {
         'memcached':
