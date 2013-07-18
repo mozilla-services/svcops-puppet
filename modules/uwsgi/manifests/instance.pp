@@ -11,6 +11,7 @@ define uwsgi::instance(
     include uwsgi
 
     $app_name = $name
+    $pid_file = "${uwsgi::pid_dir}/${app_name}.pid"
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
             content => template('uwsgi/uwsgi.ini');
