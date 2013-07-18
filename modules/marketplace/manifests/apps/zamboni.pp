@@ -12,7 +12,7 @@ define marketplace::apps::zamboni(
     $newrelic_domain = undef,
     $gunicorn_set = true, # runs two workers $name-a and $name-b
     $uwsgi = true,
-    $user = 'nginx'
+    $user = 'mkt_prod'
 ) {
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
