@@ -18,7 +18,7 @@ class uwsgi(
         $pid_dir:
             ensure => directory,
             group  => 'uwsgi',
-            mode   => 1775;
+            mode   => '0775';
 
         $conf_dir:
             ensure  => directory,
