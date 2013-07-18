@@ -7,6 +7,6 @@ define marketplace::nginx::realip(
 
     nginx::config {
         "00-realip-${conf_name}":
-            content => "set_real_ip_from ${from};\nreal_ip_header ${header}\n";
+            content => "set_real_ip_from ${from};\nreal_ip_header ${header};\n";
     }
 }
