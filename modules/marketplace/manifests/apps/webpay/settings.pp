@@ -1,4 +1,4 @@
-# Creates zamboni settings file.
+# Creates webpay settings file.
 define marketplace::apps::webpay::settings(
     $env,
     $database_default_url,
@@ -18,7 +18,8 @@ define marketplace::apps::webpay::settings(
     $solitude_oauth_secret = '',
     $statsd_host = '',
     $statsd_prefix = '',
-    $uuid_hmac_key = ''
+    $uuid_hmac_key = '',
+    $encrypted_cookie_key = ''
 ) {
     $app_dir = $name
     file {
