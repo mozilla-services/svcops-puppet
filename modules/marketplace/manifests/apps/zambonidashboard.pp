@@ -12,10 +12,11 @@ define marketplace::apps::zambonidashboard(
 
     gunicorn::instance {
         $dash_name:
-            port      => $port,
-            appmodule => 'zamboni_dashboard:app',
-            appdir    => $installdir,
-            gunicorn  => "${installdir}/venv/bin/gunicorn";
+            port           => $port,
+            appmodule      => 'zamboni_dashboard:app',
+            appdir         => $installdir,
+            nginx_upstream => false,
+            gunicorn       => "${installdir}/venv/bin/gunicorn";
     }
 
     apache::vserverproxy {
