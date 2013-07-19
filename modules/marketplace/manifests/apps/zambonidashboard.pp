@@ -2,8 +2,7 @@
 define marketplace::apps::zambonidashboard(
     $installdir,
     $settings, # content of settings file.
-    $port,
-    $nginx_location = '/dashboard/' # nginx location
+    $port
 ) {
     $dash_name = $name
     file {
@@ -19,10 +18,9 @@ define marketplace::apps::zambonidashboard(
             gunicorn  => "${installdir}/venv/bin/gunicorn";
     }
 
-    nginx::config {
-        $dash_name:
-            content => template('marketplace/apps/zambonidashboard.nginx.conf'),
-            suffix  => '.default';
+    apache::vserverproxy {
+        'dashboard.mktadm.ops.services.phx1.mozilla.com':
+            proxyto => 'http://localhost:10000';
     }
 
     supervisord::service {
