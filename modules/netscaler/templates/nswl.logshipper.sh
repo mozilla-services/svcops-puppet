@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+HOSTNAME=$(hostname -f)
 CUR_DATE=$(date +%Y-%m-%d-%H)
 LOG_DIR=/data/netscaler/logs
 LOG_HOST="<%= log_host %>"
