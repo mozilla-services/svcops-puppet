@@ -5,6 +5,8 @@ class netscaler::nswl::logshipper(
 ) {
     file {
         '/usr/local/bin/nswllogshipper':
+            owner   => 'root',
+            mode    => '0700',
             content => template('netscaler/nswl.logshipper.sh');
     }
 }
