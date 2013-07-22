@@ -2,7 +2,8 @@
 define marketplace::apps::zambonidashboard(
     $installdir,
     $settings, # content of settings file.
-    $port
+    $port,
+    $user = 'apache'
 ) {
     $dash_name = $name
     file {
@@ -13,6 +14,7 @@ define marketplace::apps::zambonidashboard(
     gunicorn::instance {
         $dash_name:
             port           => $port,
+            user           => $user,
             appmodule      => 'zamboni_dashboard:app',
             appdir         => $installdir,
             nginx_upstream => false,
