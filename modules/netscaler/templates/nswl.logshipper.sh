@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
 HOSTNAME=$(hostname -f)
 CUR_DATE=$(date +%Y-%m-%d-%H)
 LOG_DIR=/data/netscaler/logs

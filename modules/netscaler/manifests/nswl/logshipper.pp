@@ -9,4 +9,11 @@ class netscaler::nswl::logshipper(
             mode    => '0700',
             content => template('netscaler/nswl.logshipper.sh');
     }
+
+    cron {
+        'nswllogshipper':
+            minute  => '15',
+            user    => 'root',
+            command => '/usr/local/bin/nswllogshipper';
+    }
 }
