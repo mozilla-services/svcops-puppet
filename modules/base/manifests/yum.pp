@@ -104,6 +104,15 @@ class base::yum {
         failovermethod => priority,
     }
 
+    @yumrepo { 'mozilla-mysql':
+        baseurl        => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.mozilla-mysql',
+        descr          => 'Percona packages',
+        enabled        => 1,
+        priority       => 1,
+        gpgcheck       => 0,
+        failovermethod => priority,
+    }
+
     file {
       '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
         ensure => present,
