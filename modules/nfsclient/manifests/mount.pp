@@ -3,13 +3,13 @@ define nfsclient::mount($host, $path, $rw,
         $add_to_hosts=true,
         $mkdir=true,
         $options='hard,nointr,rsize=65536,wsize=65536,bg,proto=tcp,vers=3,noatime',
-        $ensure = mounted
+        $ensure = 'mounted'
 ) {
     include nfsclient
 
     $rw_opt = $rw ? {
-        true  => "rw",
-        false => "ro"
+        true  => 'rw',
+        false => 'ro'
     }
 
     if ($add_to_hosts) {
@@ -36,11 +36,11 @@ define nfsclient::mount($host, $path, $rw,
 
     mount {
         $title:
-            ensure => $ensure,
-            atboot => true,
-            device => "${host}:${path}",
+            ensure  => $ensure,
+            atboot  => true,
+            device  => "${host}:${path}",
             options => "${rw_opt},${options}",
-            fstype => "nfs",
+            fstype  => "nfs",
             require => [ File[$title], Class['nfsclient'] ];
     }
 }
