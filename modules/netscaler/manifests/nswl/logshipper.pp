@@ -14,6 +14,6 @@ class netscaler::nswl::logshipper(
         'nswllogshipper':
             minute  => '15',
             user    => 'root',
-            command => '/usr/local/bin/nswllogshipper';
+            command => '/usr/bin/flock -w 120 /var/lock/nswllogshipper /usr/local/bin/nswllogshipper';
     }
 }
