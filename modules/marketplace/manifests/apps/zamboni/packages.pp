@@ -20,6 +20,9 @@ class marketplace::apps::zamboni::packages {
         'python-simplejson':
             ensure => '2.3.2-1';
 
+        'nodejs':
+            ensure => '0.10.12-1';
+
         'node-clean-css':
             ensure => '0.10.1-2';
 
