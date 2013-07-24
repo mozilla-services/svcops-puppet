@@ -4,8 +4,8 @@ BROKER_URL = '<%= mkt_broker_url %>'
 CARRIER_URLS = '<%= mkt_carrier_urls %>'
 DEVELOPERS_OAUTH_KEY = '<%= mkt_developers_oauth_key %>'
 DEVELOPERS_OAUTH_SECRET = '<%= mkt_developers_oauth_secret %>'
-INAPP_KEY_PATH = <%= mkt_inapp_key_path %>
-INAPP_KEY_PATHS = <%= mkt_inapp_key_path %>
+INAPP_KEY_PATH = '<%= mkt_inapp_key_path %>'
+INAPP_KEY_PATHS = '<%= mkt_inapp_key_path %>'
 MONOLITH_OAUTH_KEY = '<%= mkt_monolith_oauth_key %>'
 MONOLITH_OAUTH_SECRET = '<%= mkt_monolith_oauth_secret %>'
 MONOLITH_PASSWORD = '<%= mkt_monolith_password %>'
