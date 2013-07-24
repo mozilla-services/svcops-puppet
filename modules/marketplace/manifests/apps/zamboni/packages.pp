@@ -41,6 +41,15 @@ class marketplace::apps::zamboni::packages {
         ['abrt', 'python-setproctitle']:
             ensure => absent;
 
+        [
+            'abrt-addon-ccpp',
+            'abrt-addon-python',
+            'abrt-addon-kerneloops',
+            'abrt-cli'
+        ]:
+            ensure => absent,
+            before => Package['abrt'];
+
         'tracemonkey':
             ensure => '0.1-5.el6';
     }
