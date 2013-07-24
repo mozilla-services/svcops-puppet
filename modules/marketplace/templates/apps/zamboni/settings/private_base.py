@@ -8,7 +8,7 @@ BUILDER_SECRET_KEY = '<%= builder_secret_key %>'
 CACHES_DEFAULT_LOCATION = '<%= caches_default_location %>'
 DATABASES_DEFAULT_URL = '<%= databases_default_url %>'
 DATABASES_SLAVE_URL = '<%= databases_slave_url %>'
-EMAIL_BLACKLIST = '<%= email_blacklist %>'
+EMAIL_BLACKLIST = '<%= email_blacklist %>'.split(';')
 EMAIL_HOST = '<%= email_host %>'
 ES_HOSTS = '<%= es_hosts %>'
 GOOGLE_ANALYTICS_CREDENTIALS = <%= google_analytics_credentials %>
