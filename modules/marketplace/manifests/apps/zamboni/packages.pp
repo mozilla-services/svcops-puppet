@@ -41,11 +41,18 @@ class marketplace::apps::zamboni::packages {
         ['abrt', 'python-setproctitle']:
             ensure => absent;
 
+        'abrt-cli':
+            ensure => absent,
+            before => [
+                Package['abrt-addon-ccpp'],
+                Package['abrt-addon-python'],
+                Package['abrt-addon-kerneloops'],
+            ];
+
         [
             'abrt-addon-ccpp',
             'abrt-addon-python',
             'abrt-addon-kerneloops',
-            'abrt-cli'
         ]:
             ensure => absent,
             before => Package['abrt'];
