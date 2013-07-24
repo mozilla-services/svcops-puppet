@@ -15,6 +15,6 @@ define hekad::instance(
             user    => 'root',
             command => "${hekabin} -config=${hekad::params::config_dir}/${heka_name}.toml",
             app_dir => '/tmp',
-            require => File["${hekad::params::config_dir}/${heka_name}.toml";
+            require => File["${hekad::params::config_dir}/${heka_name}.toml"];
     }
 }
