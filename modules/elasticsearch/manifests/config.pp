@@ -12,7 +12,7 @@ class elasticsearch::config(
         $es_max_mem = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.50 ).to_i %>m')
     }
     else {
-        $cachesize = $memorysize
+        $es_max_mem = $memorysize
     }
 
     $es_name = $::fqdn
