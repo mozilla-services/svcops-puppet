@@ -18,6 +18,7 @@ class elasticsearch::config(
     $es_name = $::fqdn
     # make sure atleast 1 thread
     $es_threads = (($::processorcount/2) + 1)
+    $es_bulk_threads = $::processorcount
 
     file {
         [

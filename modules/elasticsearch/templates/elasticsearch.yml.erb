@@ -22,7 +22,8 @@
     bulk: 
       type: fixed
       reject_policy: caller
-      size: <%= es_threads %>
+      size: <%= es_bulk_threads %>
+      queue_size: 10000
     search: 
       type: fixed
       reject_policy: caller
