@@ -20,11 +20,17 @@ class marketplace::apps::zamboni::packages {
         'python-simplejson':
             ensure => '2.3.2-1';
 
+        'node-clean-css':
+            ensure => '0.10.1-1.el6';
+
         'node-less':
             ensure => '1.4.0-2';
 
         'node-stylus':
             ensure => '0.32.1-2';
+
+        'node-uglify-js':
+            ensure => '2.2.5-1.el6';
 
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
