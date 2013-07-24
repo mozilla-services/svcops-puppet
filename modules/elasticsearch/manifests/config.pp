@@ -8,7 +8,7 @@ class elasticsearch::config(
     $nofile_limit = '65535',
     $memory_size = ''
 ){
-    if $memorysize == '' {
+    if $memory_size == '' {
         $es_max_mem = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.50 ).to_i %>m')
     }
     else {
