@@ -8,28 +8,34 @@ class elasticsearch (
     $plugins = ['elasticsearch-plugin-site-head']
 ){
 
-  package {
-    $package:
-        ensure  => $version;
-  }
+    package {
+        $package:
+            ensure  => $version;
+    }
 
-  package {
-    $java_package:
-        ensure => present,
-        before => Package[$package];
-  }
+    package {
+        $java_package:
+            ensure => present,
+            before => Package[$package];
+    }
 
-  service { 'elasticsearch':
-      ensure  => running,
-      enable  => true,
-      require => Package[$package];
-  }
+    service { 'elasticsearch':
+        ensure  => running,
+        enable  => true,
+        require => Package[$package];
+    }
 
-  if $plugins {
-      class {
-          'elasticsearch::plugins':
-              plugins => $plugins,
-              require => Package[$package];
-      }
-  }
+    if $plugins {
+        class {
+            'elasticsearch::plugins':
+                plugins => $plugins,
+                require => Package[$package];
+        }
+    }
+
+    sysctl::value {
+        'vm.swappiness':
+            value => '10';
+
+    }
 }

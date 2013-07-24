@@ -2,16 +2,18 @@
 class base::packages {
     package {
         [
-            'strace',
-            'zsh',
-            'telnet',
-            'sysstat',
-            'htop',
-            'dstat',
-            'vim-enhanced',
-            'nc',
+            'atop',
+            'augeas',
             'bash-completion',
+            'dstat',
+            'htop',
             'nano',
+            'nc',
+            'strace',
+            'sysstat',
+            'telnet',
+            'vim-enhanced',
+            'zsh',
         ]:
             ensure => latest;
 
