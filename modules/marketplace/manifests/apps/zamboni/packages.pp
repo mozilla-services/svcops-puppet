@@ -21,7 +21,7 @@ class marketplace::apps::zamboni::packages {
             ensure => '2.3.2-1';
 
         'node-clean-css':
-            ensure => '0.10.1-1.el6';
+            ensure => '0.10.1-1';
 
         'node-less':
             ensure => '1.4.0-2';
@@ -30,7 +30,7 @@ class marketplace::apps::zamboni::packages {
             ensure => '0.32.1-2';
 
         'node-uglify-js':
-            ensure => '2.2.5-1.el6';
+            ensure => '2.2.5-1';
 
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
