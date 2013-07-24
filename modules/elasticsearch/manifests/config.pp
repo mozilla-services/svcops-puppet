@@ -6,13 +6,13 @@ class elasticsearch::config(
     $es_data_path = '/var/lib/elasticsearch',
     $expected_nodes = '3',
     $nofile_limit = '65535',
-    $memorysize = ''
+    $memory_size = ''
 ){
     if $memorysize == '' {
         $es_max_mem = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.50 ).to_i %>m')
     }
     else {
-        $es_max_mem = $memorysize
+        $es_max_mem = $memory_size
     }
 
     $es_name = $::fqdn
