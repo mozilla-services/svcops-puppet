@@ -2,11 +2,23 @@
 ES_MAX_MEM=<%= es_max_mem %>
 ES_MIN_MEM=<%= es_max_mem %>
 
+ES_HEAP_SIZE=<%= es_max_mem %>
+
+ES_USER=elasticsearch
+
 # START DEFAULT BLOCK FROM RHEL PACKAGE
 ES_PATH_LOG=/var/log/elasticsearch
+LOG_DIR=/var/log/elasticsearch
+
 ES_PATH_DATA=<%= es_data_path %>
+DATA_DIR=<%= es_data_path %>
+
 ES_PATH_WORK=/tmp/elasticsearch
+WORK_DIR=/tmp/elasticsearch
+
 ES_PATH_CONF=/etc/elasticsearch
+CONF_DIR=/etc/elasticsearch
+
 ES_CONFIG=/etc/elasticsearch/elasticsearch.yml
 ES_INCLUDE=/usr/share/java/elasticsearch/bin/elasticsearch.in.sh
 # END DEFAULT BLOCK FROM RHEL PACKAGE
