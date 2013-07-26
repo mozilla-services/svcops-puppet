@@ -6,6 +6,7 @@ class uwsgi(
 
     $conf_dir = '/etc/uwsgi.d'
     $pid_dir = '/var/run/uwsgi'
+    $log_dir = '/var/log/uwsgi'
 
     package {
         'python-uwsgi':
@@ -16,6 +17,11 @@ class uwsgi(
 
     file {
         $pid_dir:
+            ensure => directory,
+            group  => 'uwsgi',
+            mode   => '0775';
+
+        $log_dir:
             ensure => directory,
             group  => 'uwsgi',
             mode   => '0775';
