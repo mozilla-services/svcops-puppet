@@ -7,5 +7,7 @@ class hekad::params {
             ensure  => directory,
             purge   => true,
             recurse => true;
+        ['/var/run/hekad', '/var/run/hekad/seekjournals']:
+            ensure => directory;
     }
 }

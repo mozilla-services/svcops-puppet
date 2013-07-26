@@ -7,6 +7,7 @@ define hekad::instance(
     include hekad::params
     file {
         "${hekad::params::config_dir}/${heka_name}.toml":
+            require => Class['hekad::params'],
             content => $config;
     }
 
