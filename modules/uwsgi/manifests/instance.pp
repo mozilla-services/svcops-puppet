@@ -6,7 +6,8 @@ define uwsgi::instance(
     $home, # point at venv
     $user,
     $workers = 4,
-    $environ = ''
+    $environ = '',
+    $log_syslog = true
 ) {
     include uwsgi
 
