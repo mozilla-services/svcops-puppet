@@ -14,6 +14,7 @@ define uwsgi::instance(
     $pid_file = "${uwsgi::pid_dir}/${app_name}.pid"
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
+            require => Class['uwsgi'],
             content => template('uwsgi/uwsgi.ini');
     }
     supervisord::service {
