@@ -1,26 +1,32 @@
-[nginxdecoder]
+[mktnginxdecoder]
 type = "LoglineDecoder"
-match_regex = '^(?P<RemoteIP>(?:\d{1,3}\.){3}\d{1,3}) (?P<Host>\S+) \S+ \[(?P<Timestamp>\d\d/\w{3}/\d{4}:\d\d:\d\d:\d\d) \+\d+\] "(?P<Method>\w+) (?P<Url>\S+) HTTP.+?" (?P<StatusCode>\d+) (?P<Bytes>\d+)'
+match_regex = '^(?P<RemoteIP>(?:\d{1,3}\.){3}\d{1,3}) (?P<Host>\S+) \S+ \[(?P<Timestamp>\d\d/\w{3}/\d{4}:\d\d:\d\d:\d\d) \+\d+\] "(?P<Method>\w+) (?P<Url>\S+) HTTP.+?" (?P<StatusCode>\d+) (?P<Bytes>\d+) "(?P<Referer>\S+)" .* "DNT:(?P<DNT>.+?)" "X-MOZ-B2G-DEVICE:(?P<XMOZDevice>.*) X-MOZ-B2G-MCC:(?P<XMOZMcc>.*) X-MOZ-B2G-MNC:(?P<XMOZMnc>.*) X-MOZ-B2G-SHORTNAME:(?P<XMOZShortname>.*) X-MOZ-B2G-LONGNAME:(?P<XMOZLongname>.*)"'
 timestamp_layout = '02/Jan/2006:15:04:05'
 
-[nginxdecoder.message_fields]
-Type = "nginx.logline"
+[mktnginxdecoder.message_fields]
+Type = "nginx.mkt.logline"
 RemoteIP|ipv4 = "%RemoteIP%"
 Host = "%Host%"
 Method = "%Method%"
 Url|uri = "%Url%"
 StatusCode = "%StatusCode%"
 Bytes|B = "%Bytes%"
+Referer = "%Referer%"
+DNT = "%DNT%"
+XMOZDevice = "%XMOZDevice%"
+XMOZMcc = "%XMOZMcc%"
+XMOZMnc = "%XMOZMnc%"
+XMOZShortname = "%XMOZShortname%"
+XMOZLongname = "%XMOZLongname%"
 Payload = ""
 
 [MktLogFileInput]
 type = "LogfileInput"
-logfile = "/var/log/nginx/marketplace.firefox.com/access.log"
-logger = "nginx-mkt-prod"
-decoders = ["nginxdecoder"]
-
+logfile = "/var/log/nginx/marketplace.firefox.com/metrics.log"
+logger = "nginx-metrics-mkt-prod"
+decoders = ["mktnginxdecoder"]
 
 [output]
 type = "TcpOutput"
-message_matcher = "Type == 'nginx.logline'"
+message_matcher = "Type == 'nginx.mkt.logline'"
 address = "<%= log_host %>"
