@@ -6,7 +6,7 @@ SHELL=/bin/sh
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=root
 # the maximal random delay added to the base delay of the jobs
-RANDOM_DELAY=5
+RANDOM_DELAY=1
 # the jobs will be started during the following hours only
 START_HOURS_RANGE=0-6
 
