@@ -14,7 +14,7 @@ class nginx::logshipper(
     cron {
         'nginxlogshipper':
             minute  => '15',
-            hour    => '5',
+            hour    => '1',
             user    => 'root',
             command => '/usr/bin/flock -w 120 /var/lock/nginxlogshipper /usr/local/bin/nginxlogshipper';
     }
