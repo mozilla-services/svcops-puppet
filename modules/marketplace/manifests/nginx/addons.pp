@@ -8,7 +8,8 @@ define marketplace::nginx::addons(
     $cdn_hostname, # addons.cdn.mozilla.net
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
     $sdk_root, # /data/www/addons.mozilla.org-sdk-docs/addon-sdk-sdocs/sdk
-    $versioncheck_url = 'https://versioncheck.addons.mozilla.org'
+    $versioncheck_url = 'https://versioncheck.addons.mozilla.org',
+    $addons_redirect_names = undef # should be a list of domains that should be redirected to $config_name
 ) {
     $config_name = $name
 
