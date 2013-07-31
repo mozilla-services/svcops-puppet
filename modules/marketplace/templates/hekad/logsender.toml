@@ -27,6 +27,8 @@ logger = "nginx-metrics-mkt-prod"
 decoders = ["mktnginxdecoder"]
 
 [output]
-type = "TcpOutput"
+type = "AMQPOutput"
+url = "amqp://hekad:hekad@log1.mktmon.services.phx1.mozilla.com:5565/hekad"
+exchangeType = "fanout"
+exchange = "hekad"
 message_matcher = "Type == 'nginx.mkt.logline'"
-address = "<%= log_host %>"
