@@ -49,7 +49,7 @@ class rabbitmq::server(
 ) {
 
     validate_bool($delete_guest_user, $config_stomp)
-    validate_re($port, '\d+')
+    #validate_re($port, '\d+')
     validate_re($stomp_port, '\d+')
 
     if $version == 'UNSET' {
