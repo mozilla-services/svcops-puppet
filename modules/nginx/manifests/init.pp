@@ -54,6 +54,11 @@ class nginx(
         '/etc/nginx/mime.types':
             source => 'puppet:///modules/nginx/mime.types';
 
+        '/etc/nginx/conf.d/hostname.conf':
+            require => Package[nginx],
+            before  => Service[nginx],
+            content => "add_header X-Backend-Server ${::hostname};\n";
+
         '/etc/sysconfig/nginx':
             require => Package['nginx'],
             mode    => '0644',
