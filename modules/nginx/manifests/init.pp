@@ -1,7 +1,8 @@
 # install and configure nginx
 class nginx(
     $nx_user = 'nginx',
-    $version = 'present'
+    $version = 'present',
+    $enable_compression = false
 ){
 
     realize(Yumrepo['nginx'])
@@ -65,7 +66,6 @@ class nginx(
             mode    => '0644',
             content => template('nginx/logrotate.conf');
 
-
         '/etc/init.d/nginx':
             require => Package[nginx],
             before  => Service[nginx],
@@ -74,4 +74,14 @@ class nginx(
             mode    => '0755',
             source  => 'puppet:///modules/nginx/etc-init.d/nginx';
     }
+
+    if $enable_compression {
+        file {
+            '/etc/nginx/conf.d/compression.conf':
+                ensure  => present,
+                content => template('nginx/compression.conf'),
+                notify  => Service['nginx']
+        }
+    }
+
 }
