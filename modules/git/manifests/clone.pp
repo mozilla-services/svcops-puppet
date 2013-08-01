@@ -5,10 +5,12 @@ define git::clone(
     $clone_dir = $name
 
     exec {
-        "/usr/bin/git clone ${repo} ${clone_dir}":
+        "git::clone::${clone_dir}":
+            command => "/usr/bin/git clone ${repo} ${clone_dir}",
             creates => "${clone_dir}/.git";
 
-        "git config remote.origin.url ${repo}":
+        "git::config::${clone_dir}":
+            command => "git config remote.origin.url ${repo}",
             require => Exec["/usr/bin/git clone ${repo} ${clone_dir}"],
             cwd     => $clone_dir,
             path    => ['/usr/bin'],
