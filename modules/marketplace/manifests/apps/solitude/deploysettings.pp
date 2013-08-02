@@ -8,6 +8,7 @@ define marketplace::apps::solitude::deploysettings(
     $cron_user = 'sol_prod',
     $uwsgi = '', # should be string separated by ";"
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+    $web_role = 'web',
     $is_proxy = false
 ) {
     $solitude_dir = $name
