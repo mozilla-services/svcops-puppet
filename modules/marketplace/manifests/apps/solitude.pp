@@ -1,9 +1,9 @@
 # solitude instance.
 define marketplace::apps::solitude(
-    $worker_name,
     $app_dir,
     $port,
     $workers = 12,
+    $worker_name = 'payments',
     $user = 'sol_prod',
     $settings_module = 'solitude.settings',
     $appmodule = 'wsgi.playdoh:application'
