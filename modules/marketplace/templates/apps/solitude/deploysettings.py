@@ -7,3 +7,4 @@ CRON_USER = '<%= cron_user %>'
 UWSGI = filter(None, '<%= uwsgi %>'.split(';'))
 PYREPO = '<%= pyrepo %>'
 IS_PROXY = <%= is_proxy ? 'True' : 'False' %>
+WEB_ROLE = '<%= web_role %>'
