@@ -7,7 +7,7 @@ class base::sysctl::web {
         'net.core.somaxconn':
             value => '4096';
         'net.ipv4.tcp_wmem':
-            value => '4096 655360 6553600';
+            value => '8192 873800 8738000';
         'net.ipv4.tcp_rmem':
             value => '8192 873800 8738000';
         'net.core.rmem_max':
@@ -15,5 +15,4 @@ class base::sysctl::web {
         'net.core.wmem_max':
             value =>'8388608';
     }
-
 }
