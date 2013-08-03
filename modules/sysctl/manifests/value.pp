@@ -34,8 +34,9 @@ define sysctl::value (
 
     augeas {
         $real_key:
+            onlyif  => "get ${key} != '${value}'",
             context => '/files/etc/sysctl.conf',
-            changes => "set ${real_key} ${val1}",
+            changes => "set ${real_key} '${val1}'",
     }
 
 }
