@@ -1,42 +1,22 @@
 define sysctl::value (
-    $value,
-    $key = 'name'
+    $value
 ) {
 
-    $val1 = $value
-
-    $real_key = $key ? {
-        'name'  => $name,
-        default => $key,
+    exec { "exec_sysctl_${name}":
+        command     => "/sbin/sysctl ${name}='${value}'",
+        refreshonly => true,
     }
 
-    sysctl { $real_key :
-        val    => $val1,
-        before => Exec["exec_sysctl_${real_key}"],
-    }
-
-    $command = $::kernel ? {
-        openbsd => "sysctl ${real_key}=\"${val1}\"",
-        default => "sysctl -w ${real_key}=\"${val1}\"",
-    }
-
-    $unless = $::kernel ? {
-        openbsd => "sysctl ${real_key} | grep -q '=${val1}\$'",
-        default => "sysctl ${real_key} | grep -q ' = ${val1}'",
-    }
-
-    exec { "exec_sysctl_${real_key}" :
-        path    => ['/sbin', '/bin'],
-        command => $command,
-        unless  => $unless,
-        require => Sysctl[$real_key],
+    sysctl { $name:
+        val    => $value,
+        notify => Exec["exec_sysctl_${name}"],
     }
 
     augeas {
-        $real_key:
-            onlyif  => "get ${key} != '${value}'",
+        $name:
+            onlyif  => "get ${name} != '${value}'",
             context => '/files/etc/sysctl.conf',
-            changes => "set ${real_key} '${val1}'",
+            changes => "set ${name} '${value}'",
     }
 
 }
