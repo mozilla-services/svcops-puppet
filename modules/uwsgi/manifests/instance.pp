@@ -22,12 +22,13 @@ define uwsgi::instance(
     }
     supervisord::service {
         "uwsgi-${app_name}":
-            require    => File["${uwsgi::conf_dir}/${app_name}.ini"],
-            command    => "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini",
-            app_dir    => '/tmp',
-            environ    => $environ,
-            stopsignal => 'INT',
-            user       => $user;
+            require         => File["${uwsgi::conf_dir}/${app_name}.ini"],
+            command         => "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini",
+            app_dir         => '/tmp',
+            environ         => $environ,
+            stopsignal      => 'INT',
+            restart_command => "/bin/kill -HUP $(cat ${pid_file})",
+            user            => $user;
     }
 
     exec {
