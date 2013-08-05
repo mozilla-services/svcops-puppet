@@ -32,7 +32,7 @@ define uwsgi::instance(
 
     exec {
         "fix_uwsgi_${app_name}_perms":
-            require => Supervisord::Service["uwsgi_${app_name}"],
+            require => Supervisord::Service["uwsgi-${app_name}"],
             unless  => "/usr/bin/test $(stat -c %a \"${sock_file}\") = 666",
             command => "/bin/chmod 666 ${sock_file}";
     }
