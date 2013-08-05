@@ -1,5 +1,9 @@
 # set up for deploytools
 class marketplace::deploytools {
+    package {
+        'prelink':
+            ensure => absent;
+    }
     file {
         '/etc/deploytools':
             ensure  => directory,
