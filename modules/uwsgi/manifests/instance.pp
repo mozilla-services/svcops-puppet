@@ -30,10 +30,10 @@ define uwsgi::instance(
             user       => $user;
     }
 
-    nginx::upstream {
+    nginx::upstream_unix {
         "uwsgi_${app_name}":
-            upstream_host => '127.0.0.1',
-            upstream_port => $port;
+            require       => Supervisord::Service["uwsgi-${app_name}"],
+            upstream_file => $sock_file;
     }
 
     motd {
