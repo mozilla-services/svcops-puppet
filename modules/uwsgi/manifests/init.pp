@@ -1,4 +1,5 @@
 # uwsgi class
+# pid_dir is also where sockets are kept.
 class uwsgi(
     $version = '1.9.13-1'
 ) {

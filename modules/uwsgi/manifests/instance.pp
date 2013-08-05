@@ -13,6 +13,8 @@ define uwsgi::instance(
 
     $app_name = $name
     $pid_file = "${uwsgi::pid_dir}/${app_name}.pid"
+    $sock_file = "${uwsgi::pid_dir}/${app_name}.sock"
+
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
             require => Class['uwsgi'],
