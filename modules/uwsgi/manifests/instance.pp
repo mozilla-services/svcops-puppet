@@ -30,6 +30,13 @@ define uwsgi::instance(
             user       => $user;
     }
 
+    exec {
+        "fix_uwsgi_${app_name}_perms":
+            require => Supervisord::Service["uwsgi_${app_name}"],
+            unless  => "/usr/bin/test $(stat -c %a \"${sock_file}\") = 666",
+            command => "/bin/chmod 666 ${sock_file}";
+    }
+
     nginx::upstream {
         "uwsgi_${app_name}":
             upstream_host => '127.0.0.1',
@@ -39,6 +46,6 @@ define uwsgi::instance(
     motd {
         "2-uwsgi-${app_name}":
             order   => 12,
-            content => "    ${app_name} is hosted at uwsgi://127.0.0.1:${port}/ (${app_dir})\n";
+            content => "    ${app_name} is hosted at uwsgi://127.0.0.1:${port}/,unix:${sock_file} (${app_dir})\n";
     }
 }
