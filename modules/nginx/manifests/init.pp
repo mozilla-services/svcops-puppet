@@ -36,9 +36,20 @@ class nginx(
             recurse => true,
             purge   => true;
 
-        '/var/log/nginx':
+        '/data/logs/nginx':
             ensure  => directory,
             require => Package[nginx],
+            owner   => $nx_user,
+            group   => 'users',
+            mode    => '0750';
+
+        '/var/log/nginx':
+            ensure  => link,
+            target  => '/data/logs/nginx',
+            require => [
+                        Package[nginx],
+                        File['/data/logs/nginx'],
+                        ],
             owner   => $nx_user,
             group   => 'users',
             mode    => '0750';
