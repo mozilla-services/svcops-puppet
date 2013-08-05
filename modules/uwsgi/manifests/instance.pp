@@ -7,11 +7,13 @@ define uwsgi::instance(
     $user,
     $workers = 4,
     $environ = '',
-    $log_syslog = true
+    $log_syslog = true,
+    $use_unix_socket = true
 ) {
     include uwsgi
 
     $app_name = $name
+    $upstream_name = "uwsgi_${app_name}"
     $pid_file = "${uwsgi::pid_dir}/${app_name}.pid"
     $sock_file = "${uwsgi::pid_dir}/${app_name}.sock"
 
@@ -38,10 +40,17 @@ define uwsgi::instance(
             command => "/bin/chmod 666 ${sock_file}";
     }
 
-    nginx::upstream {
-        "uwsgi_${app_name}":
-            upstream_host => '127.0.0.1',
-            upstream_port => $port;
+    if $use_unix_socket {
+        nginx::upstream_unix {
+            $upstream_name:
+                upstream_file => $sock_file;
+        }
+    } else {
+        nginx::upstream {
+            $upstream_name:
+                upstream_host => '127.0.0.1',
+                upstream_port => $port;
+        }
     }
 
     motd {
