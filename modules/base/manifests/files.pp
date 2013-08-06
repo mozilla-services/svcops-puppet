@@ -5,8 +5,8 @@ class base::files {
     '/data':
       ensure  => directory,
       path    => '/data';
+
     '/data/logs':
-      ensure  => directory,
-      path    => '/data';
+      ensure  => directory;
   }
 }
