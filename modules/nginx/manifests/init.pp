@@ -4,7 +4,7 @@ class nginx(
     $version = 'present',
     $enable_compression = false
 ){
-    realize(File['/data/logs'])
+    realize(File['/data'], File['/data/logs'])
     realize(Yumrepo['nginx'])
 
     package {
