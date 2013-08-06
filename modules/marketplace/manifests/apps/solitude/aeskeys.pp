@@ -10,6 +10,10 @@ define marketplace::apps::solitude::aeskeys(
 ) {
     $project_root = $name
     file {
+        "${project_root}/aeskeys":
+            ensure => directory;
+    }
+    file {
         "${project_root}/aeskeys/bango_signature.key":
             content => $bango_signature_key;
         "${project_root}/aeskeys/buyerpaypal.key":
