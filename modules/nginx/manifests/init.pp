@@ -24,6 +24,13 @@ class nginx(
             hasrestart => true;
     }
 
+    exec {
+        'mv_old_nginx_logdir':
+            before  => File['/var/log/nginx'],
+            onlyif  => '/bin/test -d /var/log/nginx',
+            command => '/bin/mv /var/log/nginx /var/log/nginx.old'
+    }
+
     file {
         # the absence of 'source => ...' tells puppet that we want to remove all unmanaged files from these directories.
         # TODO: Fix bug 811515 someday, so that unmanaged directories are removed as well.
