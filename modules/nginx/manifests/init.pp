@@ -27,7 +27,7 @@ class nginx(
     exec {
         'mv_old_nginx_logdir':
             before  => File['/var/log/nginx'],
-            onlyif  => '/bin/test -d /var/log/nginx',
+            onlyif  => '/usr/bin/test -d /var/log/nginx',
             command => '/bin/mv /var/log/nginx /var/log/nginx.old'
     }
 
