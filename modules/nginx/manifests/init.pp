@@ -63,6 +63,7 @@ class nginx(
 
         '/etc/nginx/nginx.conf':
             before  => Service[nginx],
+            notify  => Service['nginx'],
             content => template('nginx/nginx.conf');
 
         '/etc/nginx/conf.d/managed.conf':
@@ -103,7 +104,7 @@ class nginx(
             '/etc/nginx/conf.d/compression.conf':
                 ensure  => present,
                 content => template('nginx/compression.conf'),
-                notify  => Service['nginx']
+                notify  => Service['nginx'];
         }
     }
 
