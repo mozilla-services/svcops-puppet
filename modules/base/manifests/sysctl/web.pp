@@ -3,9 +3,9 @@ class base::sysctl::web {
 
     sysctl::value {
         'net.ipv4.tcp_max_syn_backlog':
-            value => '8192';
+            value => '16384';
         'net.core.somaxconn':
-            value => '4096';
+            value => '8192';
         'net.ipv4.tcp_wmem':
             value => '8192 873800 8738000';
         'net.ipv4.tcp_rmem':
