@@ -4,7 +4,7 @@ class nginx(
     $version = 'present',
     $enable_compression = false
 ){
-
+    realize(File['/data/logs'])
     realize(Yumrepo['nginx'])
 
     package {
@@ -38,7 +38,7 @@ class nginx(
 
         '/data/logs/nginx':
             ensure  => directory,
-            require => Package[nginx],
+            require => [File['/data/logs'], Package[nginx]],
             owner   => $nx_user,
             group   => 'users',
             mode    => '0750';
