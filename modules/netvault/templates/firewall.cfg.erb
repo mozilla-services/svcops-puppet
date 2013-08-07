@@ -1,0 +1,56 @@
+[Configurator]
+Page Name=Firewall
+Page Name Id=5992
+Group Name=System and Security
+Group Name Id=5993
+Icon=firewall
+
+[Devices:Ports]
+Type=String
+Label=Valid Listen Ports for Devices
+Label Id=5994
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[Devices:Out Ports]
+Type=String
+Label=Valid Connect Ports for Devices
+Label Id=5995
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[MsgChannel:Ports]
+Type=String
+Label=Valid Listen Ports for Message Channels
+Label Id=5996
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[MsgChannel:Out Ports]
+Type=String
+Label=Valid Connect Ports for Message !nChannels
+Label Id=5997
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[NDMP:Out Ports]
+Type=String
+Label=Valid Connect Ports for NDMP !nControl Channels
+Label Id=5998
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[NDMP:Ports]
+Type=String
+Label=Valid Listen Ports for NetVault NDMP !nData Channels
+Label Id=5999
+reset=process manager
+Value= <%= @netvault_ports %>
+
+[Network:Out Ports]
+Type=String
+Label=Valid Connect Ports for Inter-Machine !nConnection Setup
+Label Id=6000
+reset=process manager
+Value= <%= @netvault_ports %>
+
