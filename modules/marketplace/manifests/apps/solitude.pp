@@ -6,9 +6,16 @@ define marketplace::apps::solitude(
     $worker_name = 'payments',
     $user = 'sol_prod',
     $settings_module = 'solitude.settings',
-    $appmodule = 'wsgi.playdoh:application'
+    $appmodule = 'wsgi.playdoh:application',
+    $is_proxy = false
 ) {
     $app_name = $name
+
+    if $is_proxy {
+        $environ = ',SOLITUDE_PROXY=\'enabled\''
+    } else {
+        $environ = ''
+    }
 
     uwsgi::instance {
         $worker_name:
@@ -18,7 +25,7 @@ define marketplace::apps::solitude(
             home      => "${app_dir}/venv",
             user      => $user,
             workers   => $workers,
-            environ   => "DJANGO_SETTINGS_MODULE=${settings_module}";
+            environ   => "DJANGO_SETTINGS_MODULE=${settings_module}${environ}";
     }
 
 }
