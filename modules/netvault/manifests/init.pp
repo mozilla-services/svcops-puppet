@@ -1,7 +1,7 @@
 # class for netvault backups
 class netvault (
     $netvault_ports = undef,
-    $netvault_password = hiera('netvault_password'),
+    $netvault_password = undef,
     $netvault_excludes = undef
     ) {
 
