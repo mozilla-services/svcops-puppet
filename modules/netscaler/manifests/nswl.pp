@@ -1,6 +1,6 @@
 # config for netscaler weblogger.
 class netscaler::nswl(
-    $version = 'kos_74_4',
+    $version = 'kos_74_4-10.0',
     $logdir = '/data/netscaler/logs',
     $user = 'nswl',
     $nsips = [], # list of hashes {ip => '10...', password => 'encrypted_auth_string'}
