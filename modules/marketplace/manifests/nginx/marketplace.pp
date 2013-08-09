@@ -9,6 +9,7 @@ define marketplace::nginx::marketplace(
     $cdn_hostname, # marketplace.cdn.mozilla.net
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
     $marketplace_gunicorn_name = 'marketplace',
+    $webpay_gunicorn_name = 'webpay-marketplace',
     $fireplace_root = ''
 
 ) {
