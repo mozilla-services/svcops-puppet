@@ -1,5 +1,6 @@
 # Creates zamboni settings file.
 define marketplace::apps::zamboni::settings(
+    $api_secret_key,
     $broker_url,
     $builder_secret_key,
     $caches_default_location,
