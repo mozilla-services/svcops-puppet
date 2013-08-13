@@ -33,9 +33,4 @@ class elasticsearch (
         }
     }
 
-    sysctl::value {
-        'vm.swappiness':
-            value => '10';
-
-    }
 }
