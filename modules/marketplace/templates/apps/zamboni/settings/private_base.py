@@ -31,3 +31,6 @@ SERVICES_DATABASE_URL = '<%= services_database_url %>'
 STATSD_HOST = '<%= statsd_host %>'
 STATSD_PORT = <%= statsd_port %>
 STATSD_PREFIX = '<%= statsd_prefix %>'
+AES_KEYS = {
+    'api:access:secret': '<%= api_access_secret_key %>',
+}
