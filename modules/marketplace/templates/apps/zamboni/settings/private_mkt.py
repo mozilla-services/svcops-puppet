@@ -38,3 +38,6 @@ DOMAIN = '<%= mkt_domain %>'
 <% if @mkt_static_url -%>
 STATIC_URL = '<%= mkt_static_url %>'
 <% end -%>
+AES_KEYS = {
+    'api:access:secret': '<%= api_access_secret_key %>',
+}
