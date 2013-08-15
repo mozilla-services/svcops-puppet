@@ -5,8 +5,6 @@ class nginx(
     $enable_compression = false,
     $nginx_conf = undef
 ){
-    include base::files
-
     realize(File['/data'], File['/data/logs'])
     realize(Yumrepo['nginx'])
 
