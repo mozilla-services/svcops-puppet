@@ -17,8 +17,8 @@ class pushgo::sysctl {
         'net.core.wmem_max':
             value => '16777216';
         'net.ipv4.tcp_rmem':
-            value => '4096\t87380\t16777216';
+            value => '4096 87380 16777216';
         'net.ipv4.tcp_wmem':
-            value => '4096\t65536\t16777216';
+            value => '4096 65536 16777216';
     }
 }
