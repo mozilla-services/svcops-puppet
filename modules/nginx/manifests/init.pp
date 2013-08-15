@@ -2,7 +2,8 @@
 class nginx(
     $nx_user = 'nginx',
     $version = 'present',
-    $enable_compression = false
+    $enable_compression = false,
+    $nginx_conf = template('nginx/nginx.conf')
 ){
     realize(File['/data'], File['/data/logs'])
     realize(Yumrepo['nginx'])
@@ -64,7 +65,7 @@ class nginx(
         '/etc/nginx/nginx.conf':
             before  => Service[nginx],
             notify  => Service['nginx'],
-            content => template('nginx/nginx.conf');
+            content => $nginx_conf;
 
         '/etc/nginx/conf.d/managed.conf':
             before  => Service[nginx],
