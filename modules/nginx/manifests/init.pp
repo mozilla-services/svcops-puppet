@@ -3,7 +3,7 @@ class nginx(
     $nx_user = 'nginx',
     $version = 'present',
     $enable_compression = false,
-    $nginx_conf = template('nginx/nginx.conf')
+    $nginx_conf = undef
 ){
     realize(File['/data'], File['/data/logs'])
     realize(Yumrepo['nginx'])
@@ -30,6 +30,11 @@ class nginx(
             before  => File['/var/log/nginx'],
             unless  => '/usr/bin/test -L /var/log/nginx',
             command => '/bin/mv /var/log/nginx /var/log/nginx.old'
+    }
+    if $nginx_conf {
+        $_nginx_conf = $nginx_conf 
+    } else {
+        $_nginx_conf = template('nginx/nginx.conf')
     }
 
     file {
@@ -65,7 +70,7 @@ class nginx(
         '/etc/nginx/nginx.conf':
             before  => Service[nginx],
             notify  => Service['nginx'],
-            content => $nginx_conf;
+            content => $_nginx_conf;
 
         '/etc/nginx/conf.d/managed.conf':
             before  => Service[nginx],
