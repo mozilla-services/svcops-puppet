@@ -28,7 +28,7 @@ class nginx(
     exec {
         'mv_old_nginx_logdir':
             before  => File['/var/log/nginx'],
-            unless  => '/usr/bin/test -L /var/log/nginx',
+            unless  => '/usr/bin/test ! -e /var/log/nginx || /usr/bin/test -L /var/log/nginx',
             command => '/bin/mv /var/log/nginx /var/log/nginx.old'
     }
     if $nginx_conf {
