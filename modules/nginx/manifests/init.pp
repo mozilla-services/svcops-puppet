@@ -3,7 +3,8 @@ class nginx(
     $nx_user = 'nginx',
     $version = 'present',
     $enable_compression = false,
-    $nginx_conf = undef
+    $nginx_conf = undef,
+    $keepalive_timeout = 35
 ){
     realize(File['/data'], File['/data/logs'])
     realize(Yumrepo['nginx'])
