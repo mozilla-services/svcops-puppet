@@ -7,7 +7,6 @@ class nginx(
     $keepalive_timeout = 35
 ){
     realize(File['/data'], File['/data/logs'])
-    realize(Yumrepo['nginx'])
 
     package {
         'nginx':
@@ -33,7 +32,7 @@ class nginx(
             command => '/bin/mv /var/log/nginx /var/log/nginx.old'
     }
     if $nginx_conf {
-        $_nginx_conf = $nginx_conf 
+        $_nginx_conf = $nginx_conf
     } else {
         $_nginx_conf = template('nginx/nginx.conf')
     }

@@ -78,7 +78,7 @@ class base::yum {
       require  => File['/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag'];
     }
 
-    @yumrepo { 'nginx':
+    yumrepo { 'nginx':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.nginx',
         descr          => 'nginx repo',
         enabled        => 1,
