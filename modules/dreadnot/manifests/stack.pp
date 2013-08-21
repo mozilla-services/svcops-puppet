@@ -9,6 +9,7 @@ define dreadnot::stack(
         "${dreadnot::instance_root}/${instance_name}/stacks/${stack_name}.js":
             require => File["${dreadnot::instance_root}/${instance_name}/stacks"],
             before  => Supervisord::Service["dreadnot-${instance_name}"],
+            notify  => Service["dreadnot-${instance_name}"],
             content => $stack;
     }
 }
