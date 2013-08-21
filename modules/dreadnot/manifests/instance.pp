@@ -14,7 +14,8 @@ define dreadnot::instance(
         "${root}/stacks":
             ensure => directory;
         "${root}/settings.js":
-            content => $settings;
+            content => $settings,
+            notify  => Service["dreadnot-${instance_name}"];
         "${root}/htpasswd":
             content => $htpasswd,
             notify  => Service["dreadnot-${instance_name}"];
