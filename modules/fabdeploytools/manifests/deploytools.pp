@@ -1,5 +1,5 @@
 # set up for deploytools
-class marketplace::deploytools {
+class fabdeploytools::deploytools {
     package {
         'prelink':
             ensure => absent;
