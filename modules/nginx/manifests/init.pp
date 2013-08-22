@@ -8,6 +8,12 @@ class nginx(
 ){
     realize(File['/data'], File['/data/logs'])
 
+    $compression_ensure = enable_compression ? {
+        true    => present,
+        false   => absent,
+        default => absent
+    }
+
     package {
         'nginx':
             ensure  => $version,
@@ -60,9 +66,9 @@ class nginx(
             ensure  => link,
             target  => '/data/logs/nginx',
             require => [
-                        Package[nginx],
-                        File['/data/logs/nginx'],
-                        ],
+                Package[nginx],
+                File['/data/logs/nginx'],
+            ],
             owner   => $nx_user,
             group   => 'users',
             mode    => '0750';
@@ -105,13 +111,11 @@ class nginx(
             source  => 'puppet:///modules/nginx/etc-init.d/nginx';
     }
 
-    if $enable_compression {
-        file {
-            '/etc/nginx/conf.d/compression.conf':
-                ensure  => present,
-                content => template('nginx/compression.conf'),
-                notify  => Service['nginx'];
-        }
+    file {
+        '/etc/nginx/conf.d/compression.conf':
+            ensure  => $compression_ensure,
+            content => template('nginx/compression.conf'),
+            notify  => Service['nginx'];
     }
 
 }
