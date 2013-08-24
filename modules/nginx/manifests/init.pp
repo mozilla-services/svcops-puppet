@@ -16,8 +16,7 @@ class nginx(
 
     package {
         'nginx':
-            ensure  => $version,
-            require => Yumrepo['nginx'];
+            ensure  => $version;
     }
 
     service {
