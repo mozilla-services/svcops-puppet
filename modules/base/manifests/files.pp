@@ -7,6 +7,8 @@ class base::files {
       path    => '/data';
 
     '/data/logs':
-      ensure  => directory;
+      ensure => directory;
+    '/root/bin':
+      ensure => directory;
   }
 }
