@@ -4,6 +4,6 @@ class pushgo::config(
 ){
     file {
         '/etc/pushgo.ini':
-            content => file('pushgo/config.ini');
+            content => template('pushgo/config.ini');
     }
 }
