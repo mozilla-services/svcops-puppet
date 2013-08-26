@@ -1,7 +1,7 @@
 import os
 from fabdeploytools import helpers
-from fabdeploytool.envs import loadenv
-from fabric.api import task
+from fabdeploytools.envs import loadenv
+from fabric.api import lcd, local, task
 
 loadenv('<%= cluster %>')
 
@@ -21,8 +21,11 @@ def update():
 
 @task
 def deploy():
+    with lcd(APP):
+        local('GOPATH=$(pwd) GOBIN=$(pwd) go build')
     helpers.deploy(name='pushgo',
                    env='prod',
                    cluster='pushgo.prod',
                    domain='push.mozilla.com',
+                   package_dirs=['pushgo/pushgo'],
                    root=ROOT)
