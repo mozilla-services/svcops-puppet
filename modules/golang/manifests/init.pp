@@ -6,7 +6,7 @@ class golang(
         'absent' => 'absent',
         default  => 'present'
     }
-    packages {
+    package {
         'golang-env':
             ensure => $env_ensure;
         'golang':
