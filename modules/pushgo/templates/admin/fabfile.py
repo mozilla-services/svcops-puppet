@@ -11,7 +11,7 @@ APP = os.path.join(ROOT, 'pushgo')
 
 @task
 def pre_update(ref):
-    helpers.git_update(APP)
+    helpers.git_update(APP, ref)
 
 
 @task
