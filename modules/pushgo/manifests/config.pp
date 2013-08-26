@@ -4,6 +4,7 @@ class pushgo::config(
 ){
     file {
         '/etc/pushgo.ini':
+            notify  => Exec['circus-restart-pushgo'],
             content => template('pushgo/config.ini');
     }
 }
