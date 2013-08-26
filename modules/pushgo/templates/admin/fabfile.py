@@ -28,4 +28,5 @@ def deploy():
                    cluster='pushgo.prod',
                    domain='push.mozilla.com',
                    package_dirs=['pushgo/pushgo'],
+                   use_sudo=True,
                    root=ROOT)
