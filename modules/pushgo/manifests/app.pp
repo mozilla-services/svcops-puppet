@@ -7,8 +7,8 @@ class pushgo::app {
     supervisord::service {
         'pushgo':
             require => File['/etc/pushgo.ini'],
-            command => '/opt/pushgo/pushgo -config=/etc/pushgo.ini',
-            app_dir => '/opt/pushgo',
+            command => '/data/pushgo.prod/www/push.mozilla.com/current/pushgo/pushgo -config=/etc/pushgo.ini',
+            app_dir => '/data/pushgo.prod/www/push.mozilla.com',
             user    => 'root';
     }
 }
