@@ -38,7 +38,7 @@ define circus::watcher($cmd,
       owner   => 'root',
       group   => 'root',
       content => template('circus/watcher.ini'),
-      notify  => Exec['circus-initctl-reload'];
+      notify  => Service['circusd'];
   }
 
   $defaults = {caller => $caller_module_name,}
@@ -46,7 +46,7 @@ define circus::watcher($cmd,
 
   exec {
     "circus-restart-${name}":
-      require     => Exec['circusd-initctl-start'],
+      require     => Service['circusd'],
       refreshonly => true,
       command     => "/usr/bin/circusctl restart ${name}";
   }

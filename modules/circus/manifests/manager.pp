@@ -29,32 +29,19 @@ class circus::manager(
     $circus_package:
       ensure  => $circus_version,
       alias   => 'circus',
-      notify  => Exec['circus-initctl-reload'],
+      notify  => Service['circusd'];
   }
 
-  # Our puppet doesn't have an upstart service provider, yet. Sigh.
-  #service {
-  #    'circusd':
-  #        ensure  => running,
-  #        enable  => true,
-  #        require => [
-  #            File['/etc/init/circusd.conf'],
-  #            File['/etc/circus.ini'],
-  #        ];
-  #}
-
-  exec {
-    'circusd-initctl-start':
-      command => '/sbin/initctl start circusd',
-      unless  => '/sbin/initctl status circusd | grep -w running',
-      require => [
-        Package[$circus_package],
-        File['/etc/init/circusd.conf'],
-        File['/etc/circus.ini'],
-      ];
-    'circus-initctl-reload':
-      command     => '/sbin/initctl restart circusd',
-      refreshonly => true;
+  service {
+      'circusd':
+          ensure   => running,
+          enable   => true,
+          provider => 'upstart',
+          require  => [
+              Package[$circus_package],
+              File['/etc/init/circusd.conf'],
+              File['/etc/circus.ini'],
+          ];
   }
 
   File {
@@ -69,7 +56,7 @@ class circus::manager(
       source  => 'puppet:///modules/circus/circusd.conf';
     '/etc/circus.ini':
       content => template('circus/circus.ini'),
-      notify  => Exec['circus-initctl-reload'];
+      notify  => Service['circusd'];
     $base_dir:
       ensure  => directory,
       mode    => '0755';
