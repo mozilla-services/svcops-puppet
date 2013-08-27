@@ -39,7 +39,7 @@ class circus::manager(
           start   => '/sbin/initctl start circusd',
           restart => '/sbin/initctl restart circusd',
           stop    => '/sbin/initctl stop circusd',
-          status  => '/sbin/initctl status circusd';
+          status  => '/sbin/initctl status circusd',
           require => [
               Package[$circus_package],
               File['/etc/init/circusd.conf'],
