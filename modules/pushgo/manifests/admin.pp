@@ -1,6 +1,7 @@
 # pushgo admin server.
 class pushgo::admin(
-    $cluster='pushgo.prod'
+    $cluster='pushgo.prod',
+    $s3_bucket='bucket'
 ){
     $cluster_src = "/data/${cluster}/src"
     package {

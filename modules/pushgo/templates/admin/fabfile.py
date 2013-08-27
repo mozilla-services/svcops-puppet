@@ -4,6 +4,7 @@ from fabdeploytools.envs import loadenv
 from fabric.api import lcd, local, task
 
 loadenv('<%= cluster %>')
+S3BUCKET = '<%= s3_bucket %>'
 
 ROOT = os.path.dirname(__file__)
 APP = os.path.join(ROOT, 'pushgo')
@@ -29,4 +30,5 @@ def deploy():
                    domain='push.mozilla.com',
                    package_dirs=['pushgo/pushgo'],
                    use_sudo=True,
+                   s3_bucket=S3BUCKET,
                    root=ROOT)
