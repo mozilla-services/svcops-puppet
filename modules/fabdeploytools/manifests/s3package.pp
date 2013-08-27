@@ -7,9 +7,11 @@ define fabdeploytools::s3package(
 ) {
     $cluster_domain = $name
 
+    $out_file = "/tmp/deploy-${app_name}-${environ}-initial.rpm"
+
     exec {
         $cluster_domain:
-            command => "/usr/bin/fetch_file s3://${bucket}/packages/${cluster_domain}/${version} | /bin/rpm -i -",
+            command => "/usr/bin/fetch_file -o \"${out_file}\" \"s3://${bucket}/packages/${cluster_domain}/${version}\" && /bin/rpm -i \"${out_file}\"",
             unless  => "/bin/rpm -q deploy-${app_name}-${environ}";
     }
 
