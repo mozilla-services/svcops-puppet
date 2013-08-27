@@ -1,7 +1,7 @@
 import os
 from fabdeploytools import helpers
 from fabdeploytools.envs import loadenv
-from fabric.api import lcd, local, task
+from fabric.api import lcd, local, sudo, task
 
 loadenv('<%= cluster %>')
 S3BUCKET = '<%= s3_bucket %>'
@@ -32,4 +32,4 @@ def deploy():
                    use_sudo=True,
                    s3_bucket=S3BUCKET,
                    root=ROOT)
-    run('circusctl restart pushgo')
+    sudo('circusctl restart pushgo')
