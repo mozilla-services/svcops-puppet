@@ -32,3 +32,4 @@ def deploy():
                    use_sudo=True,
                    s3_bucket=S3BUCKET,
                    root=ROOT)
+    run('circusctl restart pushgo')
