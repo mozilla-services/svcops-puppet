@@ -46,6 +46,7 @@ define circus::watcher($cmd,
 
   exec {
     "circus-restart-${name}":
+      require     => Exec['circusd-initctl-start'],
       refreshonly => true,
       command     => "/usr/bin/circusctl restart ${name}";
   }
