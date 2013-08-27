@@ -1,6 +1,6 @@
 # class base yum
 class base::yum {
-
+    include base::yum::conf
     yumrepo { 'mozilla-services':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-services',
         descr          => 'Mozilla Services Packages',
