@@ -1,7 +1,7 @@
 # vim: set expandtab ts=2 sw=2 filetype=puppet syntax=puppet:
 class circus::manager(
   $circus_package = 'circus',
-  $circus_version = '0.8.1-1',
+  $circus_version = '0.9.2-1',
   $endpoint = 'tcp://127.0.0.1:5555',
   $pubsub_endpoint = undef,
   $statsd = undef,
