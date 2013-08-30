@@ -43,9 +43,12 @@ exports.run = function(dreadnot) {
     notify(msg); 
 
     dreadnot.emitter.once(endPath, function(success) {
-      var endMsg = sprintf('deployment #%s of %s to %s:%s %s', deployment.deployment, deployment.stack, dreadnot.config.env,
-          deployment.region, success ? irc.colors.wrap('light_green', 'SUCCEEDED') : irc.colors.wrap('dark_red', 'FAILED'));
-      notify(endMsg);
+      var stackConfig = dreadnot.config.stacks[deployment.stack];
+      git.revParse(stackConfig.project_dir, deployment.to_revision, function(err, gitRef) {
+        var endMsg = sprintf('deployment #%s of %s:%s to %s:%s %s', deployment.deployment, deployment.stack, gitRef, dreadnot.config.env,
+            deployment.region, success ? irc.colors.wrap('light_green', 'SUCCEEDED') : irc.colors.wrap('dark_red', 'FAILED'));
+        notify(endMsg);
+      });
     });
   });
 
