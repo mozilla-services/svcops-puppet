@@ -1,0 +1,7 @@
+[s3-<%= repo_name %>]
+name=S3 yum repo <%= repo_name %>
+baseurl=<%= baseurl %>
+failovermethod=priority
+enabled=1
+s3_enabled=1
+gpgcheck=0
