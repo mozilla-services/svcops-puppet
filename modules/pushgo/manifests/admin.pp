@@ -1,7 +1,7 @@
 # pushgo admin server.
 class pushgo::admin(
     $clusters={'pushgo.dev' => {
-                                s3_bucket  => 'bucket'
+                                s3_bucket  => 'bucket',
                                 environ    => 'dev',
                                 servername => 'pushgo.dev.mozilla.com'}}
 ){
