@@ -1,6 +1,8 @@
 # add a cluster to the admin server
 define pushgo::admin_cluster(
-    $s3_bucket
+    $s3_bucket,
+    $environ,
+    $servername
 ) {
     $cluster = $name
     $cluster_src = "/data/${cluster}/src"

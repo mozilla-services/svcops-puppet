@@ -1,6 +1,9 @@
 # pushgo admin server.
 class pushgo::admin(
-    $clusters={'pushgo.prod' => {s3_bucket => 'bucket'}}
+    $clusters={'pushgo.dev' => {
+                                s3_bucket  => 'bucket'
+                                environ    => 'dev',
+                                servername => 'pushgo.dev.mozilla.com'}}
 ){
     package {
         'libmemcached-devel':
