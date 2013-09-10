@@ -10,8 +10,8 @@ class pushgo::app(
 
     circus::watcher {
         'pushgo':
-            require       => File['/etc/pushgo.ini'],
-            cmd           => "${app_root}/current/pushgo/pushgo -config=/etc/pushgo.ini",
-            rlimit_nofile => '1000000';
+            require                => File['/etc/pushgo.ini'],
+            cmd                    => "${app_root}/current/pushgo/pushgo -config=/etc/pushgo.ini",
+            rlimit_nofile          => '1000000';
     }
 }
