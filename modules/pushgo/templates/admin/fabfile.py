@@ -1,7 +1,7 @@
 import os
 from fabdeploytools import helpers
 from fabdeploytools.envs import loadenv
-from fabric.api import lcd, local, sudo, task
+from fabric.api import execute, lcd, local, roles, sudo, task
 
 ENV = '<%= environ %>'
 CLUSTER = '<%= cluster %>'
@@ -23,6 +23,11 @@ def update():
     pass
 
 
+@roles('web')
+def restart_circus():
+    sudo('circusctl restart pushgo')
+
+
 @task
 def deploy():
     with lcd(APP):
@@ -35,4 +40,4 @@ def deploy():
                    use_sudo=True,
                    s3_bucket=S3BUCKET,
                    root=ROOT)
-    sudo('circusctl restart pushgo')
+    execute(restart_circus)
