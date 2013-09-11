@@ -21,7 +21,7 @@ class marketplace::apps::zamboni::packages {
             ensure => '2.3.2-1';
 
         'nodejs':
-            ensure => '0.10.14-1.el6';
+            ensure => '0.10.16-1.el6';
 
         'node-clean-css':
             ensure => '0.10.1-2';
