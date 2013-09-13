@@ -3,7 +3,8 @@ define marketplace::apps::monolith::deploysettings(
     $cluster,
     $domain,
     $env,
-    $ssh_key
+    $ssh_key,
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $monolith_dir = $name
 
