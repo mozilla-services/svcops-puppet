@@ -7,7 +7,7 @@ define marketplace::apps::monolith(
 ) {
     $uwsgi_name = $name
 
-    uwsgi::isntance {
+    uwsgi::instance {
         $uwsgi_name:
             app_dir   => "${project_dir}/monolith",
             appmodule => "runserver:application",
