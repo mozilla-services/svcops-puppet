@@ -6,6 +6,7 @@ class elasticsearch::config(
     $es_data_path = '/var/lib/elasticsearch',
     $expected_nodes = '3',
     $nofile_limit = '65535',
+    $cache_filter_size = '20%',
     $memory_size = ''
 ){
     if $memory_size == '' {

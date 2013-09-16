@@ -55,3 +55,10 @@
         wordDelim: 
           preserve_original: "true"
           type: word_delimiter
+    cache:
+      field:
+        type: soft
+  indices:
+    cache:
+      filter:
+        size: <%= cache_filter_size %>
