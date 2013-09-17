@@ -7,7 +7,7 @@ define marketplace::nginx::monolith(
 
     nginx::config {
         $config_name:
-            require => Uwsgi[$worker_name],
+            require => Uwsgi::Instance[$worker_name],
             content => template('marketplace/nginx/monolith.conf');
     }
 
