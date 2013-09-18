@@ -1,7 +1,6 @@
 # cfn.rb
 # Turns cloudformation metadata in to facts.
 
-require 'rubygems'
 require 'json'
 
 filename = "/var/lib/cfn-init/data/metadata.json"
