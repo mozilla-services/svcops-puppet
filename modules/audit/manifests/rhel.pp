@@ -8,8 +8,8 @@ class audit::rhel {
             ensure => 'latest',
             notify => Service['auditd'];
         'audit-mozilla-libs-python':
-            ensure  => 'latest',
-            notify  => Service['auditd'],
+            ensure => 'latest',
+            notify => Service['auditd'],
             require => [ Package['audit_package'], Package['audit-mozilla-libs'] ];
         'audit-mozilla-libs':
             ensure => 'latest',
@@ -24,10 +24,10 @@ class audit::rhel {
             before => Package['audispd-mozilla-plugins'];
         'audit-libs-python':
             ensure => absent;
-        'audit-libs':
-            ensure => latest,
-            notify => Service['auditd'];
-
+#        'audit-libs':
+#            ensure => absent,
+#            notify => Service['auditd'],
+#            before => Package['audit-mozilla-libs'];
         'audispd-plugins-1.8-3.el5.centosmoz5.i386':
             ensure => absent;
     }
