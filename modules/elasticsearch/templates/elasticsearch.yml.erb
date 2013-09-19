@@ -58,6 +58,11 @@
     cache:
       field:
         type: soft
+    merge:
+        policy:
+            max_merged_segment: 2g
+            segments_per_tier: 24
+            max_merge_at_once: 8 
   indices:
     cache:
       filter:
