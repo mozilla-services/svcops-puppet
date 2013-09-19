@@ -2,6 +2,9 @@
 --- 
   cluster: 
     name: <%= cluster_name %>
+    routing:
+      allocation:
+        node_concurrent_recoveries: 6
   node: 
     name: <%= es_name %>
     datacenter: <%= datacenter %>
