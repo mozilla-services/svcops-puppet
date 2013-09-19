@@ -64,6 +64,10 @@
             segments_per_tier: 24
             max_merge_at_once: 8 
   indices:
+    recovery:
+        concurrent:
+            streams: 5
+        max_bytes_per_sec: 50mb
     cache:
       filter:
         size: <%= cache_filter_size %>
