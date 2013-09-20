@@ -5,15 +5,26 @@ define marketplace::apps::monolith::settings::aggregator(
     $es_url,
     $ga_auth,
     $mkt_user,
-    $mkt_pass
+    $mkt_pass,
+    $cron_user = 'mkt_prod_monolith'
 ) {
     $location = $name
+    cron {
+        "aggr-${location}":
+            command => "cd ${location}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --date yesterday",
+            user    => $cron_user,
+            hour    => 1,
+            minute  => 15;
+    }
+
     file {
-        "${location}/aggregator.ini":
+        "${location}/monolith-aggregator/aggregator.ini":
             content => template('marketplace/apps/monolith/settings/aggregator.ini');
-        "${location}/auth.json":
+
+        "${location}/monolith-aggregator/auth.json":
             content => $ga_auth;
-        "${location}/monolith.password.ini":
+
+        "${location}/monolith-aggregator/monolith.password.ini":
             content => template('marketplace/apps/monolith/settings/monolith.password.ini');
     }
 }
