@@ -3,7 +3,11 @@ define pushgo::admin_cluster(
     $s3_bucket,
     $environ,
     $servername,
-    $stack_name
+    $stack_name,
+    $elb,
+    $route53_record,
+    $route53_zone,
+    $region = $::ec2_region
 ) {
     $cluster = $name
     $cluster_src = "/data/${cluster}/src"
@@ -21,5 +25,10 @@ define pushgo::admin_cluster(
     fabdeploytools::deploytools::env {
         "pushgo.${environ}":
             hostcontent => "{\"web\": \"aws:tag:aws:cloudformation:stack-name=${stack_name}\"}";
+    }
+
+    cron {
+        "pushgo-admin-supervise-${cluster}":
+            command => "/usr/bin/pushgo-supervise -r ${region} --elb ${elb} --rr ${route53_record} --zone ${route53_zone}";
     }
 }
