@@ -2,7 +2,8 @@
 define pushgo::admin_cluster(
     $s3_bucket,
     $environ,
-    $servername
+    $servername,
+    $stack_name
 ) {
     $cluster = $name
     $cluster_src = "/data/${cluster}/src"
@@ -15,5 +16,10 @@ define pushgo::admin_cluster(
         "${cluster_src}/push.mozilla.com/fabfile.py":
             require => Git::Clone["${cluster_src}/push.mozilla.com/pushgo"],
             content => template('pushgo/admin/fabfile.py');
+    }
+
+    fabdeploytools::deploytools::env {
+        "pushgo.${environ}":
+            hostcontent => "{\"web\": \"aws:tag:aws:cloudformation:stack-name=${stack_name}\"}";
     }
 }
