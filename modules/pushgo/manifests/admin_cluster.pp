@@ -31,6 +31,6 @@ define pushgo::admin_cluster(
         "pushgo-admin-supervise-${cluster}":
             command => "/usr/bin/pushgo-supervise -r ${region} --elb ${elb} --rr ${route53_record} --zone ${route53_zone}";
         "pushgo-admin-cloudwatch-${cluster}":
-            command => "/usr/bin/pushgo-cloudwatch-metrics -r \"${region}\" -s \"${stack_name}\" -e \"${environ}\"";
+            command => "/usr/bin/pushgo-cloudwatch-metrics -r \"${region}\" -s \"${stack_name}\"";
     }
 }
