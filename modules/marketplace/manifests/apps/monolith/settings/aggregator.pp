@@ -11,10 +11,11 @@ define marketplace::apps::monolith::settings::aggregator(
     $location = $name
     cron {
         "aggr-${location}":
-            command => "cd ${location}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --date yesterday",
-            user    => $cron_user,
-            hour    => 1,
-            minute  => 15;
+            environment => 'MAILTO=amo-developers@mozilla.org',
+            command     => "cd ${location}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --date yesterday",
+            user        => $cron_user,
+            hour        => 1,
+            minute      => 15;
     }
 
     file {
