@@ -18,9 +18,9 @@
 var async = require('async');
 var log = require('logmagic').local('plugins.hubot');
 var irc = require('irc');
-var git = require('util/git');
 
 var sprintf = require('util/sprintf');
+var git = require('util/git');
 var spawn = require('util/misc').spawn;
 
 function notify(msg) {
@@ -35,21 +35,25 @@ exports.run = function(dreadnot) {
   dreadnot.emitter.on('deployments', function(deployment) {
     var link = sprintf('%s/stacks/%s/regions/%s/deployments/%s', dreadnot.config.default_url, deployment.stack, deployment.region,
                           deployment.deployment),
-        msg = sprintf('%s is deploying %s:%s to %s:%s - %s', deployment.user,
-                      deployment.stack, git.trimRevision(deployment.to_revision),
-                      dreadnot.config.env, deployment.region, link),
+        msg = sprintf('%s is deploying %s to %s:%s - %s', deployment.user, deployment.stack, dreadnot.config.env,
+                          deployment.region, link),
         endPath = ['stacks', deployment.stack, 'regions', deployment.region, 'deployments', deployment.deployment, 'end'].join('.'),
         i;
-    notify(msg); 
+
+    if(deployment.user !== 'webdeployer') {
+      notify(msg); 
+    }
 
     dreadnot.emitter.once(endPath, function(success) {
       var stackConfig = dreadnot.config.stacks[deployment.stack];
       git.revParse(stackConfig.project_dir, deployment.to_revision, function(err, gitRef) {
-        var endMsg = sprintf('deployment #%s of %s:%s to %s:%s %s', deployment.deployment, deployment.stack, gitRef, dreadnot.config.env,
-            deployment.region, success ? irc.colors.wrap('light_green', 'SUCCEEDED') : irc.colors.wrap('dark_red', 'FAILED'));
+        var endMsg = sprintf('<%%s> %s:%s to %s:%s %s', deployment.deployment, deployment.stack, git.trimRevision(gitRef), dreadnot.config.env,
+                              deployment.region, success ? irc.colors.wrap('light_green', 'OK') : irc.colors.wrap('dark_red', 'FAIL'));
+        if(!success) {
+          endMsg = sprintf('%s - %s', endMsg, link);
+        }
         notify(endMsg);
       });
     });
   });
-
 };
