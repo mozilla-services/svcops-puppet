@@ -13,13 +13,12 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $dreadnot_name,
     $dreadnot_instance,
     $cron_user = 'mkt_prod_monolith',
-    $pyrepo = 'https://pyrepo.addons.mozilla.org/',
-    $gitrepo = 'https://github.com/mozilla/monolith-aggregator.git'
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $project_dir = $name
     git::clone {
         "${project_dir}/monolith-aggregator":
-            repo => $gitrepo;
+            repo => 'https://github.com/mozilla/monolith-aggregator.git';
 
     }
     cron {
