@@ -31,8 +31,9 @@ define marketplace::apps::monolith::admin_instance(
     }
     dreadnot::stack {
         $dreadnot_name:
-            project_dir => "${project_dir}/monolith",
-            github_url  => 'https://github.com/mozilla/monolith',
-            git_url     => 'git://github.com/mozilla/monolith.git';
+            instance_name => $dreadnot_instance,
+            project_dir   => "${project_dir}/monolith",
+            github_url    => 'https://github.com/mozilla/monolith',
+            git_url       => 'git://github.com/mozilla/monolith.git';
     }
 }
