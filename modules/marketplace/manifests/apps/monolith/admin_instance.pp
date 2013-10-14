@@ -6,15 +6,18 @@ define marketplace::apps::monolith::admin_instance(
     $domain,
     $env,
     $ssh_key,
-    $pyrepo = 'https://pyrepo.addons.mozilla.org/',
-    $gitrepo = 'https://github.com/mozilla/monolith.git'
+    $dreadnot_name,
+    $dreadnot_instance,
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $project_dir = $name
+
     git::clone {
         "${project_dir}/monolith":
-            repo => $gitrepo;
+            repo => 'https://github.com/mozilla/monolith.git';
 
     }
+
     file {
         "${project_dir}/monolith/monolith.ini":
             require => Git::Clone["${project_dir}/monolith"],
@@ -25,5 +28,11 @@ define marketplace::apps::monolith::admin_instance(
         "${project_dir}/monolith/deploysettings.py":
             require => Git::Clone["${project_dir}/monolith"],
             content => template('marketplace/apps/monolith/deploysettings.py');
+    }
+    dreadnot::stack {
+        $dreadnot_name:
+            project_dir => "${project_dir}/monolith",
+            github_url  => 'https://github.com/mozilla/monolith',
+            git_url     => 'git://github.com/mozilla/monolith.git';
     }
 }

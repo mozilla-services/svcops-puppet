@@ -10,6 +10,8 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $domain,
     $env,
     $ssh_key,
+    $dreadnot_name,
+    $dreadnot_instance,
     $cron_user = 'mkt_prod_monolith',
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $gitrepo = 'https://github.com/mozilla/monolith-aggregator.git'
@@ -49,4 +51,11 @@ define marketplace::apps::monolith_aggregator::admin_instance(
             content => template('marketplace/apps/monolith/deploysettings.py');
     }
 
+    dreadnot::stack {
+        $dreadnot_name:
+            instance_name => $dreadnot_instance,
+            project_dir   => "${project_dir}/monolith-aggregator",
+            github_url    => 'https://github.com/mozilla/monolith-aggregator',
+            git_url       => 'git://github.com/mozilla/monolith-aggregator.git';
+    }
 }
