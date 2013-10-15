@@ -1,11 +1,15 @@
 # define admin instance for monolith aggregator
 define marketplace::apps::monolith_aggregator::admin_instance(
     $mkt_endpoint,
+    $mkt_transaction_endpoint,
     $db_uri,
     $es_url,
     $ga_auth,
     $mkt_user,
     $mkt_pass,
+    $solitude_access_key,
+    $solitude_secret_key,
+    $solitude_bucket,
     $cluster,
     $domain,
     $env,
@@ -42,6 +46,10 @@ define marketplace::apps::monolith_aggregator::admin_instance(
         "${project_dir}/monolith-aggregator/monolith.password.ini":
             require => Git::Clone["${project_dir}/monolith-aggregator"],
             content => template('marketplace/apps/monolith_aggregator/admin/monolith.password.ini');
+
+        "${project_dir}/monolith-aggregator/solitude_aws_keys.ini":
+            require => Git::Clone["${project_dir}/monolith-aggregator"],
+            content => template('marketplace/apps/monolith_aggregator/admin/solitude_aws_keys.ini');
     }
 
     file {
