@@ -13,6 +13,13 @@ define marketplace::apps::marketplace_stats::admin_instance(
             repo => 'https://github.com/mozilla/marketplace-stats.git';
 
     }
+
+    file {
+        "${project_dir}/marketplace-stats/deploysettings.py":
+            require => Git::Clone["${project_dir}/marketplace-stats"],
+            content => template('marketplace/apps/default/deploysettings.py');
+    }
+
     dreadnot::stack {
         $dreadnot_name:
             instance_name => $dreadnot_instance,
