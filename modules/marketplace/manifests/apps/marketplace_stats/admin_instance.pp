@@ -14,10 +14,13 @@ define marketplace::apps::marketplace_stats::admin_instance(
 
     }
 
-    file {
-        "${project_dir}/marketplace-stats/deploysettings.py":
+    marketplace::apps::generic_js::deploysettings {
+        "${project_dir}/marketplace-stats":
+            cluster => $cluster,
+            domain  => $domain,
+            env     => $env,
+            ssh_key => $ssh_key,
             require => Git::Clone["${project_dir}/marketplace-stats"],
-            content => template('marketplace/apps/default/deploysettings.py');
     }
 
     dreadnot::stack {
