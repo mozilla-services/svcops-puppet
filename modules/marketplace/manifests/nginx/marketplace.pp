@@ -10,9 +10,11 @@ define marketplace::nginx::marketplace(
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
     $marketplace_gunicorn_name = 'marketplace',
     $webpay_gunicorn_name = 'webpay-marketplace',
+    $template_file = 'marketplace/nginx/marketplace.conf',
     $fireplace_root = '',
     $commbadge_root = '',
-    $rocketfuel_root = ''
+    $rocketfuel_root = '',
+    $marketplace_stats_root = ''
 
 ) {
     $config_name = $name
@@ -35,9 +37,15 @@ define marketplace::nginx::marketplace(
         $rocketfuel_webroot = $webroot
     }
 
+    if $marketplace_stats_root {
+        $marketplace_stats_webroot = $marketplace_stats_root
+    } else {
+        $marketplace_stats_webroot = $webroot
+    }
+
     nginx::config {
         $config_name:
-            content => template('marketplace/nginx/marketplace.conf');
+            content => template($template_file);
     }
 
     nginx::logdir {
