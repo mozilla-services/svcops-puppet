@@ -58,6 +58,6 @@ class marketplace::apps::zamboni::packages {
             before => Package['abrt'];
 
         'tracemonkey':
-            ensure => '0.1-5.el6';
+            ensure => '27.0-a1';
     }
 }
