@@ -4,7 +4,6 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $mkt_transaction_endpoint,
     $db_uri,
     $es_url,
-    $es_index_prefix,
     $ga_auth,
     $mkt_user,
     $mkt_pass,
@@ -17,6 +16,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $ssh_key,
     $dreadnot_name,
     $dreadnot_instance,
+    $es_index_prefix = undef,
     $cron_user = 'mkt_prod_monolith',
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
