@@ -5,7 +5,7 @@ define flower::instance(
     $broker_api, # http://username:password@rabbitmq-hostname:15672/api
     $domain = '', # flower.example.com
     $port = '50000',
-    $include_nginx = True,
+    $webserver = 'nginx' # set this to either nginx or httpd
 ){
     include flower::packages
     $instance = "flower-${name}"
@@ -20,7 +20,7 @@ define flower::instance(
     }
 
     # add nginx configs to host
-    if $include_nginx {
+    if $webserver == 'nginx' {
         $upstream = "flower_${name}"
         nginx::upstream {
             $upstream:
@@ -30,6 +30,12 @@ define flower::instance(
         nginx::serverproxy {
             $domain:
                 proxyto  => "http://${upstream}";
+        }
+    }
+    elsif $webserver == 'httpd' {
+        apache::config {
+            $domain:
+                content => template('flower/flower.httpd.conf');
         }
     }
 }
