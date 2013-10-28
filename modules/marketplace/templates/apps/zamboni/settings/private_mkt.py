@@ -38,3 +38,7 @@ DOMAIN = '<%= mkt_domain %>'
 <% if @mkt_static_url -%>
 STATIC_URL = '<%= mkt_static_url %>'
 <% end -%>
+
+WHITELISTED_CLIENTS_EMAIL_API = <%= mkt_whitelisted_clients_email_api %>
+
+POSTFIX_AUTH_TOKEN = '<%= mkt_postfix_auth_token %>'

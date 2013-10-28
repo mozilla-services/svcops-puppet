@@ -4,6 +4,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $mkt_transaction_endpoint,
     $db_uri,
     $es_url,
+    $es_index_prefix,
     $ga_auth,
     $mkt_user,
     $mkt_pass,

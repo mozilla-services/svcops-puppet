@@ -3,7 +3,7 @@ define marketplace::apps::zambonidashboard(
     $installdir,
     $settings, # content of settings file.
     $port,
-    $user = 'apache'
+    $nginx_location = '/dashboard/' # nginx location
 ) {
     $dash_name = $name
     file {
@@ -13,17 +13,10 @@ define marketplace::apps::zambonidashboard(
 
     gunicorn::instance {
         $dash_name:
-            port           => $port,
-            user           => $user,
-            appmodule      => 'zamboni_dashboard:app',
-            appdir         => $installdir,
-            nginx_upstream => false,
-            gunicorn       => "${installdir}/venv/bin/gunicorn";
-    }
-
-    apache::vserverproxy {
-        'dashboard.mktadm.ops.services.phx1.mozilla.com':
-            proxyto => 'http://localhost:10000';
+            port      => $port,
+            appmodule => 'zamboni_dashboard:app',
+            appdir    => $installdir,
+            gunicorn  => "${installdir}/venv/bin/gunicorn";
     }
 
     supervisord::service {

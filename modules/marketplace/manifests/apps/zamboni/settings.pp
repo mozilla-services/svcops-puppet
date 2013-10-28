@@ -60,6 +60,8 @@ define marketplace::apps::zamboni::settings(
     $mkt_webapps_receipt_url,
     $mkt_webtrends_password,
     $mkt_webtrends_username,
+    $mkt_whitelisted_clients_email_api = '[]',
+    $mkt_postfix_auth_token = '',
     $aws_access_key_id = '',
     $aws_secret_access_key = '',
     $aws_storage_bucket_name = '',
