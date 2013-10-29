@@ -116,7 +116,7 @@ class base::yum {
     file {
       '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
         ensure => present,
-        source => "puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-EPEL-${::operatingsystemmajrelease}";
+        source => 'puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-EPEL-6';
       '/etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag':
         ensure => present,
         source => 'puppet:///modules/base/rpm-gpg/RPM-GPG-KEY-rpmforge-dag';
