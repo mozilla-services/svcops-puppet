@@ -3,8 +3,8 @@ define uwsgi::instance(
     $app_dir,
     $appmodule,
     $port,
-    $home, # point at venv
     $user,
+    $home = undef, # point at venv
     $workers = 4,
     $environ = '',
     $log_syslog = true,
