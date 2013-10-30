@@ -7,7 +7,8 @@ define marketplace::apps::solitude(
     $user = 'sol_prod',
     $settings_module = 'solitude.settings',
     $appmodule = 'wsgi.playdoh:application',
-    $is_proxy = false
+    $is_proxy = false,
+    $newrelic_license_key = ''
 ) {
     $app_name = $name
 
@@ -15,6 +16,14 @@ define marketplace::apps::solitude(
         $environ = ',SOLITUDE_PROXY=\'enabled\''
     } else {
         $environ = ''
+    }
+
+    if $newrelic_license_key {
+        marketplace::newrelic::python {
+            $app_name:
+                before      => Uwsgi::Instance[$worker_name],
+                license_key => $newrelic_license_key;
+        }
     }
 
     uwsgi::instance {
