@@ -78,6 +78,7 @@ define marketplace::apps::zamboni::settings(
     $addons_webapps_receipt_key = '',
     $mkt_domain = undef,
     $mkt_bluevia_secret = '',
+    $mkt_iarc_password = '',
     $mkt_paypal_cgi_auth_password = '',
     $mkt_paypal_cgi_auth_signature = '',
     $mkt_paypal_cgi_auth_user = '',

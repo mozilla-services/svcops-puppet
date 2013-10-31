@@ -42,3 +42,5 @@ STATIC_URL = '<%= mkt_static_url %>'
 WHITELISTED_CLIENTS_EMAIL_API = <%= mkt_whitelisted_clients_email_api %>
 
 POSTFIX_AUTH_TOKEN = '<%= mkt_postfix_auth_token %>'
+
+IARC_PASSWORD = '<%= mkt_iarc_password %>'
