@@ -3,7 +3,9 @@ define marketplace::apps::zambonidashboard(
     $installdir,
     $settings, # content of settings file.
     $port,
-    $nginx_location = '/dashboard/' # nginx location
+    $apache_domain = undef,
+    $user = 'apache',
+    $use_nginx = true
 ) {
     $dash_name = $name
     file {
@@ -13,10 +15,20 @@ define marketplace::apps::zambonidashboard(
 
     gunicorn::instance {
         $dash_name:
-            port      => $port,
-            appmodule => 'zamboni_dashboard:app',
-            appdir    => $installdir,
-            gunicorn  => "${installdir}/venv/bin/gunicorn";
+            port           => $port,
+            user           => $user,
+            appmodule      => 'zamboni_dashboard:app',
+            appdir         => $installdir,
+            nginx_upstream => $use_nginx,
+            gunicorn       => "${installdir}/venv/bin/gunicorn";
+    }
+
+    if $apache_domain {
+        apache::vserverproxy {
+            $apache_domain:
+                proxyto => "http://localhost:${port}";
+
+        }
     }
 
     supervisord::service {
