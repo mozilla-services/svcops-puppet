@@ -17,6 +17,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $ssh_key,
     $dreadnot_name,
     $dreadnot_instance,
+    $log_level = 'debug',
     $es_index_prefix = undef,
     $cron_user = 'mkt_prod_monolith',
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
@@ -30,7 +31,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     cron {
         "aggr-${project_dir}":
             environment => 'MAILTO=amo-developers@mozilla.org',
-            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --date yesterday 2>&1 | tee -a /var/log/${domain}.log"
+            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday 2>&1 | tee -a /var/log/${domain}.log"
             user        => $cron_user,
             hour        => 1,
             minute      => 15;
