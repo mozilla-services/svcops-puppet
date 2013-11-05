@@ -28,10 +28,20 @@ define marketplace::apps::monolith_aggregator::admin_instance(
             repo => 'https://github.com/mozilla/monolith-aggregator.git';
 
     }
+
+    $log_file = "/var/log/${domain}.log"
+
+    # make sure log file is owned by the cron user
+    file {
+        $log_file:
+            ensure => present,
+            owner  => $cron_user
+    }
+
     cron {
         "aggr-${project_dir}":
             environment => 'MAILTO=amo-developers@mozilla.org',
-            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday 2>&1 | tee -a /var/log/${domain}.log",
+            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday >(tee ${log_file}) 2> >(tee ${log_file} >&2)",
             user        => $cron_user,
             hour        => 1,
             minute      => 15;
