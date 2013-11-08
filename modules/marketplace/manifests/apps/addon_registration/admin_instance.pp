@@ -7,6 +7,9 @@ define marketplace::apps::addon_registration::admin_instance(
     $broker_url,
     $dreadnot_name,
     $dreadnot_instance,
+    $update_ref,
+    $celery_service = 'None',
+    $uwsgi ='addon-registration',
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $project_dir = $name
