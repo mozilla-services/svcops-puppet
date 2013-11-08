@@ -13,7 +13,7 @@ define marketplace::apps::addon_registration::admin_instance(
 
     git::clone {
         "${project_dir}/addon_registration":
-            repo => 'https://github.com/mozilla/addon_registration.git';
+            repo => 'https://github.com/mozilla/addon-registration.git',
 
     }
 
@@ -32,7 +32,7 @@ define marketplace::apps::addon_registration::admin_instance(
         $dreadnot_name:
             instance_name => $dreadnot_instance,
             project_dir   => "${project_dir}/addon_registration",
-            github_url    => 'https://github.com/mozilla/addon_registration',
-            git_url       => 'git://github.com/mozilla/addon_registration.git';
+            github_url    => 'https://github.com/mozilla/addon-registration',
+            git_url       => 'git://github.com/mozilla/addon-registration',
     }
 }
