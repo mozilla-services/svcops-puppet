@@ -4,6 +4,7 @@ define marketplace::apps::addon_registration::admin_instance(
     $domain,
     $env,
     $ssh_key,
+    $broker_url,
     $dreadnot_name,
     $dreadnot_instance,
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
