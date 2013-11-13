@@ -10,6 +10,7 @@ define marketplace::apps::zamboni::settings(
     $email_host,
     $es_hosts,
     $google_analytics_credentials,
+    $google_api_credentials,
     $graphite_host,
     $graphite_port,
     $graphite_prefix,

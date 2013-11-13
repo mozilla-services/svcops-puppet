@@ -12,6 +12,7 @@ EMAIL_BLACKLIST = '<%= email_blacklist %>'.split(';')
 EMAIL_HOST = '<%= email_host %>'
 ES_HOSTS = '<%= es_hosts %>'
 GOOGLE_ANALYTICS_CREDENTIALS = <%= google_analytics_credentials %>
+GOOGLE_API_CREDENTIALS = '<%= @google_api_credentials %>'
 GRAPHITE_HOST = '<%= graphite_host %>'
 GRAPHITE_PORT = <%= graphite_port %>
 GRAPHITE_PREFIX = '<%= graphite_prefix %>'
