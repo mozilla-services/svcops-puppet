@@ -8,3 +8,6 @@ UWSGI = filter(None, '<%= uwsgi %>'.split(';'))
 PYREPO = '<%= pyrepo %>'
 IS_PROXY = <%= is_proxy ? 'True' : 'False' %>
 WEB_ROLE = '<%= web_role %>'
+<% if @scl_name -%>
+SCL_NAME = '<%= scl_name %>'
+<% end -%>
