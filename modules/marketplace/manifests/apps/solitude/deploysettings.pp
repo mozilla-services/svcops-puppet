@@ -10,7 +10,7 @@ define marketplace::apps::solitude::deploysettings(
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $web_role = 'web',
     $is_proxy = false,
-    $scl_name = undef;
+    $scl_name = undef
 ) {
     $solitude_dir = $name
 
