@@ -12,6 +12,9 @@ class marketplace::apps::solitude::packages {
          'python27-python-lxml']:
             ensure => '2.2.6-1';
 
+        'python27-MySQL-python':
+            ensure => '1.2.3-9.el6';
+
         'python-markupsafe':
             ensure => '0.15-1';
 
