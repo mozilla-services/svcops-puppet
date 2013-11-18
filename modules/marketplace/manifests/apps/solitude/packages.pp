@@ -8,11 +8,18 @@ class marketplace::apps::solitude::packages {
         'python-lxml':
             ensure => '2.2.6-1';
 
+        ['python-lxml',
+         'python27-python-lxml']:
+            ensure => '2.2.6-1';
+
         'python-markupsafe':
             ensure => '0.15-1';
 
         'python-pylibmc':
             ensure => '1.2.3-1';
+
+        'python27-m2crypto':
+            ensure => '0.21.1-1';
 
         'python-simplejson':
             ensure => '2.3.2-1';
