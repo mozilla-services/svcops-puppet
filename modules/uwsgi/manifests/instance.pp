@@ -8,7 +8,8 @@ define uwsgi::instance(
     $workers = 4,
     $environ = '',
     $log_syslog = true,
-    $use_unix_socket = true
+    $use_unix_socket = true,
+    $scl = undef
 ) {
     include uwsgi
 
@@ -17,11 +18,18 @@ define uwsgi::instance(
     $pid_file = "${uwsgi::pid_dir}/${app_name}.pid"
     $sock_file = "${uwsgi::pid_dir}/${app_name}.sock"
 
+    if $scl {
+        $command = "/usr/bin/scl ${scl} '/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini'"
+    } else {
+        $command = "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini"
+    }
+
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
             require => Class['uwsgi'],
             content => template('uwsgi/uwsgi.ini');
     }
+
     supervisord::service {
         "uwsgi-${app_name}":
             require         => File["${uwsgi::conf_dir}/${app_name}.ini"],
