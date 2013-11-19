@@ -41,7 +41,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     cron {
         "aggr-${project_dir}":
             environment => 'MAILTO=amo-developers@mozilla.org',
-            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday >(tee ${log_file}) 2> >(tee ${log_file} >&2)",
+            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday > ${log_file}) 2>&1",
             user        => $cron_user,
             hour        => 1,
             minute      => 15;
