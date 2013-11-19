@@ -36,7 +36,7 @@ class marketplace::apps::zamboni::packages {
             ensure => '2.2.5-2';
 
         'pyOpenSSL':
-            ensure => '0.13.1-1';
+            ensure => '0.13.1-1.el6';
 
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
