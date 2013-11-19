@@ -35,6 +35,9 @@ class marketplace::apps::zamboni::packages {
         'node-uglify-js':
             ensure => '2.2.5-2';
 
+        'pyOpenSSL':
+            ensure => '0.13.1-1';
+
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
 
