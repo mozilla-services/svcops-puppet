@@ -19,7 +19,7 @@ define uwsgi::instance(
     $sock_file = "${uwsgi::pid_dir}/${app_name}.sock"
 
     if $scl {
-        $command = "/usr/bin/scl enable ${scl} '/opt/rh/${scl}/root/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini'"
+        $command = "/bin/bash -c \"source /opt/rh/${scl}/enable; exec /opt/rh/${scl}/root/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini\""
     } else {
         $command = "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini"
     }
