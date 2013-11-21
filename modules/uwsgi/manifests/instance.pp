@@ -19,10 +19,14 @@ define uwsgi::instance(
     $sock_file = "${uwsgi::pid_dir}/${app_name}.sock"
 
     if $scl {
-        $command = "/bin/bash -c \"source /opt/rh/${scl}/enable; exec /opt/rh/${scl}/root/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini\""
+        $command = "/opt/rh/${scl}/root/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini"
+        $extra_environ = "LD_LIBRARY_PATH=/opt/rh/${scl}/root/usr/lib64,PATH=/opt/rh/${scl}/root/usr/bin:/sbin:/usr/sbin:/bin:/usr/bin"
     } else {
         $command = "/usr/bin/uwsgi ${uwsgi::conf_dir}/${app_name}.ini"
+        $extra_environ = ''
     }
+
+    $real_environ = join(reject([$environ, $extra_environ], ''), ',')
 
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
@@ -35,7 +39,7 @@ define uwsgi::instance(
             require         => File["${uwsgi::conf_dir}/${app_name}.ini"],
             command         => $command,
             app_dir         => '/tmp',
-            environ         => $environ,
+            environ         => $real_environ,
             stopsignal      => 'INT',
             restart_command => "/bin/kill -HUP $(cat ${pid_file})",
             user            => $user;
