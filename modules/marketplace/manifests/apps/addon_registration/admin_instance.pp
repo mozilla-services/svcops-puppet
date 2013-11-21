@@ -5,7 +5,6 @@ define marketplace::apps::addon_registration::admin_instance(
     $env,
     $ssh_key,
     $broker_url,
-    $sqi_url,
     $dreadnot_name,
     $dreadnot_instance,
     $update_ref,
