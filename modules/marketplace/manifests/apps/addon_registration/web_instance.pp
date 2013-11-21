@@ -17,7 +17,8 @@ define marketplace::apps::addon_registration::web_instance(
             port      => $port,
             home      => "${project_dir}/venv",
             user      => $user,
-            workers   => $workers
+            workers   => $workers,
+            scl       => 'python27'
     }
 
     marketplace::nginx::addon_registration {
