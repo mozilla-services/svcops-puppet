@@ -14,7 +14,7 @@ define marketplace::apps::monolith::web_instance(
 
     nginx::config {
         $config_name:
-            require => Nginx::Upstream['monolith-es'],
+            require => Nginx::Upstream::Multiple['monolith-es'],
             content => template('marketplace/apps/monolith/web/monolith.conf');
     }
 
