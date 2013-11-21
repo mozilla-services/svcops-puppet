@@ -1,7 +1,7 @@
 # marketplace::apps::addon_registration::celery_instance
 define marketplace::apps::addon_registration::celery_instance(
     $app_dir,
-    $addon_registration_password,
+    $registration_password,
     $user = undef,
     $env = 'prod',
     $workers = '12',
@@ -21,26 +21,26 @@ define marketplace::apps::addon_registration::celery_instance(
     }
 
     celery::service {
-        "addon-registration-${env}":;
+        "registration-${env}":;
     }
 
     rabbitmq_user {
-        "addon_registration_${env}":
+        "registration_${env}":
             admin    => false,
-            password => $addon_registration_password,
+            password => $registration_password,
             provider => 'rabbitmqctl';
     }
 
     rabbitmq_vhost {
         [
-            "addon_registration_${env}",
+            "registration_${env}",
         ]:
             ensure   => present,
             provider => 'rabbitmqctl';
     }
 
     rabbitmq_user_permissions {
-        "addon_registration_${env}@addon_registration_${env}":
+        "registration_${env}@registration_${env}":
             configure_permission => '.*',
             read_permission      => '.*',
             write_permission     => '.*',
