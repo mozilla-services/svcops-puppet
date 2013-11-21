@@ -42,14 +42,6 @@ define marketplace::apps::zamboni::celery_instance(
 
     }
 
-    ganglia::plugins::gmetric::rabbitmq{
-        "marketplace_${env}":
-            queues => '-q celery -q images -q devhub -q bulk';
-
-        "addons_${env}":
-            queues => '-q celery -q images -q devhub -q bulk';
-    }
-
     rabbitmq_user {
         "marketplace_${env}":
             admin    => false,
