@@ -26,7 +26,7 @@ define uwsgi::instance(
         $extra_environ = ''
     }
 
-    $real_environ = join(reject([$environ, $extra_environ], ''), ',')
+    $real_environ = join(reject([$environ, $extra_environ], '^$'), ',')
 
     file {
         "${uwsgi::conf_dir}/${app_name}.ini":
