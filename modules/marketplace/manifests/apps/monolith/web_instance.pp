@@ -18,10 +18,10 @@ define marketplace::apps::monolith::web_instance(
             content => template('marketplace/apps/monolith/web/monolith.conf');
     }
 
-    nginx::upstream {
+    nginx::upstream::multiple {
         'monolith-es':
-            upstream_port => '9200',
-            upstream_host => $elasticsearch_endpoint
+            keepalive => true,
+            upstream  => $elasticsearch_endpoint
     }
 
     nginx::logdir {
