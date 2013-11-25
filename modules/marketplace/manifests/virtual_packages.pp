@@ -32,7 +32,7 @@ class marketplace::virtual_packages {
             ensure => '0.21.1-1';
 
         'python27-python':
-            ensure => '2.7.3-1';
+            ensure => '2.7.5-7.el6';
 
         'python27-uwsgi':
             ensure => '1.9.18.2-1';
