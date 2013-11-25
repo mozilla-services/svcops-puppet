@@ -16,8 +16,7 @@ class marketplace::virtual_packages {
         'python-lxml':
             ensure => '2.2.6-1';
 
-        ['python-lxml',
-            'python27-python-lxml']:
+        'python27-python-lxml':
             ensure => '2.2.6-1';
 
         'python27-MySQL-python':
