@@ -55,6 +55,9 @@ class marketplace::virtual_packages {
         'node-uglify-js':
             ensure => '2.2.5-2';
 
+        'tracemonkey':
+            ensure => '27.0-a1';
+
         ['abrt', 'python-setproctitle']:
             ensure => absent;
 
