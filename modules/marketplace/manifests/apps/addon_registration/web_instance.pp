@@ -10,14 +10,19 @@ define marketplace::apps::addon_registration::web_instance(
 ) {
     $config_name = $name
 
+    $app_dir = "${project_dir}/addon_registration"
+    $venv = "${project_dir}/venv"
+    $environ = "CONFIG=${app_dir}/production.ini"
+
     uwsgi::instance {
         $worker_name:
-            app_dir   => "${project_dir}/addon_registration",
+            app_dir   => $app_dir,
             appmodule => $appmodule,
             port      => $port,
-            home      => "${project_dir}/venv",
+            home      => $venv,
             user      => $user,
             workers   => $workers,
+            environ   => $environ,
             scl       => 'python27'
     }
 
