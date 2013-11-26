@@ -23,11 +23,13 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $project_dir = $name
+    $installed_dir = regsubst($project_dir, 'src', 'www')
     git::clone {
         "${project_dir}/monolith-aggregator":
             repo => 'https://github.com/mozilla/monolith-aggregator.git';
 
     }
+    
 
     $log_file = "/var/log/${domain}.log"
 
@@ -41,7 +43,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     cron {
         "aggr-${project_dir}":
             environment => 'MAILTO=amo-developers@mozilla.org',
-            command     => "cd ${project_dir}/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday > ${log_file} 2>&1",
+            command     => "cd ${installed_dir}/current/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --date yesterday > ${log_file} 2>&1",
             user        => $cron_user,
             hour        => 1,
             minute      => 15;
