@@ -9,7 +9,8 @@ define marketplace::apps::solitude::web_instance(
     $settings_module = 'solitude.settings',
     $appmodule = 'wsgi.playdoh:application',
     $is_proxy = false,
-    $newrelic_license_key = ''
+    $newrelic_license_key = '',
+    $scl = undef
 ) {
     $config_name = $name
 
@@ -35,6 +36,7 @@ define marketplace::apps::solitude::web_instance(
             home      => "${project_dir}/venv",
             user      => $user,
             workers   => $workers,
+            scl       => $scl,
             environ   => "DJANGO_SETTINGS_MODULE=${settings_module}${environ}";
     }
 
