@@ -1,5 +1,5 @@
 CLUSTER = '<%= @cluster %>'
-APPNAME = '<%= appname %>'
+APPNAME = '<%= app_name %>'
 DOMAIN = '<%= @domain %>'
 ENV = '<%= @env %>'
 SSH_KEY = '<%= @ssh_key %>'
