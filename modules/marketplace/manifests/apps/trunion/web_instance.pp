@@ -10,6 +10,7 @@ define marketplace::apps::trunion::web_instance(
     $nginx_log_buffer = true,
     $workers = 4
 ) {
+    include marketplace::apps::trunion::packages
 
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/python ${app_dir}/venv/bin/gunicorn"
