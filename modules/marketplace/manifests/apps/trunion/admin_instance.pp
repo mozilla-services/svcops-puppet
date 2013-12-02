@@ -15,7 +15,8 @@ define marketplace::apps::trunion::admin_instance(
     $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
     $project_dir = $name
-    $ssl_dir = "${project_dir}/ssl"
+    $installed_dir = regsubst($project_dir, 'src', 'www')
+    $ssl_dir = "${installed_dir}/ssl"
 
     git::clone {
         "${project_dir}/trunion":
@@ -33,12 +34,5 @@ define marketplace::apps::trunion::admin_instance(
         "${project_dir}/trunion/deploysettings.py":
             require => Git::Clone["${project_dir}/trunion"],
             content => template('marketplace/apps/trunion/deploysettings.py');
-    }
-    dreadnot::stack {
-        $dreadnot_name:
-            instance_name => $dreadnot_instance,
-            project_dir   => "${project_dir}/trunion",
-            github_url    => 'https://github.com/mozilla/trunion',
-            git_url       => 'git://github.com/mozilla/trunion',
     }
 }
