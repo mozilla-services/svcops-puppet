@@ -1,18 +1,19 @@
 # vim: set expandtab ts=2 sw=2 filetype=puppet syntax=puppet:
 define marketplace::apps::trunion::web_instance(
     $gunicorn_name,
-    $port,
     $app_dir,
-    $app_module,
-    $environ,
-    $gunicorn,
-    $nginx_port,
-    $nginx_ssl_port,
+    $app_module = 'trunion.run:application',
+    $port = '10000',
+    $nginx_port = '80',
+    $nginx_ssl_port = '81',
     $nginx_template = 'marketplace/nginx/trunion.conf',
     $nginx_log_buffer = true,
     $workers = 4
 ) {
+
     $app_name = $name
+    $gunicorn = "${app_dir}/venv/bin/python ${app_dir}/venv/bin/gunicorn"
+    $environ = "TRUNION_INI=${app_dir}/trunion/production.ini, LD_LIBRARY_PATH=/opt/nfast/toolkits/hwcrhk"
 
     gunicorn::instance {
         $gunicorn_name:
@@ -24,12 +25,12 @@ define marketplace::apps::trunion::web_instance(
             environ   => $environ;
     }
 
-    nginx_amo::config {
+    nginx::config {
         $app_name:
             content => template($nginx_template);
     }
 
-    nginx_amo::logdir {
+    nginx::logdir {
         $app_name:;
     }
 
