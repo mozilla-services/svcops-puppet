@@ -16,7 +16,7 @@ define marketplace::apps::trunion::admin_instance(
 ) {
     $project_dir = $name
     $installed_dir = regsubst($project_dir, 'src', 'www')
-    $ssl_dir = "${installed_dir}/ssl"
+    $ssl_dir = "${installed_dir}/current/ssl"
     $syslog_name = $app_name
 
     git::clone {
