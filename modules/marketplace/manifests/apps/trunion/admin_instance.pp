@@ -2,7 +2,7 @@
 define marketplace::apps::trunion::admin_instance(
     $cluster,
     $domain,
-    $appname,
+    $app_name,
     $env,
     $keyfile,
     $certfile,
