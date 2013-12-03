@@ -26,7 +26,7 @@ class supervisord::base inherits supervisord::params {
 
     file {
         '/etc/supervisord.conf':
-            source => 'puppet:///modules/supervisord/supervisord.conf',
+            source => 'puppet:///modules/supervisord/supervisord.conf';
             #notify => Service['supervisord'];
 
         '/etc/supervisord.conf.d/':
