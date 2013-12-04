@@ -45,7 +45,7 @@ define marketplace::apps::monolith_aggregator::admin_instance(
             environment => 'MAILTO=amo-developers@mozilla.org',
             command     => "cd ${installed_dir}/current/monolith-aggregator; ../venv/bin/monolith-extract aggregator.ini --log-level ${log_level} --start-date `/bin/date --date='yesterday' +'\%Y-\%m-\%d'` --end-date `/bin/date --date='yesterday' +'\%Y-\%m-\%d'` > ${log_file} 2>&1",
             user        => $cron_user,
-            hour        => 1,
+            hour        => 9,
             minute      => 15;
     }
 
