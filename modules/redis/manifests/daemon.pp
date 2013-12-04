@@ -5,7 +5,8 @@ define redis::daemon(
     $redis_slaveof_ip='', $redis_slaveof_port='',
     $redis_persistent=false,
     $memory_policy='volatile-lru',
-    $bind='127.0.0.1'
+    $bind='127.0.0.1',
+    $maxclients=10000
 ) {
     service {
         "redis-${name}":
