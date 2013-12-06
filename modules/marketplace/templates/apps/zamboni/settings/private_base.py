@@ -16,8 +16,6 @@ GOOGLE_API_CREDENTIALS = '<%= @google_api_credentials %>'
 GRAPHITE_HOST = '<%= graphite_host %>'
 GRAPHITE_PORT = <%= graphite_port %>
 GRAPHITE_PREFIX = '<%= graphite_prefix %>'
-METLOG_CONF_SENDER_HOST = '<%= metlog_conf_sender_host %>'
-METLOG_CONF_SENDER_PORT = <%= metlog_conf_sender_port %>
 NETAPP_STORAGE_ROOT = '<%= netapp_storage_root %>'
 RECAPTCHA_PRIVATE_KEY = '<%= recaptcha_private_key %>'
 RECAPTCHA_PUBLIC_KEY = '<%= recaptcha_public_key %>'
