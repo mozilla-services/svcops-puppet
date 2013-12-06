@@ -44,5 +44,3 @@ WHITELISTED_CLIENTS_EMAIL_API = <%= mkt_whitelisted_clients_email_api %>
 POSTFIX_AUTH_TOKEN = '<%= mkt_postfix_auth_token %>'
 
 IARC_PASSWORD = '<%= mkt_iarc_password %>'
-HEKA_CONF_SENDER_HOST = '<%= heka_conf_sender_host %>'
-HEKA_CONF_SENDER_PORT = <%= heka_conf_sender_port %>

@@ -33,3 +33,5 @@ STATSD_PREFIX = '<%= statsd_prefix %>'
 AES_KEYS = {
     'api:access:secret': '<%= api_access_secret_key %>',
 }
+HEKA_CONF_SENDER_HOST = '<%= heka_conf_sender_host %>'
+HEKA_CONF_SENDER_PORT = <%= heka_conf_sender_port %>

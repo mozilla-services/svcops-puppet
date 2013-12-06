@@ -19,5 +19,3 @@ DOMAIN = '<%= addons_domain %>'
 <% if @addons_static_url -%>
 STATIC_URL = '<%= addons_static_url %>'
 <% end -%>
-HEKA_CONF_SENDER_HOST = '<%= heka_conf_sender_host %>'
-HEKA_CONF_SENDER_PORT = <%= heka_conf_sender_port %>
