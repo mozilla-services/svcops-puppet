@@ -14,7 +14,8 @@ define ssl::resource(
 
   file {
     $ssl_dir:
-      mode => '0755'
+      ensure => directory,
+      mode   => '0755'
   }
 
   file {
