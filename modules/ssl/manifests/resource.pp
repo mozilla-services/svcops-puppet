@@ -4,23 +4,14 @@ define ssl::resource(
     $ssl_dir = '/etc/pki'
 ) {
 
-  $ssl_file = $name
+    $ssl_file = $name
 
-  File {
-    ensure => present,
-    owner  => 'root',
-    group  => 'root'
-  }
-
-  file {
-    $ssl_dir:
-      ensure => directory,
-      mode   => '0755'
-  }
-
-  file {
-    "${ssl_dir}/${ssl_file}":
-      mode    => '0644',
-      content => $content;
-  }
+    file {
+        "${ssl_dir}/${ssl_file}":
+            ensure  => present,
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => $content;
+    }
 }
