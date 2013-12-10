@@ -4,7 +4,7 @@ class hekad(
     $udp_listen_address = '127.0.0.1:5565',
     $cef_address = '127.0.0.1:5565',
     $statsd_address = '127.0.0.1:8125',
-    $version = '0.4.1-0'
+    $version = '0.4.1-1'
 ){
     package {
         'hekad':
