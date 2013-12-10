@@ -8,8 +8,7 @@ class hekad(
 ){
     package {
         'hekad':
-            ensure => $version,
-            notify => Service['hekad'];
+            ensure => $version;
     }
 
     file {
