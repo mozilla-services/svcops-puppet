@@ -1,10 +1,43 @@
 [UdpInput]
 address = "<%= udp_listen_address %>" 
+parser_type = "message.proto"
+decoder = "ProtobufDecoder"
 
-[CounterFilter]
-message_matcher = "Type != 'heka.counter-output'"
-ticker_interval = 1
+[GeneralCounterFilter]
+type="StatFilter"
+stat_accum_input = "StatAccumulator"
+message_matcher = 'Type == "counter"'
 
+[GeneralCounterFilter.Metric.hits]
+type = "Counter"
+name = "stats.%name%"
+value = "%Payload%"
+
+[GeneralTimerFilter]
+type="StatFilter"
+stat_accum_input = "StatAccumulator"
+message_matcher = 'Type == "timer"'
+
+[RequestTimingFilter.Metric.timing]
+type = "Timer"
+name = "stats.%name%"
+value = "%Payload%"
+
+[StatAccumulator]
+type="StatAccumInput"
+emit_in_payload = true
+ticker_interval = 5
+
+[CarbonOutput]
+message_matcher = "Type == 'heka.statmetric'"
+
+# You can comment this block out if you don't want hekad to spew log
+# messages to stdout
 [LogOutput]
-message_matcher = "Type == 'heka.counter-output' || Type == 'heka.all-report'"
-payload_only = true
+message_matcher = "TRUE"
+payload_only = false
+
+[SentryOutput]
+max_udp_sockets = 100
+max_sentry_bytes = 100000
+message_matcher = "Type == 'sentry'"
