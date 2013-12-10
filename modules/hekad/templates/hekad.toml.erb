@@ -18,7 +18,7 @@ type="StatFilter"
 stat_accum_input = "StatAccumulator"
 message_matcher = 'Type == "timer"'
 
-[RequestTimingFilter.Metric.timing]
+[GeneralTimer.Metric.timing]
 type = "Timer"
 name = "stats.%name%"
 value = "%Payload%"
