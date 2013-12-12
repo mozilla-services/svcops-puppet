@@ -20,6 +20,7 @@ class marketplace::apps::zamboni::packages {
                     'python-pylibmc',
                     'python-setproctitle',
                     'python-simplejson',
-                    'tracemonkey'
+                    'tracemonkey',
+                    'umemcache'
     ]
 }
