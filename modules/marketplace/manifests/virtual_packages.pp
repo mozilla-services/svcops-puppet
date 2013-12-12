@@ -76,5 +76,8 @@ class marketplace::virtual_packages {
         ]:
             ensure => absent,
             before => Package['abrt'];
+
+        'umemcache':
+            ensure => '1.6.3-1';
     }
 }
