@@ -8,7 +8,10 @@ class hekad(
 ){
     package {
         'hekad':
-            ensure => $version;
+            ensure => absent;
+        'heka':
+            ensure  => $version,
+            require => Package['hekad'];
     }
 
     file {
