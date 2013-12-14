@@ -4,6 +4,6 @@ class base::profile(
 ) {
     file {
         '/etc/profile.d/timeout.sh':
-            content => "TMOUT=${tmout}";
+            content => "export TMOUT=${tmout}";
     }
 }
