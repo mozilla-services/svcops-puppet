@@ -18,7 +18,6 @@ class marketplace::apps::solitude::packages {
                     'python-pylibmc',
                     'python-setproctitle',
                     'python-simplejson',
-                    'python27-python',
                     'python27-m2crypto',
                     'python27-MySQL-python',
                     'python27-python',
