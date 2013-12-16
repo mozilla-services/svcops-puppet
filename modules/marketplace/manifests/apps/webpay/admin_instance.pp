@@ -29,7 +29,8 @@ define marketplace::apps::webpay::admin_instance(
     $statsd_host = '',
     $statsd_prefix = '',
     $uuid_hmac_key = '',
-    $encrypted_cookie_key = ''
+    $encrypted_cookie_key = '',
+    $scl_name = undef
 ) {
     $app_dir = $name
 
