@@ -8,7 +8,8 @@ define marketplace::apps::webpay::web_instance(
     $timeout = '90',
     $environ = '',
     $newrelic_license_key = '',
-    $user = 'mkt_prod_webpay'
+    $user = 'mkt_prod_webpay',
+    $scl = undef
 ) {
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
@@ -29,6 +30,7 @@ define marketplace::apps::webpay::web_instance(
             home      => "${app_dir}/venv",
             user      => $user,
             workers   => $workers,
+            scl       => $scl,
             environ   => $environ;
     }
 }
