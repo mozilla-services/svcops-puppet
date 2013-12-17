@@ -16,9 +16,15 @@ RETVAL=0
 prog="redis-server"
 
 start() {
+    local bindir
+    bindir="/usr/sbin"
+    if [[ -f "/usr/bin/${prog}" ]] ; then
+        bindir="/usr/bin"
+    fi
+
     ulimit -n 65536
 	echo -n $"Starting $prog: "
-	daemon --user redis --pidfile /var/run/redis/redis-<%= name %>.pid /usr/sbin/$prog /etc/redis/<%= name %>.conf
+	daemon --user redis --pidfile /var/run/redis/redis-<%= name %>.pid "${bindir}/${prog}" /etc/redis/<%= name %>.conf
 	RETVAL=$?
 	echo
 	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog-<%= name %>
