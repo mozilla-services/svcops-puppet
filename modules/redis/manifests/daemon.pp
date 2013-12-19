@@ -26,8 +26,7 @@ define redis::daemon(
 
         "/etc/redis/${name}.conf":
             require => File['/etc/redis'],
-            content => template("redis/${config_name}"),
-            notify  => Service["redis-${name}"];
+            content => template("redis/${config_name}");
 
         "/etc/init.d/redis-${name}":
             mode    => '0755',
