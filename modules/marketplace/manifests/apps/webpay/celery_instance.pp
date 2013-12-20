@@ -20,11 +20,11 @@ define marketplace::apps::webpay::celery_instance(
         workers => $workers,
         user    => $user,
         environ => $environ,
-        scl     => $scl,
     }
 
     celery::service {
-        "webpay-${env}":;
+        "webpay-${env}":
+            scl => $scl;
     }
 
     rabbitmq_user {
