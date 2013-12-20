@@ -7,7 +7,8 @@ define celery::service (
     $python = '/usr/bin/python',
     $environ = '',
     $log_level = 'INFO',
-    $args = ''
+    $args = '',
+    $scl = undef
 ) {
     include supervisord::base
 
@@ -22,13 +23,19 @@ define celery::service (
       $celery_command = "${python} ${app_dir}/manage.py celeryd --loglevel=${log_level} -c ${workers} ${args}"
     }
 
+    if $scl {
+        $extra_environ = "LD_LIBRARY_PATH=/opt/rh/${scl}/root/usr/lib64,PATH=/opt/rh/${scl}/root/usr/bin:/sbin:/usr/sbin:/bin:/usr/bin"
+    }
+
+    $real_environ = join(reject([$environ, $extra_environ], '^$'), ',')
+
     $celery_name = $name
 
     supervisord::service {
         "celeryd-${celery_name}":
             command => $celery_command,
             app_dir => $app_dir,
-            environ => $environ,
+            environ => $real_environ,
             user    => $user;
     }
 }
