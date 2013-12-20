@@ -4,6 +4,7 @@ define marketplace::apps::webpay::celery_instance(
     $webpay_password = undef,
     $env = 'prod',
     $workers = '12',
+    $scl = undef,
     $user = $marketplace_private::mkt::any::prod::params::mkt_user
 ){
 
@@ -19,6 +20,7 @@ define marketplace::apps::webpay::celery_instance(
         workers => $workers,
         user    => $user,
         environ => $environ,
+        scl     => $scl,
     }
 
     celery::service {
