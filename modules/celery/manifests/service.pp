@@ -25,6 +25,8 @@ define celery::service (
 
     if $scl {
         $extra_environ = "LD_LIBRARY_PATH=/opt/rh/${scl}/root/usr/lib64,PATH=/opt/rh/${scl}/root/usr/bin:/sbin:/usr/sbin:/bin:/usr/bin"
+    } else {
+        $extra_environ = ""
     }
 
     $real_environ = join(reject([$environ, $extra_environ], '^$'), ',')
