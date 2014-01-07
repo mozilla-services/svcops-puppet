@@ -19,6 +19,12 @@ define marketplace::nginx::addons(
             content => template($template_file);
     }
 
+    nginx::config {
+        "${config_name}-sdkredirects":
+            content => template('marketplace/nginx/addons/sdk_redirects.conf'),
+            suffix  => '.include';
+    }
+
     nginx::logdir {
         $config_name:;
     }
