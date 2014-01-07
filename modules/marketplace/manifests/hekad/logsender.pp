@@ -6,6 +6,6 @@ class marketplace::hekad::logsender(
     hekad::instance {
         'marketplace-logsender':
             config  => template('marketplace/hekad/logsender.toml'),
-            hekabin => '/usr/bin/hekad3';
+            hekabin => '/usr/bin/hekad';
     }
 }
