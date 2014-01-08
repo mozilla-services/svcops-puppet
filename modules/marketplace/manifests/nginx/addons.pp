@@ -7,7 +7,6 @@ define marketplace::nginx::addons(
     $webroot, # /data/www/addons.mozilla.org
     $cdn_hostname, # addons.cdn.mozilla.net
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
-    $sdk_root, # /data/www/addons.mozilla.org-sdk-docs/addon-sdk-sdocs/sdk
     $versioncheck_url = 'https://versioncheck.addons.mozilla.org',
     $template_file = 'marketplace/nginx/addons.conf',
     $addons_redirect_names = undef # should be a list of domains that should be redirected to $config_name
