@@ -1,0 +1,16 @@
+<%= pool_name %>:
+  listen: <%= listen %>
+  hash: <%= twemproxy_hash %>
+  distribution: <%= distribution %>
+  timeout: <%= server_timeout %>
+  backlog: <%= listen_backlog %>
+  redis: <%= redis %>
+  preconnect: <%= preconnect %>
+  auto_eject_hosts: <%= auto_eject_hosts %>
+  server_retry_timeout: <%= server_retry_timeout %>
+  server_failure_limit: <%= server_failure_limit %>
+  server_connections: <%= server_connections %>
+  servers:
+    <%- servers.each do |server| -%>
+    - <%= server %>
+    <%- end -%>
