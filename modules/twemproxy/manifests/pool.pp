@@ -4,7 +4,7 @@ define twemproxy::pool(
     $config_file,
     $twemproxy_hash = 'fnv1a_64',
     $distribution = 'ketama',
-    $server_timeout = '-1',
+    $server_timeout = '1000',
     $listen_backlog = '512',
     $redis = 'false',
     $preconnect = 'false',
