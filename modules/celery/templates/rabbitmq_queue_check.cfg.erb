@@ -1,0 +1,1 @@
+command[check_rabbitmq_queue]=/usr/<%= scope.lookupvar('::archlib') %>/nagios/plugins/custom/rabbitmq_queue_check.py -s localhost -q $ARG1$ --vhost $ARG2$ --user $ARG3$ --password $ARG4$ --warn $ARG5$ --critical $ARG6$
