@@ -24,6 +24,7 @@ class marketplace::apps::zamboni::packages {
                     'python27-MySQL-python',
                     'python27-python',
                     'python27-python-lxml',
+                    'python27-uwsgi',
                     'tracemonkey',
                     'umemcache'
     ]
