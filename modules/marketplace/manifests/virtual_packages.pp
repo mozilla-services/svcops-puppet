@@ -26,7 +26,7 @@ class marketplace::virtual_packages {
             ensure => '0.15-1';
 
         'python-pylibmc':
-            ensure => '1.2.3-2';
+            ensure => '1.2.3-4';
 
         'python27-m2crypto':
             ensure => '0.21.1-1';
