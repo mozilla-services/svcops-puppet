@@ -12,13 +12,14 @@ class base::yum {
     }
 
     yumrepo { 'mozilla-mkt':
-        baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-mkt',
-        descr          => 'Mozilla Marketplace Packages',
-        enabled        => 1,
-        priority       => 1,
-        gpgcheck       => 0,
-        cost           => '50',
-        failovermethod => priority,
+        baseurl         => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-mkt',
+        descr           => 'Mozilla Marketplace Packages',
+        enabled         => 1,
+        priority        => 1,
+        metadata_expire => 60,
+        gpgcheck        => 0,
+        cost            => '50',
+        failovermethod  => priority,
     }
 
     yumrepo { 'puppetlabs':
