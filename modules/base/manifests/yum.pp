@@ -5,7 +5,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-services',
         descr          => 'Mozilla Services Packages',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         exclude        => 'Percona-*',
         failovermethod => priority,
@@ -15,6 +15,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-mkt',
         descr          => 'Mozilla Marketplace Packages',
         enabled        => 1,
+        priority       => 1,
         gpgcheck       => 0,
         cost           => '50',
         failovermethod => priority,
@@ -24,7 +25,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.puppetlabs',
         descr          => 'Puppet Labs Products El 6 - $basearch',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
@@ -33,7 +34,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.puppetlabs-dependencies',
         descr          => 'Puppet Labs Dependencies El 6 - $basearch',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
@@ -42,7 +43,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.epel',
         descr          => 'EPEL',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
@@ -90,7 +91,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.mariadb55',
         descr          => 'MariaDB packages',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
@@ -99,7 +100,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.percona',
         descr          => 'Percona packages',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
@@ -108,7 +109,7 @@ class base::yum {
         baseurl        => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.mozilla-mysql',
         descr          => 'Percona packages',
         enabled        => 1,
-        priority       => 1,
+        priority       => 2,
         gpgcheck       => 0,
         failovermethod => priority,
     }
