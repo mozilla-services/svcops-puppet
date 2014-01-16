@@ -1,6 +1,23 @@
 # class base yum
 class base::yum {
     include base::yum::conf
+
+    yumrepo {
+        'rhel-source':
+            descr    => 'Red Hat Enterprise Linux $releasever - $basearch - Source',
+            baseurl  => 'ftp://ftp.redhat.com/pub/redhat/linux/enterprise/$releasever/en/os/SRPMS/',
+            enabled  => 0,
+            gpgcheck => 1,
+            gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+
+        'rhel-source-beta':
+            descr    => 'Red Hat Enterprise Linux $releasever Beta - $basearch - Source',
+            baseurl  => 'ftp://ftp.redhat.com/pub/redhat/linux/beta/$releasever/en/os/SRPMS/',
+            enabled  => 0,
+            gpgcheck => 1,
+            gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-beta,file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+    }
+
     yumrepo { 'mozilla-services':
         baseurl        => 'https://mrepo.mozilla.org/mrepo/6-$basearch/RPMS.mozilla-services',
         descr          => 'Mozilla Services Packages',
