@@ -41,18 +41,20 @@ exports.run = function(dreadnot) {
         i;
 
     if(deployment.user !== 'webdeployer') {
-      notify(msg); 
+      notify(msg);
     }
 
     dreadnot.emitter.once(endPath, function(success) {
       var stackConfig = dreadnot.config.stacks[deployment.stack];
       git.revParse(stackConfig.project_dir, deployment.to_revision, function(err, gitRef) {
-        var endMsg = sprintf('<%%s> %s:%s to %s:%s %s', deployment.deployment, deployment.stack, git.trimRevision(gitRef), dreadnot.config.env,
-                              deployment.region, success ? irc.colors.wrap('light_green', 'OK') : irc.colors.wrap('dark_red', 'FAIL'));
-        if(!success) {
-          endMsg = sprintf('%s - %s', endMsg, link);
-        }
+        git.commitMsg(stackConfig.project_dir, gitRef, function(err, gitMsg) {
+          var endMsg = sprintf('<%s> %s:%s %s to %s:%s %s', deployment.deployment, deployment.stack, git.trimRevision(gitRef), gitMsg, dreadnot.config.env,
+                                deployment.region, success ? irc.colors.wrap('light_green', 'OK') : irc.colors.wrap('dark_red', 'FAIL'));
+          if(!success) {
+            endMsg = sprintf('%s - %s', endMsg, link);
+          }
         notify(endMsg);
+        });
       });
     });
   });
