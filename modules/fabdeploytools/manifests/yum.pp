@@ -1,10 +1,9 @@
 # fabdeploytools::yum
 class fabdeploytools::yum(
-    $package_server,
-    $env
+    $package_server
 ) {
     yumrepo { 'deploytools':
-        baseurl        => "http://${package_server}/${env}",
+        baseurl        => $package_server,
         descr          => 'Deploytools Repo',
         enabled        => 1,
         priority       => 2,
