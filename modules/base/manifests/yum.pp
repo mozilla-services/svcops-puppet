@@ -89,7 +89,7 @@ class base::yum {
     @yumrepo { 'rpmforge-extras':
       baseurl  => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.rpmforge-extras',
       descr    => 'Red Hat Enterprise $releasever - RPMforge.net - extras',
-      enabled  => '1',
+      enabled  => '0',
       protect  => '0',
       gpgkey   => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag',
       gpgcheck => '1',
