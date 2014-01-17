@@ -12,5 +12,5 @@
   server_connections: <%= server_connections %>
   servers:
     <%- servers.each do |server| -%>
-    - <%= server %>
+    - '<%= server %>'
     <%- end -%>

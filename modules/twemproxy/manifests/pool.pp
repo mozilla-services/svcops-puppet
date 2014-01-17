@@ -1,6 +1,6 @@
 # add a pool to a twemproxy config.
 define twemproxy::pool(
-    $config_file,
+    $server_name,
     $servers = [],
     $listen = '127.0.0.1:22122',
     $twemproxy_hash = 'fnv1a_64',
@@ -15,10 +15,11 @@ define twemproxy::pool(
     $server_connections = '1'
 )
 {
+    include twemproxy
     $pool_name = $name
     concat::fragment {
         "twemproxypool:${pool_name}":
-            target  => $config_file,
+            target  => "${twemproxy::config_dir}/${server_name}.yml",
             content => template('twemproxy/pool.yaml');
     }
 }
