@@ -1,14 +1,15 @@
 # start a twemproxy server.
 define twemproxy::server(
-    $pools
+    $pools = {},
 ) {
+    include twemproxy
     include concat::setup
 
     $server_name = $name
     $service_name = "twemproxy-${server_name}"
-    $config_file = "/etc/nutcracker/${server_name}.yml"
+    $config_file = "${twemproxy::config_dir}/${server_name}.yml"
     $pool_defaults = {
-        'config_file' => $config_file,
+        'server_name' => $server_name,
         'before'      => Supervisord::Service[$service_name]
     }
 
