@@ -1,6 +1,7 @@
 # start a twemproxy server.
 define twemproxy::server(
     $pools = {},
+    $stats_port = 22222
 ) {
     include twemproxy
     include concat::setup
@@ -24,7 +25,7 @@ define twemproxy::server(
 
     supervisord::service {
         $service_name:
-            command => "/usr/sbin/nutcracker -c \"${config_file}\"",
+            command => "/usr/sbin/nutcracker -c \"${config_file}\" -s ${stats_port}",
             app_dir => '/tmp',
             user    => 'nobody';
     }
