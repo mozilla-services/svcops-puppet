@@ -6,6 +6,7 @@ class elasticsearch::config(
     $es_data_path = '/var/lib/elasticsearch',
     $expected_nodes = '3',
     $nofile_limit = '65535',
+    $memlock_limit = 'unlimited',
     $cache_filter_size = '20%',
     $memory_size = ''
 ){
@@ -38,7 +39,7 @@ class elasticsearch::config(
             owner   => 'root',
             group   => 'root',
             mode    => '0644',
-            content => "# THIS FILE MANAGED BY PUPPET.\n${elasticsearch::user} soft nofile ${nofile_limit}\n${elasticsearch::user} hard nofile ${nofile_limit}\n";
+            content => template('elasticsearch/limits.conf');
     }
 
     file {
