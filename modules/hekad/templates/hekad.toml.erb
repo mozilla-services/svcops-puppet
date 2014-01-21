@@ -6,6 +6,12 @@ address = "<%= udp_listen_address %>"
 parser_type = "message.proto"
 decoder = "ProtobufDecoder"
 
+[StatAccumulator]
+type="StatAccumInput"
+emit_in_payload = true
+emit_in_fields = true
+ticker_interval = 5
+
 [GeneralCounterFilter]
 type="StatFilter"
 stat_accum_input = "StatAccumulator"
@@ -28,12 +34,7 @@ value = "%Payload%"
 
 [StatsdInput]
 address = "<%= @statsd_address %>"
-
-[StatAccumulator]
-type="StatAccumInput"
-emit_in_payload = true
-emit_in_fields = true
-ticker_interval = 5
+stat_accum_name = 'StatAccumulator'
 
 [CarbonOutput]
 message_matcher = "Type == 'heka.statmetric'"
