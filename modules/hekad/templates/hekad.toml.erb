@@ -1,3 +1,6 @@
+[hekad]
+maxprocs = 2  # # of cores heka can use
+
 [UdpInput]
 address = "<%= udp_listen_address %>" 
 parser_type = "message.proto"
@@ -23,21 +26,32 @@ type = "Timer"
 name = "stats.%name%"
 value = "%Payload%"
 
+[StatsdInput]
+address = "<%= @statsd_address %>"
+
 [StatAccumulator]
 type="StatAccumInput"
 emit_in_payload = true
+emit_in_fields = true
 ticker_interval = 5
 
 [CarbonOutput]
 message_matcher = "Type == 'heka.statmetric'"
+address = "<%= carbon_output_address %>"
 
+<% if @log_output -%>
 # You can comment this block out if you don't want hekad to spew log
 # messages to stdout
 [LogOutput]
 message_matcher = "TRUE"
 payload_only = false
+<% end -%>
 
 [SentryOutput]
 max_udp_sockets = 100
 max_sentry_bytes = 100000
 message_matcher = "Type == 'sentry'"
+
+[DashboardOutput]
+ticker_interval = 5
+static_directory = "/usr/share/heka/dasher"
