@@ -16,8 +16,7 @@ class hekad(
         'hekad3':
             ensure => absent;
         'heka':
-            ensure  => $version,
-            require => Package['hekad'];
+            ensure  => $version;
     }
 
 }
