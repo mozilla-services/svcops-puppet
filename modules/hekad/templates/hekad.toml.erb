@@ -12,26 +12,6 @@ emit_in_payload = true
 emit_in_fields = true
 ticker_interval = 5
 
-[GeneralCounterFilter]
-type="StatFilter"
-stat_accum_input = "StatAccumulator"
-message_matcher = 'Type == "counter"'
-
-[GeneralCounterFilter.Metric.hits]
-type = "Counter"
-name = "stats.%name%"
-value = "%Payload%"
-
-[GeneralTimerFilter]
-type="StatFilter"
-stat_accum_input = "StatAccumulator"
-message_matcher = 'Type == "timer"'
-
-[GeneralTimerFilter.Metric.timing]
-type = "Timer"
-name = "stats.%name%"
-value = "%Payload%"
-
 [StatsdInput]
 address = "<%= @statsd_address %>"
 stat_accum_name = 'StatAccumulator'
