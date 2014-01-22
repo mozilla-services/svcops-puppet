@@ -1,29 +1,23 @@
 # hekad
 class hekad(
-    $log_dir = '/var/log/hekad',
-    $udp_listen_address = '127.0.0.1:5565',
-    $cef_address = '127.0.0.1:5565',
-    $statsd_address = '127.0.0.1:8125',
-    $carbon_output_address = '127.0.0.1:2003',
-    $log_output = false,
-    $version = '0.4.3-1'
-){
+    $config_dir = $hekad::params::config_dir,
+    $version = $hekad::params::version,
+) inherits hekad::params {
+    file {
+        $config_dir:
+            ensure  => directory,
+            purge   => true,
+            recurse => true;
+        ['/var/cache/hekad', '/var/cache/hekad/seekjournals']:
+            ensure => directory;
+    }
+
     package {
-        'hekad':
+        'hekad3':
             ensure => absent;
         'heka':
             ensure  => $version,
             require => Package['hekad'];
     }
 
-    file {
-        $log_dir:
-            ensure => directory;
-
-    }
-
-    hekad::instance {
-        'hekad':
-            config => template('hekad/hekad.toml.erb');
-    }
 }

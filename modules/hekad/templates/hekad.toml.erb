@@ -2,7 +2,7 @@
 maxprocs = 2  # # of cores heka can use
 
 [UdpInput]
-address = "<%= udp_listen_address %>" 
+address = "<%= @udp_listen_address %>"
 parser_type = "message.proto"
 decoder = "ProtobufDecoder"
 
@@ -38,7 +38,7 @@ stat_accum_name = 'StatAccumulator'
 
 [CarbonOutput]
 message_matcher = "Type == 'heka.statmetric'"
-address = "<%= carbon_output_address %>"
+address = "<%= @carbon_output_address %>"
 
 <% if @log_output -%>
 # You can comment this block out if you don't want hekad to spew log

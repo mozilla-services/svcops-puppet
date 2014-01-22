@@ -1,5 +1,5 @@
 [mktnginxdecoder]
-type = "LoglineDecoder"
+type = "PayloadRegexDecoder"
 match_regex = '^(?P<RemoteIP>(?:\d{1,3}\.){3}\d{1,3}) (?P<Host>\S+) \S+ \[(?P<Timestamp>\d\d/\w{3}/\d{4}:\d\d:\d\d:\d\d) \+\d+\] "(?P<Method>\w+) (?P<Url>\S+) HTTP.+?" (?P<StatusCode>\d+) (?P<Bytes>\d+) "(?P<Referer>.+?)" "(?P<UserAgent>.+?)" .*"DNT:(?P<DNT>.+?)" "X-MOZ-B2G-DEVICE:(?P<XMOZDevice>.*) X-MOZ-B2G-MCC:(?P<XMOZMcc>.*) X-MOZ-B2G-MNC:(?P<XMOZMnc>.*) X-MOZ-B2G-SHORTNAME:(?P<XMOZShortname>.*) X-MOZ-B2G-LONGNAME:(?P<XMOZLongname>.*)"'
 timestamp_layout = '02/Jan/2006:15:04:05'
 
@@ -25,7 +25,7 @@ Payload = ""
 type = "LogfileInput"
 logfile = "/var/log/nginx/marketplace.firefox.com/metrics.log"
 logger = "nginx-metrics-mkt-prod"
-decoders = ["mktnginxdecoder"]
+decoder = "mktnginxdecoder"
 
 [output]
 type = "AMQPOutput"

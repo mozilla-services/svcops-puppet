@@ -4,18 +4,19 @@ define hekad::instance(
     $hekabin = '/usr/bin/hekad'
 ) {
     $heka_name = $name
-    include hekad::params
+    include hekad
+
     file {
-        "${hekad::params::config_dir}/${heka_name}.toml":
-            require => Class['hekad::params'],
+        "${hekad::config_dir}/${heka_name}.toml":
+            require => Class['hekad'],
             content => $config;
     }
 
     supervisord::service {
         "hekad-${heka_name}":
             user    => 'root',
-            command => "${hekabin} -config=${hekad::params::config_dir}/${heka_name}.toml",
+            command => "${hekabin} -config=${hekad::config_dir}/${heka_name}.toml",
             app_dir => '/tmp',
-            require => File["${hekad::params::config_dir}/${heka_name}.toml"];
+            require => File["${hekad::config_dir}/${heka_name}.toml"];
     }
 }
