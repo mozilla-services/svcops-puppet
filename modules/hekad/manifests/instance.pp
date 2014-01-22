@@ -9,7 +9,7 @@ define hekad::instance(
     file {
         "${hekad::config_dir}/${heka_name}.toml":
             require => Class['hekad'],
-            content => template($config);
+            content => $config;
     }
 
     supervisord::service {
