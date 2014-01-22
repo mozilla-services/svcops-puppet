@@ -18,4 +18,14 @@ class base::packages {
             ensure => latest;
 
     }
+
+    ##http://h10025.www1.hp.com/ewfrf/wc/document?cc=us&lc=en&docname=c03465358
+    package {
+        [
+            'glibc.i686',
+            'libstdc++.i686',
+            'libstdc++'
+        ]:
+            ensure => latest;
+    }
 }
