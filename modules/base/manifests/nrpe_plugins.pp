@@ -9,7 +9,7 @@ class base::nrpe_plugins ($plugins = []) {
                 'check_ro_mounts',
                 'ntp_time_multi',
                 'puppet_update',
-                'uptime',
+                'uptime'
                 ])
   # additional plugins via hiera
   realize(Nrpe::Plugin[$plugins])
