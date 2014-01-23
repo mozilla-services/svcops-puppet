@@ -1,11 +1,11 @@
 # Define settings and supervisor for zambonidashboard
 define marketplace::apps::zambonidashboard(
     $installdir,
+    $domain, # dashboard.example.com
     $settings, # content of settings file.
     $port,
-    $apache_domain = undef,
+    $webserver = 'httpd', ## nginx or httpd
     $user = 'apache',
-    $use_nginx = true
 ) {
     $dash_name = $name
     file {
@@ -19,18 +19,29 @@ define marketplace::apps::zambonidashboard(
             user           => $user,
             appmodule      => 'zamboni_dashboard:app',
             appdir         => $installdir,
-            nginx_upstream => $use_nginx,
             gunicorn       => "${installdir}/venv/bin/gunicorn";
     }
 
-    if $apache_domain {
+    # add nginx configs to host
+    if $webserver == 'nginx' {
+        $upstream = $dash_name
+        nginx::upstream {
+            $upstream:
+                upstream_port => $port,
+                require       => Supervisord::Service[$name];
+        }
+        nginx::serverproxy {
+            $domain:
+                proxyto => "http://${upstream}";
+        }
+    }
+    elsif $webserver == 'httpd' {
         apache::vserverproxy {
-            $apache_domain:
+            $domain:
                 proxyto => "http://localhost:${port}";
 
         }
     }
-
     supervisord::service {
         "${dash_name}-fetch-nagios-status":
             command => "${installdir}/venv/bin/python manage.py fetch_nagios_state",
