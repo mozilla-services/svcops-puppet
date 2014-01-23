@@ -4,11 +4,12 @@ class base::nrpe_plugins ($plugins = []) {
   # base plugins
   realize(
     Nrpe::Plugin[
+                'auditd'
                 'check_puppet',
+                'check_ro_mounts',
+                'ntp_time_multi',
                 'puppet_update',
                 'uptime',
-                'check_ro_mounts',
-                'auditd'
                 ])
   # additional plugins via hiera
   realize(Nrpe::Plugin[$plugins])
