@@ -28,7 +28,7 @@ define marketplace::apps::zambonidashboard(
         nginx::upstream {
             $upstream:
                 upstream_port => $port,
-                require       => Supervisord::Service[$name];
+                require       => Gunicorn::Instance[$name];
         }
         nginx::serverproxy {
             $domain:
@@ -38,7 +38,8 @@ define marketplace::apps::zambonidashboard(
     elsif $webserver == 'httpd' {
         apache::vserverproxy {
             $domain:
-                proxyto => "http://localhost:${port}";
+                proxyto => "http://localhost:${port}",
+                require => Gunicorn::Instance[$name];
 
         }
     }
