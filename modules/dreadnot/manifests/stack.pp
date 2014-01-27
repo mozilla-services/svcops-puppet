@@ -5,6 +5,7 @@ define dreadnot::stack(
     $git_url = '',
     $github_url = '',
     $region = 'phx1',
+    $tip = 'master',
     $commander_script = undef,
     $stack = template('dreadnot/standardstack.js')
 ) {
