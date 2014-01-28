@@ -2,7 +2,7 @@
 class sentry {
     package {
         'sentry':
-            ensure => '5.4.5-2';
+            ensure => '6.4.4-1';
         'python-eventlet':
             ensure => 'latest';
     }
