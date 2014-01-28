@@ -2,6 +2,7 @@
 define outgoing_redirector::instance(
     $addr,
     $secret_key,
+    $nginx_server_name
 ) {
     include outgoing_redirector
 
@@ -12,4 +13,10 @@ define outgoing_redirector::instance(
         user    => 'nobody',
         require => Package['outgoing-redirector']
     }
+
+    nginx::config { $nginx_server_name:
+        content => template('outgoing_redirector/nginx.conf');
+    }
+
+    nginx::logdir { $nginx_server_name: }
 }
