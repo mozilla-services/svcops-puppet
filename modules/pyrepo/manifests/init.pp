@@ -5,9 +5,9 @@ class pyrepo(
 
     file {
         '/data/pyrepo':
-            owner => 'root',
-            group => 'users',
-            mode => '1775',
+            owner  => 'root',
+            group  => 'users',
+            mode   => '1775',
             ensure => 'directory';
     }
 
