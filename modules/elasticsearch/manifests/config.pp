@@ -25,7 +25,6 @@ class elasticsearch::config(
     file {
         [
             '/var/log/elasticsearch',
-            '/var/lib/elasticsearch',
             '/var/run/elasticsearch',
             $es_data_path,
         ]:
