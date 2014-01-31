@@ -28,6 +28,10 @@ define marketplace::apps::zamboni::celery_instance(
         "addons-${env}-devhub":
             args => '-Q devhub,images --maxtasksperchild=50';
 
+        "addons-${env}-limited":
+            args    => '-Q limited --maxtasksperchild=50',
+            workers => '2';
+
         "addons-${env}-priority":
             args => '-Q priority,bulk';
 
@@ -36,6 +40,10 @@ define marketplace::apps::zamboni::celery_instance(
 
         "marketplace-${env}-priority":
             args => '-Q priority,bulk --settings=settings_local_mkt';
+
+        "marketplace-${env}-limited":
+            args    => '-Q limited --settings=settings_local_mkt',
+            workers => '2';
 
         "marketplace-${env}-devhub":
             args => '-Q devhub,images --settings=settings_local_mkt';
