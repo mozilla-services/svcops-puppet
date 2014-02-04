@@ -4,10 +4,11 @@ class dreadnot(
     $root = '/opt/dreadnot'
 ){
     include dreadnot::plugins
+
     $instance_root = "${root}/instances"
-    package {
-        'dreadnot':
-            ensure => $version;
+
+    package { 'dreadnot':
+        ensure => $version,
     }
     file {
         $instance_root:
@@ -15,6 +16,7 @@ class dreadnot(
             require => Package['dreadnot'],
             purge   => true,
             recurse => true;
+
         '/var/dreadnot':
             ensure => directory;
     }
