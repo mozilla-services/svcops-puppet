@@ -6,11 +6,11 @@
 # @author Jeremy Orem <oremj@mozilla.com>
 # 
 
-NAME="<%= name %>"
+NAME="<%= @name %>"
 PROG_NAME=$NAME
 SUPERVISOR=/usr/bin/supervisorctl
-<% if not environ.empty? -%>
-export <%= environ %>
+<% if not @environ.empty? -%>
+export <%= @environ %>
 <% end -%>
 
 # Source function library.
@@ -52,8 +52,8 @@ _graceful() {
 }
 
 graceful() {
-    <% if not configtest_command.empty? -%>
-    <%= configtest_command %> && _graceful
+    <% if not @configtest_command.empty? -%>
+    <%= @configtest_command %> && _graceful
     <% else -%>
     _graceful
     <% end -%>

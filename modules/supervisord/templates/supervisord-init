@@ -18,8 +18,8 @@
 
 RETVAL=0
 
-<% if ulimit %>
-ulimit <%= ulimit %>
+<% if @ulimit %>
+ulimit <%= @ulimit %>
 <% end %>
 
 start() {
