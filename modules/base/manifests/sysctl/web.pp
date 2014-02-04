@@ -14,5 +14,7 @@ class base::sysctl::web {
             value => '16777216';
         'net.core.wmem_max':
             value =>'16777216';
+        'net.ipv4.ip_local_port_range':
+            value => '12000 64000';
     }
 }
