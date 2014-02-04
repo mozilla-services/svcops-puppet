@@ -4,7 +4,7 @@ exports.config = {
     env: '<%= @env %>',
     data_root: '<%= @data_root %>',
     htpasswd_file: '<%= @root %>/htpasswd',
-    secure: '<%= @secure %>',
+    secure: <%= @secure %>,
     login_required: true,
     unauthorized_read: true,
     stacks: {
