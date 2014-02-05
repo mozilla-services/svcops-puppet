@@ -4,8 +4,8 @@ define marketplace::apps::zambonidashboard(
     $domain, # dashboard.example.com
     $settings, # content of settings file.
     $port,
-    $webserver = 'httpd', ## nginx or httpd
-    $user = 'apache',
+    $webserver = 'httpd', ## nginx, httpd, false
+    $user = 'apache'
 ) {
     $dash_name = $name
     file {
@@ -35,7 +35,7 @@ define marketplace::apps::zambonidashboard(
                 proxyto => "http://${upstream}";
         }
     }
-    elsif $webserver == 'httpd' {
+    if $webserver == 'httpd' {
         apache::vserverproxy {
             $domain:
                 proxyto => "http://localhost:${port}",
