@@ -13,17 +13,9 @@ define marketplace::apps::zambonidashboard(
             content => $settings;
     }
 
-    gunicorn::instance {
-        $dash_name:
-            port           => $port,
-            user           => $user,
-            appmodule      => 'zamboni_dashboard:app',
-            appdir         => $installdir,
-            gunicorn       => "${installdir}/venv/bin/gunicorn";
-    }
-
     # add nginx configs to host
     if $webserver == 'nginx' {
+        $nginx_upstream = true
         $upstream = $dash_name
         nginx::upstream {
             $upstream:
@@ -36,6 +28,7 @@ define marketplace::apps::zambonidashboard(
         }
     }
     if $webserver == 'httpd' {
+        $nginx_upstream = false
         apache::vserverproxy {
             $domain:
                 proxyto => "http://localhost:${port}",
@@ -43,6 +36,17 @@ define marketplace::apps::zambonidashboard(
 
         }
     }
+
+    gunicorn::instance {
+        $dash_name:
+            port           => $port,
+            user           => $user,
+            appmodule      => 'zamboni_dashboard:app',
+            appdir         => $installdir,
+            nginx_upstream => $nginx_upstream,
+            gunicorn       => "${installdir}/venv/bin/gunicorn";
+    }
+
     supervisord::service {
         "${dash_name}-fetch-nagios-status":
             command => "${installdir}/venv/bin/python manage.py fetch_nagios_state",
