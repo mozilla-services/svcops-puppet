@@ -37,3 +37,17 @@ message_matcher = "Type == 'sentry'"
 [DashboardOutput]
 ticker_interval = 5
 static_directory = "/usr/share/heka/dasher"
+
+[sbxmgr_ctrl_input]
+type = "TcpInput"
+parser_type = "message.proto"
+decoder = "ProtobufDecoder"
+address = "0.0.0.0:5566"
+    [sbx_ctrl_input.signer.dev_0]
+    hmac_key = "wedShipDednaptOgejhoHydif"
+
+[dev_sbxmgr]
+type = "SandboxManagerFilter"
+message_signer = "dev"
+message_matcher = "Type == 'heka.control.sandbox'"
+max_filters = 100
