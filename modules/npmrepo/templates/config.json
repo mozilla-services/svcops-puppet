@@ -1,0 +1,11 @@
+{
+    "http_port": <%= @port %>,
+    "server_address": "localhost",
+
+    "upstream_host": "registry.npmjs.org",
+    "upstream_port": 80,
+
+    "cache_dir": "<%= @cache_dir %>",
+    "cache_mem": <%= @cache_mem %>
+
+}
