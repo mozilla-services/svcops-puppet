@@ -1,6 +1,6 @@
 # npmrepo
 class npmrepo(
-    $domain,
+    $server_name,
     $app_dir = '/opt/npm_lazy_mirror',
     $worker_name = 'npm_lazy_mirror'
 ){
@@ -17,7 +17,7 @@ class npmrepo(
     }
 
     nginx::serverproxy {
-        $domain:
+        $server_name:
             proxyto => "http://${upstream}";
     }
 
