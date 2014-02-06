@@ -1,5 +1,6 @@
 # npm repo config
 class npmrepo::config(
+  $server_name, 
   $port = '10000',
   $cache_dir = '/data/npmrepo',
   $cache_mem = '128',

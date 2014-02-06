@@ -8,7 +8,11 @@ class npmrepo(
     $upstream = $worker_name
 
     include npmrepo::packages
-    include npmrepo::config
+
+    class {
+        'npmrepo::config':
+            server_name => $server_name;
+    }
 
     nginx::upstream {
         $upstream:
@@ -23,12 +27,12 @@ class npmrepo(
 
     supervisord::service {
         $worker_name:
-            command => "${app_dir}/bin/npm-lazy-mirror -C ${npmrepo::config::config_file}",
+            command => "/usr/bin/node ${app_dir}/server.js -C ${npmrepo::config::config_file} --real_external_port 443 --upstream_use_https",
             app_dir => $app_dir,
             user    => 'nobody',
             require => [
-                        Class['npmrepo::config'],
-                        Class['npmrepo::packages'],
+                Class['npmrepo::config'],
+                Class['npmrepo::packages'],
             ];
     }
 

@@ -1,6 +1,6 @@
 {
     "http_port": <%= @port %>,
-    "server_address": "localhost",
+    "server_address": "<%= @server_name %>",
 
     "upstream_host": "registry.npmjs.org",
     "upstream_port": 80,
