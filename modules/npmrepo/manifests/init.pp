@@ -1,8 +1,8 @@
 # npmrepo
 class npmrepo(
     $server_name,
-    $app_dir = '/opt/npm_lazy_mirror',
-    $worker_name = 'npm_lazy_mirror'
+    $app_dir = '/opt/npm-lazy-mirror',
+    $worker_name = 'npm-lazy-mirror'
 ){
 
     $upstream = $worker_name
@@ -23,7 +23,7 @@ class npmrepo(
 
     supervisord::service {
         $worker_name:
-            command => "${app_dir}/bin/npm_lazy_mirror -C ${npmrepo::config::config_file}",
+            command => "${app_dir}/bin/npm-lazy-mirror -C ${npmrepo::config::config_file}",
             app_dir => $app_dir,
             user    => 'nobody',
             require => [
