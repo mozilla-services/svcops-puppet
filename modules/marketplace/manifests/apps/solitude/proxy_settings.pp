@@ -16,7 +16,9 @@ define marketplace::apps::solitude::proxy_settings(
     $paypal_auth_signature,
     $paypal_chains,
     $statsd_host,
-    $statsd_port
+    $statsd_port,
+    $zippy_paas_key=undef,
+    $zippy_paas_secret=undef
 ) {
     $settings_dir = "${project_dir}/solitude/solitude/settings"
     file {

@@ -26,3 +26,10 @@ BANGO_AUTH = {
     'USER': '<%= bango_user %>',
     'PASSWORD': '<%= bango_password %>'
 }
+<% if @zippy_paas_key -%>
+
+ZIPPY_PAAS_KEY = '<%= @zippy_paas_key %>'
+<% end -%>
+<% if @zippy_paas_secret -%>
+ZIPPY_PAAS_SECRET = '<%= @zippy_paas_secret %>'
+<% end -%>
