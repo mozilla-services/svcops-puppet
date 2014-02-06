@@ -1,6 +1,9 @@
 class npmrepo::packages{
-  include nodejs
   
+  package { 'nodejs':
+    ensure => 'latest';
+  }
+
   package { 'npm-lazy-mirror':
     ensure => 'latest'
   }
