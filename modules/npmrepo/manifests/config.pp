@@ -8,6 +8,6 @@ class npmrepo::config(
 
   file { $config_file:
     ensure  => 'present',
-    content => template('npmrepo/config.js');
+    content => template('npmrepo/config.json');
   }
 }
