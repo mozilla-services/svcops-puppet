@@ -1,10 +1,10 @@
 # npmrepo
 class npmrepo(
+    $domain,
     $app_dir = '/opt/npm_lazy_mirror',
     $worker_name = 'npm_lazy_mirror'
 ){
 
-    $domain = $name
     $upstream = $worker_name
 
     include npmrepo::packages
