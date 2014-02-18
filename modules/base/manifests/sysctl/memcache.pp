@@ -22,5 +22,7 @@ class base::sysctl::memcache {
             value => '1';
         'net.ipv4.tcp_fin_timeout':
             value => '15';
+        'net.ipv4.tcp_syncookies':
+            value => '0';
     }
 }
