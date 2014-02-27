@@ -2,5 +2,5 @@
 class marketplace::apps::olympia::admin(
   $instances = {}
 ) {
-  create_resouces(marketplace::apps::olympia::admin_instance, $instances)
+  create_resources(marketplace::apps::olympia::admin_instance, $instances)
 }
