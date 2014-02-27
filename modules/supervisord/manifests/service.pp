@@ -17,7 +17,7 @@ define supervisord::service(
     if $restart_command {
         $_restart_command = $restart_command
     } else {
-        $_restart_command = "/usr/bin/supervisorctl restart ${supervisor_name} |  awk '/^${supervisor_name}[: ]/{print \$2}' | grep -Pzo '^stopped\nstarted$'"
+        $_restart_command = "/usr/bin/supervisorctl restart ${supervisor_name} |  awk '/^${supervisor_name}[: ]/{print \$2}' | grep '^stopped\nstarted$'"
     }
     file {
         "/etc/supervisord.conf.d/${name}.conf":
