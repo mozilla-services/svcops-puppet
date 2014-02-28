@@ -27,7 +27,7 @@ define marketplace::apps::olympia::web_instance(
   uwsgi::instance { $worker_name:
     app_dir   => "${app_dir}/zamboni",
     appmodule => $appmodule,
-    port      => "12${port}",
+    port      => $port,
     home      => "${app_dir}/venv",
     user      => $user,
     workers   => $workers,
