@@ -6,6 +6,7 @@ define marketplace::apps::olympia::admin_instance(
   $caches_default_location,
   $databases_default_url,
   $databases_slave_url,
+  $domain,
   $dreadnot_name,
   $dreadnot_instance,
   $email_blacklist,
@@ -42,7 +43,6 @@ define marketplace::apps::olympia::admin_instance(
   $aws_secret_access_key = '',
   $aws_storage_bucket_name = '',
   $secret_key = '',
-  $addons_domain = undef,
   $addons_paypal_cgi_auth_password = '',
   $addons_paypal_cgi_auth_signature = '',
   $addons_paypal_cgi_auth_user = '',
@@ -52,7 +52,16 @@ define marketplace::apps::olympia::admin_instance(
   $addons_paypal_embedded_auth_signature = '',
   $addons_static_url = undef,
   $addons_webapps_receipt_key = '',
+  $celery_service_prefix = 'addons-olympia-dev',
+  $cron_user => 'mkt_prod',
+  $dev = true,
   $env = 'dev',
+  $cluster = 'addons-dev',
+  $cron_name = 'addons-olympia-dev',
+  $domain = 'addons-olympia-dev.allizom.org',
+  $ssh_key = undef,
+  $update_ref = 'origin/master',
+  $uwsgi = 'addons-olympia-dev',
 ) {
   $project_dir = $name
   $app_dir = "${project_dir}/olympia"
@@ -76,5 +85,10 @@ define marketplace::apps::olympia::admin_instance(
     project_dir   => $app_dir,
     github_url    => 'https://github.com/mozilla/olympia',
     git_url       => 'https://github.com/mozilla/olympia.git',
+  }
+
+  file { "${app_dir}/deploysettings.py":
+    require => Git::Clone[$app_dir],
+    content => template('marketplace/apps/olympia/deploysettings.py');
   }
 }
