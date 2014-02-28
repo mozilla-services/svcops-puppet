@@ -13,9 +13,7 @@ RESPONSYS_ID = '<%= addons_responsys_id %>'
 SECRET_KEY = '<%= addons_secret_key %>'
 SENTRY_DSN = '<%= addons_sentry_dsn %>'
 WEBAPPS_RECEIPT_KEY = '<%= addons_webapps_receipt_key %>'
-<% if @addons_domain -%>
-DOMAIN = '<%= addons_domain %>'
-<% end -%>
+DOMAIN = '<%= @domain %>'
 <% if @addons_static_url -%>
-STATIC_URL = '<%= addons_static_url %>'
+STATIC_URL = '<%= @addons_static_url %>'
 <% end -%>
