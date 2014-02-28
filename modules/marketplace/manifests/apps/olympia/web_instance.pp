@@ -36,7 +36,7 @@ define marketplace::apps::olympia::web_instance(
 
   if $nginx_settings {
     $nginx_resources = {
-      $app_name => $nginx_settings
+      "${app_name}" => $nginx_settings
     }
 
     $nginx_defaults = {
