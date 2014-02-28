@@ -53,7 +53,7 @@ define marketplace::apps::olympia::admin_instance(
   $addons_static_url = undef,
   $addons_webapps_receipt_key = '',
   $celery_service_prefix = 'addons-olympia-dev',
-  $cron_user => 'mkt_prod',
+  $cron_user = 'mkt_prod',
   $dev = true,
   $env = 'dev',
   $cluster = 'addons-dev',
