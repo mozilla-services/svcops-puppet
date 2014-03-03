@@ -7,7 +7,7 @@ define marketplace::apps::olympia::celery_instance(
   $workers = '6',
 ){
 
-  include olympia::apps::olympia::packages
+  #include olympia::apps::olympia::packages
 
   $olympia_dir = "${app_dir}/current/olympia"
   $olympia_python = "${app_dir}/current/venv/bin/python"
