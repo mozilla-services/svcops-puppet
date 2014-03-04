@@ -40,8 +40,9 @@ define marketplace::apps::olympia::web_instance(
     }
 
     $nginx_defaults = {
-      'app_name' => 'olympia',
-      'webroot'  => $app_dir,
+      'app_name'    => 'olympia',
+      'webroot'     => $app_dir,
+      'worker_name' => "uwsgi_${worker_name}",
     }
     create_resources(marketplace::nginx::addons, $nginx_resources, $nginx_defaults)
   }
