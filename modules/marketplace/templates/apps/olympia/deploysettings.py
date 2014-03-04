@@ -9,5 +9,6 @@ UWSGI = filter(None, '<%= @uwsgi %>'.split(';'))
 MULTI_GUNICORN = filter(None, '<%= @multi_gunicorn %>'.split(';'))
 CELERY_SERVICE_PREFIX = '<%= @celery_service_prefix %>'
 UPDATE_REF = <% if update_ref %>'<%= @update_ref %>'<% else %>None<% end %>
+LOAD_TESTING = False
 DEV = <%= dev ? 'True' : 'False' %>
 CRON_USER = '<%= @cron_user %>'
