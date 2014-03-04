@@ -44,3 +44,8 @@ WHITELISTED_CLIENTS_EMAIL_API = <%= mkt_whitelisted_clients_email_api %>
 POSTFIX_AUTH_TOKEN = '<%= mkt_postfix_auth_token %>'
 
 IARC_PASSWORD = '<%= mkt_iarc_password %>'
+
+REDIS_BACKENDS_CACHE = '<%= mkt_redis_backends_cache %>'
+REDIS_BACKENDS_CACHE_SLAVE = '<%= mkt_redis_backends_cache_slave %>'
+REDIS_BACKENDS_MASTER = '<%= mkt_redis_backends_master %>'
+REDIS_BACKENDS_SLAVE = '<%= mkt_redis_backends_slave %>'
