@@ -9,6 +9,7 @@ define marketplace::nginx::addons(
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
     $app_name = 'zamboni',
     $versioncheck_url = 'https://versioncheck.addons.mozilla.org',
+    $worker_name = 'uwsgi_addons',
     $template_file = 'marketplace/nginx/addons.conf',
     $addons_redirect_names = undef # should be a list of domains that should be redirected to $config_name
 ) {
