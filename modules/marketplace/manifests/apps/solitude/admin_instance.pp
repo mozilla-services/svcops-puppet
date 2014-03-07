@@ -4,6 +4,7 @@ define marketplace::apps::solitude::admin_instance(
   $env,
   $project_dir,
   $settings,
+  $dreadnot_instance = undef,
   $is_proxy = false,
 ) {
   $solitude_name = $name
@@ -18,6 +19,7 @@ define marketplace::apps::solitude::admin_instance(
   } else {
     $settings_type = 'marketplace::apps::solitude::settings'
   }
+
   create_resources(
     $settings_type,
     {"${solitude_name}" => $settings},
@@ -37,4 +39,13 @@ define marketplace::apps::solitude::admin_instance(
       'require'     => Git::Clone[$app_dir],
     }
   )
+
+  if $dreadnot_instance {
+    dreadnot::stack { $solitude_name:
+      instance_name => $dreadnot_instance,
+      github_url    => 'https://github.com/mozilla/solitude',
+      git_url       => 'git://github.com/mozilla/solitude.git',
+      project_dir   => $app_dir,
+    }
+  }
 }
