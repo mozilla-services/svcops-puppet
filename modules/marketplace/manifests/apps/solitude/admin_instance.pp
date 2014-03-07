@@ -7,6 +7,11 @@ define marketplace::apps::solitude::admin_instance(
   $is_proxy = false,
 ) {
   $solitude_name = $name
+  $app_dir = "${project_dir}/solitude"
+
+  git::clone { $app_dir:
+    repo => 'https://github.com/mozilla/solitude.git',
+  }
 
   if $is_proxy {
     $settings_type = 'marketplace::apps::solitude::proxy_settings'
@@ -18,6 +23,7 @@ define marketplace::apps::solitude::admin_instance(
     {"${solitude_name}" => $settings},
     {
       'project_dir' => $project_dir,
+      'require'     => Git::Clone[$app_dir],
       'site'        => $env,
     }
   )
@@ -28,6 +34,7 @@ define marketplace::apps::solitude::admin_instance(
     {
       'env'      => $env,
       'is_proxy' => $is_proxy,
+      'require'     => Git::Clone[$app_dir],
     }
   )
 }
