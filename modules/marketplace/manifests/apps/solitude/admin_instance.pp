@@ -36,7 +36,8 @@ define marketplace::apps::solitude::admin_instance(
     {
       'env'      => $env,
       'is_proxy' => $is_proxy,
-      'require'     => Git::Clone[$app_dir],
+      'require'  => Git::Clone[$app_dir],
+      'scl_name' => 'python27',
     }
   )
 
