@@ -18,7 +18,7 @@ define marketplace::apps::solitude::admin_instance(
 
   create_resources(
     marketplace::apps::solitude::deploysettings,
-    {"${project_dir}/solitude" => $settings},
+    {"${project_dir}/solitude" => $deploy_settings},
     {
       'env'      => $env,
       'is_proxy' => false,
