@@ -10,7 +10,6 @@ define marketplace::apps::solitude::settings(
     $email_host,
     $memcache_hosts,
     $cache_prefix,
-    $broker_url,
     $solitude_proxy,
     $sentry_dsn,
     $paypal_url_whitelist,
