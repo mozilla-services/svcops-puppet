@@ -4,11 +4,17 @@ define marketplace::apps::solitude::admin_instance(
   $env,
   $project_dir,
   $settings,
+  $is_proxy = false,
 ) {
   $solitude_name = $name
 
+  if $is_proxy {
+    $settings_type = 'marketplace::apps::solitude::proxy_settings'
+  } else {
+    $settings_type = 'marketplace::apps::solitude::settings'
+  }
   create_resources(
-    marketplace::apps::solitude::settings,
+    $settings_type,
     {"${solitude_name}" => $settings},
     {
       'project_dir' => $project_dir,
@@ -21,7 +27,7 @@ define marketplace::apps::solitude::admin_instance(
     {"${project_dir}/solitude" => $deploy_settings},
     {
       'env'      => $env,
-      'is_proxy' => false,
+      'is_proxy' => $is_proxy,
     }
   )
 }
