@@ -22,35 +22,35 @@ define marketplace::apps::olympia::celery_instance(
   }
 
   celery::service {
-    "olympia-${env}":
+    "addons-olympia-${env}":
       args => '-Q celery';
 
-    "olympia-${env}-priority":
+    "addons-olympia-${env}-priority":
       args => '-Q priority,bulk';
 
-    "olympia-${env}-limited":
+    "addons-olympia-${env}-limited":
       args    => '-Q limited',
       workers => '4';
 
-    "olympia-${env}-devhub":
+    "addons-olympia-${env}-devhub":
       args => '-Q devhub,images';
   }
 
   rabbitmq_user {
-    "olympia_${env}":
+    "addons_olympia_${env}":
       admin    => false,
       password => $password,
       provider => 'rabbitmqctl';
   }
 
   rabbitmq_vhost {
-    "olympia_${env}":
+    "addons_olympia_${env}":
       ensure   => 'present',
       provider => 'rabbitmqctl';
   }
 
   rabbitmq_user_permissions {
-    "olympia_${env}@olympia_${env}":
+    "addons_olympia_${env}@olympia_${env}":
       configure_permission => '.*',
       read_permission      => '.*',
       write_permission     => '.*',
