@@ -50,7 +50,7 @@ define marketplace::apps::olympia::celery_instance(
   }
 
   rabbitmq_user_permissions {
-    "addons_olympia_${env}@olympia_${env}":
+    "addons_olympia_${env}@addons_olympia_${env}":
       configure_permission => '.*',
       read_permission      => '.*',
       write_permission     => '.*',
