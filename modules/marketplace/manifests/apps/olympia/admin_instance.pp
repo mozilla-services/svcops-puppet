@@ -52,7 +52,7 @@ define marketplace::apps::olympia::admin_instance(
   $addons_paypal_embedded_auth_signature = '',
   $addons_static_url = undef,
   $addons_webapps_receipt_key = '',
-  $celery_service_prefix = 'addons-olympia-dev',
+  $celery_service_prefix = 'celeryd-addons-olympia-dev',
   $cron_user = 'mkt_prod',
   $dev = true,
   $env = 'dev',
