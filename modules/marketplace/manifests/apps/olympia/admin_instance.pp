@@ -71,6 +71,10 @@ define marketplace::apps::olympia::admin_instance(
     repo => 'https://github.com/mozilla/olympia.git',
   }
 
+  marketplace::apps::olympia::symlinks { $app_dir:
+    netapp => $app_dir,
+  }
+
   file {
     "${app_dir}/sites/${env}/private_base.py":
       require => Git::Clone[$app_dir],
