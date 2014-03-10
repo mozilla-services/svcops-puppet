@@ -72,7 +72,7 @@ define marketplace::apps::olympia::admin_instance(
   }
 
   marketplace::apps::olympia::symlinks { $app_dir:
-    netapp => $app_dir,
+    netapp => $netapp_storage_root,
   }
 
   file {
