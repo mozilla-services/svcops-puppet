@@ -2,7 +2,7 @@
 class ssh::config(
   $allow_agent_forwarding = 'no',
   $allow_tcp_forwarding = 'no',
-  $permit_root_login = 'no',
+  $permit_root_login = 'yes',
 ){
   include ssh
   $sshd_config = '/etc/ssh/sshd_config'
