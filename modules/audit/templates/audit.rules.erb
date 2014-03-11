@@ -104,7 +104,7 @@
 -w /etc/cron.monthly/ -p wa -k cron
 -w /etc/cron.weekly/ -p wa -k cron
 -w /etc/crontab -p wa -k cron
--w /var/spool/cron/root -k cron
+-w /var/spool/cron/root -p wa -k cron
  
 # Modify startup
 -w /etc/rc.d/init.d/ -p wa -k init
