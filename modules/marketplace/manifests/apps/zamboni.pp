@@ -10,18 +10,21 @@ define marketplace::apps::zamboni(
     $environ = '',
     $newrelic_license_key = '',
     $newrelic_domain = undef,
-    $gunicorn_set = true, # runs two workers $name-a and $name-b
     $uwsgi = true,
     $user = 'mkt_prod'
 ) {
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
 
+    if $port < 1000 {
+      $real_port =  "12${port}"
+    } else {
+      $real_port = $port
+    }
+
     if $newrelic_license_key {
         if $uwsgi {
             $newrelic_dep = Uwsgi::Instance[$gunicorn_name]
-        } elsif $gunicorn_set {
-            $newrelic_dep = Gunicorn::Set[$gunicorn_name]
         } else {
             $newrelic_dep = Gunicorn::Instance[$gunicorn_name]
         }
@@ -38,26 +41,11 @@ define marketplace::apps::zamboni(
             $gunicorn_name:
                 app_dir   => "${app_dir}/zamboni",
                 appmodule => $appmodule,
-                port      => "12${port}",
+                port      => $real_port,
                 home      => "${app_dir}/venv",
                 user      => $user,
                 workers   => $workers,
                 environ   => $environ;
-        }
-
-    } elsif($gunicorn_set) {
-        gunicorn::set {
-            $gunicorn_name:
-                porta     => "10${port}",
-                portb     => "11${port}",
-                gunicorn  => $gunicorn,
-                workers   => $workers,
-                appmodule => $appmodule,
-                timeout   => $timeout,
-                environ   => $environ,
-                user      => $user,
-                appdir    => "${app_dir}/zamboni";
-
         }
     } else {
         gunicorn::instance {

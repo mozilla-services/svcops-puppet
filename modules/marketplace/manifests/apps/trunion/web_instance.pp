@@ -17,11 +17,17 @@ define marketplace::apps::trunion::web_instance(
     $gunicorn = "${app_dir}/venv/bin/python ${app_dir}/venv/bin/gunicorn"
     $environ = "TRUNION_INI=${app_dir}/trunion/production.ini, LD_LIBRARY_PATH=/opt/nfast/toolkits/hwcrhk"
 
+    if $port < 1000 {
+      $real_port =  "12${port}"
+    } else {
+      $real_port = $port
+    }
+
     uwsgi::instance {
         $worker_name:
             app_dir   => "${app_dir}/trunion",
             appmodule => $appmodule,
-            port      => "12${port}",
+            port      => $real_port,
             home      => "${app_dir}/venv",
             user      => $user,
             workers   => $workers,
