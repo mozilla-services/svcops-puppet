@@ -14,6 +14,12 @@ define marketplace::apps::webpay::web_instance(
     $app_name = $name
     $gunicorn = "${app_dir}/venv/bin/gunicorn"
 
+    if $port < 1000 {
+      $real_port =  "12${port}"
+    } else {
+      $real_port = $port
+    }
+
     if $newrelic_license_key {
         marketplace::newrelic::python {
             $app_name:
@@ -26,7 +32,7 @@ define marketplace::apps::webpay::web_instance(
         $worker_name:
             app_dir   => "${app_dir}/webpay",
             appmodule => $appmodule,
-            port      => "12${port}",
+            port      => $real_port,
             home      => "${app_dir}/venv",
             user      => $user,
             workers   => $workers,
