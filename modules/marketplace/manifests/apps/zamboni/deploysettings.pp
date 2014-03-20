@@ -5,7 +5,7 @@ define marketplace::apps::zamboni::deploysettings(
     $env,
     $ssh_key,
     $cron_name,
-    $celery_service_prefix = undef,
+    $celery_service_prefix = false,
     $celery_service_mkt_prefix,
     $cron_user = 'mkt_prod',
     $gunicorn = '', # should be string separated by ";"
