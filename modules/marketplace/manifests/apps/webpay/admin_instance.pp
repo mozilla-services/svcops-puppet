@@ -17,8 +17,6 @@ define marketplace::apps::webpay::admin_instance(
     $key,
     $secret,
     $sentry_dsn,
-    $gunicorn = '', # should be string separated by ";"
-    $multi_gunicorn = '', # should be string separated by ";"
     $uwsgi = '', # should be string separated by ";"
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $update_ref = false,

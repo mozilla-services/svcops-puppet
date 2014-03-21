@@ -6,8 +6,6 @@ define marketplace::apps::geodude::deploysettings(
     $ssh_key,
     $cron_name,
     $celery_service,
-    $gunicorn = '', # should be string separated by ";"
-    $multi_gunicorn = '', # should be string separated by ";"
     $uwsgi = '', # should be string separated by ";"
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $update_ref = false
