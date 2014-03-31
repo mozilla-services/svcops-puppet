@@ -12,4 +12,11 @@ define marketplace::apps::fireplace::admin_instance(
     "${fireplace_dir}/deploysettings.py":
       content => template('marketplace/apps/fireplace/deploysettings.py');
   }
+
+  dreadnot::stack {
+    $domain:
+      github_url  => 'https://github.com/mozilla/fireplace',
+      git_url     => 'git://github.com/mozilla/fireplace.git',
+      project_dir => $fireplace_dir;
+  }
 }
