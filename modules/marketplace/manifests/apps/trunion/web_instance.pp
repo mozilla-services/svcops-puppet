@@ -14,7 +14,6 @@ define marketplace::apps::trunion::web_instance(
     include marketplace::apps::trunion::packages
 
     $app_name = $name
-    $gunicorn = "${app_dir}/venv/bin/python ${app_dir}/venv/bin/gunicorn"
     $environ = "TRUNION_INI=${app_dir}/trunion/production.ini, LD_LIBRARY_PATH=/opt/nfast/toolkits/hwcrhk"
 
     if $port < 1000 {

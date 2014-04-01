@@ -8,8 +8,6 @@ define marketplace::apps::zamboni::deploysettings(
     $celery_service_prefix,
     $celery_service_mkt_prefix,
     $cron_user = 'mkt_prod',
-    $gunicorn = '', # should be string separated by ";"
-    $multi_gunicorn = '', # should be string separated by ";"
     $uwsgi = '', # should be string separated by ";"
     $pyrepo = 'https://pyrepo.addons.mozilla.org/',
     $update_ref = false,

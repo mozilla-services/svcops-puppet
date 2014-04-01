@@ -12,7 +12,6 @@ define marketplace::apps::webpay::web_instance(
     $scl = undef
 ) {
     $app_name = $name
-    $gunicorn = "${app_dir}/venv/bin/gunicorn"
 
     if $port < 1000 {
       $real_port =  "12${port}"
