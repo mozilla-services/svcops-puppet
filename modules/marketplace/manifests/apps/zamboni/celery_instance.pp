@@ -23,18 +23,6 @@ define marketplace::apps::zamboni::celery_instance(
     }
 
     celery::service {
-        "addons-${env}":;
-
-        "addons-${env}-devhub":
-            args => '-Q devhub,images --maxtasksperchild=50';
-
-        "addons-${env}-limited":
-            args    => '-Q limited --maxtasksperchild=50',
-            workers => '2';
-
-        "addons-${env}-priority":
-            args => '-Q priority,bulk';
-
         "marketplace-${env}":
             args => '-Q celery --settings=settings_local_mkt';
 
@@ -55,16 +43,11 @@ define marketplace::apps::zamboni::celery_instance(
             admin    => false,
             password => $marketplace_password,
             provider => 'rabbitmqctl';
-        "addons_${env}":
-            admin    => false,
-            password => $addons_password,
-            provider => 'rabbitmqctl';
     }
 
     rabbitmq_vhost {
         [
             "marketplace_${env}",
-            "addons_${env}"
         ]:
             ensure   => present,
             provider => 'rabbitmqctl';
@@ -72,11 +55,6 @@ define marketplace::apps::zamboni::celery_instance(
 
     rabbitmq_user_permissions {
         "marketplace_${env}@marketplace_${env}":
-            configure_permission => '.*',
-            read_permission      => '.*',
-            write_permission     => '.*',
-            provider             => 'rabbitmqctl';
-        "addons_${env}@addons_${env}":
             configure_permission => '.*',
             read_permission      => '.*',
             write_permission     => '.*',
