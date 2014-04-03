@@ -10,7 +10,8 @@ define marketplace::apps::zamboni::admin_instance(
   $settings, # zamboni::settings hash
   $ssh_key,
 ) {
-  $project_dir = $name
+  $instance_name = $name
+  $project_dir = "/data/${cluster}/src/${domain}"
   $app_dir = "${project_dir}/zamboni"
 
   git::clone { $app_dir:
@@ -35,7 +36,7 @@ define marketplace::apps::zamboni::admin_instance(
     {require  => Git::Clone[$app_dir]}
   )
 
-  marketplace::apps::fireplace::admin_instance { "${project_dir}/fireplace":
+  marketplace::apps::fireplace::admin_instance { "${project_dir}-fireplace/fireplace":
     cluster           => $cluster,
     domain            => "${domain}-fireplace",
     dreadnot_instance => $dreadnot_instance,
@@ -50,6 +51,6 @@ define marketplace::apps::zamboni::admin_instance(
 
   marketplace::apps::zamboni::symlinks::fireplace { $app_dir:
     require       => Git::Clone[$app_dir],
-    fireplace_dir => $project_dir,
+    fireplace_dir => "${project_dir}-fireplace",
   }
 }
