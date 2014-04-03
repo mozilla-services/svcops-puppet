@@ -28,12 +28,12 @@ define marketplace::apps::zamboni::admin_instance(
     marketplace::apps::zamboni::deploysettings,
     {$app_dir => $deploy_settings},
     {
+      require  => Git::Clone[$app_dir],
       env     => $env,
       cluster => $cluster,
       domain  => $domain,
       ssh_key => $ssh_key,
-    },
-    {require  => Git::Clone[$app_dir]}
+    }
   )
 
   marketplace::apps::fireplace::admin_instance { "${project_dir}-fireplace/fireplace":
