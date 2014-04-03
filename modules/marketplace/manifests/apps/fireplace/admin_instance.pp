@@ -9,6 +9,10 @@ define marketplace::apps::fireplace::admin_instance(
 ) {
   $fireplace_dir = $name
 
+  git::clone { $fireplace_dir:
+    repo => 'https://github.com/mozilla/fireplace.git',
+  }
+
   file {
     "${fireplace_dir}/deploysettings.py":
       content => template('marketplace/apps/fireplace/deploysettings.py');
