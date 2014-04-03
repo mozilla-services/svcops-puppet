@@ -20,13 +20,13 @@ define marketplace::apps::zamboni::admin_instance(
 
   create_resources(
     marketplace::apps::zamboni::settings,
-    {$app_dir => $settings},
+    {"${app_dir}" => $settings},
     {require  => Git::Clone[$app_dir]}
   )
 
   create_resources(
     marketplace::apps::zamboni::deploysettings,
-    {$app_dir => $deploy_settings},
+    {"${app_dir}" => $deploy_settings},
     {
       require  => Git::Clone[$app_dir],
       env     => $env,
