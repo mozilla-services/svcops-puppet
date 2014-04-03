@@ -36,7 +36,7 @@ define marketplace::apps::zamboni::admin_instance(
     }
   )
 
-  marketplace::apps::fireplace::admin_instance { "${project_dir}-fireplace/fireplace":
+  marketplace::apps::fireplace::admin_instance { "${project_dir}/fireplace":
     cluster           => $cluster,
     domain            => "${domain}-fireplace",
     dreadnot_instance => $dreadnot_instance,
@@ -51,6 +51,6 @@ define marketplace::apps::zamboni::admin_instance(
 
   marketplace::apps::zamboni::symlinks::fireplace { $app_dir:
     require       => Git::Clone[$app_dir],
-    fireplace_dir => "${project_dir}-fireplace",
+    fireplace_dir => $project_dir,
   }
 }
