@@ -8,6 +8,7 @@ define marketplace::apps::zamboni::admin_instance(
   $deploy_settings, # zamboni::deploysettings hash
   $netapp_root,
   $settings, # zamboni::settings hash
+  $settings_site,
   $ssh_key,
 ) {
   $instance_name = $name
@@ -20,7 +21,7 @@ define marketplace::apps::zamboni::admin_instance(
 
   create_resources(
     marketplace::apps::zamboni::settings,
-    {"${app_dir}" => $settings},
+    {"${app_dir}/sites/${settings_site}" => $settings},
     {
       require             => Git::Clone[$app_dir],
       netapp_storage_root => $netapp_root,
