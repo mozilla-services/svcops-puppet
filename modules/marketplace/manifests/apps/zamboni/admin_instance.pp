@@ -19,6 +19,15 @@ define marketplace::apps::zamboni::admin_instance(
     repo => 'https://github.com/mozilla/zamboni.git',
   }
 
+  file {
+    "${app_dir}/settings_local.py":
+      require => Git::Clone[$app_dir],
+      content => "from sites.${settings_site}.settings_addons import *";
+    "${app_dir}/settings_local_mkt.py":
+      require => Git::Clone[$app_dir],
+      content => "from sites.${settings_site}.settings_mkt import *";
+  }
+
   create_resources(
     marketplace::apps::zamboni::settings,
     {"${app_dir}/sites/${settings_site}" => $settings},
