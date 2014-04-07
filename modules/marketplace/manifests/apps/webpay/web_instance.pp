@@ -36,6 +36,7 @@ define marketplace::apps::webpay::web_instance(
             user      => $user,
             workers   => $workers,
             scl       => $scl,
+            harakiri  => 240,
             environ   => $environ;
     }
 }
