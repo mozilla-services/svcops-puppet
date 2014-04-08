@@ -58,9 +58,10 @@ define marketplace::apps::zamboni::admin_instance(
   }
 
   dreadnot::stack { $domain:
-    github_url  => 'https://github.com/mozilla/zamboni',
-    git_url     => 'git://github.com/mozilla/zamboni.git',
-    project_dir => $app_dir,
+    github_url    => 'https://github.com/mozilla/zamboni',
+    git_url       => 'git://github.com/mozilla/zamboni.git',
+    instance_name => $dreadnot_instance,
+    project_dir   => $app_dir,
   }
 
   marketplace::apps::zamboni::symlinks { $app_dir:
