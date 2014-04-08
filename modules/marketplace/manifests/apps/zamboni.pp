@@ -48,7 +48,8 @@ define marketplace::apps::zamboni(
         marketplace::nginx::marketplace,
         {"${app_name}" => $nginx_settings},
         {
-          webroot     => $app_dir,
+          webpayroot              => $app_dir,
+          webroot                 => $app_dir,
           marketplace_worker_name => $worker_name
         }
       )
