@@ -4,6 +4,12 @@ class marketplace::virtual_packages {
         'MySQL-python':
             ensure => '1.2.3-0.3.c1.1.el6';
 
+        'pngcrush':
+            ensure => '1.7.73-1.el6.rf';
+
+        'pngnq':
+            ensure => '1.1-5.el6';
+
         'pyOpenSSL':
             ensure => '0.13.1-1.el6';
 
