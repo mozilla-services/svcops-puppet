@@ -8,6 +8,7 @@ define celery::service (
     $environ = '',
     $log_level = 'INFO',
     $args = '',
+    $stopwaitsecs = '300',
     $scl = undef
 ) {
     include supervisord::base
@@ -35,9 +36,10 @@ define celery::service (
 
     supervisord::service {
         "celeryd-${celery_name}":
-            command => $celery_command,
-            app_dir => $app_dir,
-            environ => $real_environ,
-            user    => $user;
+            command      => $celery_command,
+            app_dir      => $app_dir,
+            environ      => $real_environ,
+            stopwaitsecs => $stopwaitsecs,
+            user         => $user,
     }
 }
