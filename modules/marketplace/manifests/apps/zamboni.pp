@@ -45,11 +45,11 @@ define marketplace::apps::zamboni(
 
     if $nginx_settings {
       create_resources(
-        marketplace::nginx::addons,
+        marketplace::nginx::marketplace,
         {"${app_name}" => $nginx_settings},
         {
           webroot     => $app_dir,
-          worker_name => $worker_name
+          marketplace_worker_name => $worker_name
         }
       )
     }
