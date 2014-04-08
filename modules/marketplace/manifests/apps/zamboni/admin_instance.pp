@@ -57,6 +57,12 @@ define marketplace::apps::zamboni::admin_instance(
     ssh_key           => $ssh_key,
   }
 
+  dreadnot::stack { $domain:
+    github_url  => 'https://github.com/mozilla/zamboni',
+    git_url     => 'git://github.com/mozilla/zamboni.git',
+    project_dir => $app_dir,
+  }
+
   marketplace::apps::zamboni::symlinks { $app_dir:
     require => Git::Clone[$app_dir],
     netapp  => $netapp_root,
