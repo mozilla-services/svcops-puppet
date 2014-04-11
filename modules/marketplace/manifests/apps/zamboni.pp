@@ -48,6 +48,7 @@ define marketplace::apps::zamboni(
         marketplace::nginx::marketplace,
         {"${app_name}" => $nginx_settings},
         {
+          fireplace_root          => "${app_dir}-fireplace/current",
           webpayroot              => $app_dir,
           webroot                 => $app_dir,
           marketplace_worker_name => $worker_name
