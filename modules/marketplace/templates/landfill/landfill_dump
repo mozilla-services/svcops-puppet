@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+for v in DUMP_DIR DB_USER DB_PASS DB_HOST DB_NAME FILES_ROOT; do
+    if [ -z "${!v}" ]; then
+        echo "${v} must be set."
+        exit 1
+    fi
+done
+
+CURDATE=$(date "+%Y-%m-%d")
+
+cd ${DUMP_DIR}
+mysqldump -u "${DB_USER}" \
+    -p"${DB_PASS}" \
+    -h "${DB_HOST}" \
+    "${DB_NAME}" | gzip > "./landfill-${CURDATE}.sql.gz"
+
+tar xzf "./landfill-files-${CURDATE}.tar.gz" -C "${FILES_ROOT}" .
+
+find . -type -f -name "landfill-*" -mtime +3 | xargs rm -f
