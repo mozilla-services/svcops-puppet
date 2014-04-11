@@ -14,8 +14,8 @@ define marketplace::nginx::marketplace(
     $fireplace_root = '',
     $commbadge_root = '',
     $rocketfuel_root = '',
-    $marketplace_stats_root = ''
-
+    $marketplace_stats_root = '',
+    $mkt_redirects = undef,
 ) {
     $config_name = $name
 
