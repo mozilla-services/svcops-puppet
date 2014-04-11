@@ -25,7 +25,7 @@ define marketplace::apps::zamboni::settings(
     $redis_backends_master = '',
     $redis_backends_slave = '',
     $responsys_id = '',
-    $services_database_ = ''url,
+    $services_database_url = '',
     $statsd_host = '127.0.0.1',
     $statsd_port = '8125',
     $statsd_prefix = 'zamboni-default',
