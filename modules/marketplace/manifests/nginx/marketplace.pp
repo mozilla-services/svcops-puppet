@@ -11,6 +11,7 @@ define marketplace::nginx::marketplace(
     $marketplace_worker_name = 'marketplace',
     $webpay_worker_name = 'webpay-marketplace',
     $template_file = 'marketplace/nginx/marketplace.conf',
+    $darjeeling_root = undef,
     $fireplace_root = '',
     $commbadge_root = '',
     $landfill_dumps = undef,
