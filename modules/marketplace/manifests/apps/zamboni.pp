@@ -10,6 +10,7 @@ define marketplace::apps::zamboni(
     $environ = '',
     $newrelic_license_key = '',
     $newrelic_domain = undef,
+    $nginx_settings = undef,
     $uwsgi = true,
     $user = 'mkt_prod'
 ) {
@@ -40,5 +41,17 @@ define marketplace::apps::zamboni(
             user      => $user,
             workers   => $workers,
             environ   => $environ;
+    }
+
+    if $nginx_settings {
+      create_resources(
+        marketplace::nginx::marketplace,
+        {"${app_name}" => $nginx_settings},
+        {
+          webpayroot              => $app_dir,
+          webroot                 => $app_dir,
+          marketplace_worker_name => $worker_name
+        }
+      )
     }
 }

@@ -9,6 +9,7 @@ define marketplace::apps::zamboni::celery_instance(
 ){
 
     include marketplace::apps::zamboni::packages
+    include marketplace::apps::zamboni::packages::celery
 
     $zamboni_dir = "${app_dir}/current/zamboni"
     $zamboni_python = "${app_dir}/current/venv/bin/python"
