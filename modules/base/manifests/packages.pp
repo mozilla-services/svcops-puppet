@@ -28,4 +28,9 @@ class base::packages {
     ]:
       ensure => 'latest';
   }
+  
+  package {
+    'openssl':
+      ensure => '1.0.1e-16.el6_5.7',
+  }
 }
