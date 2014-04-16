@@ -6,6 +6,6 @@ define marketplace::apps::zamboni::symlinks::darjeeling(
 
   file {"${zamboni_media}/darjeeling":
     ensure => 'link',
-    target => "${darjeeling_dir}/darjeeling/src",
+    target => "${darjeeling_dir}/darjeeling/src/lite",
   }
 }
