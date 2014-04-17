@@ -7,6 +7,7 @@ class marketplace::apps::zamboni::packages {
                     'abrt-addon-python',
                     'abrt-cli',
                     'MySQL-python',
+                    'MySQL-shared',
                     'node-clean-css',
                     'node-less',
                     'node-stylus',
