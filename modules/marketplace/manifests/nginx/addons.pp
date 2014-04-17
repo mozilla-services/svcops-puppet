@@ -8,6 +8,7 @@ define marketplace::nginx::addons(
     $cdn_hostname, # addons.cdn.mozilla.net
     $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
     $app_name = 'zamboni',
+    $landfill_dumps = undef,
     $versioncheck_url = 'https://versioncheck.addons.mozilla.org',
     $worker_name = 'uwsgi_addons',
     $template_file = 'marketplace/nginx/addons.conf',
