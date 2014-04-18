@@ -8,6 +8,7 @@ define marketplace::apps::webpay::celery_instance(
     $user = $marketplace_private::mkt::any::prod::params::mkt_user
 ){
 
+    require marketplace::apps::webpay::packages
     include marketplace::apps::zamboni::packages
 
     $webpay_dir = "${app_dir}/current/webpay"
