@@ -1,15 +1,17 @@
 #!/bin/bash
 
 set -e
-
-for v in DUMP_DIR DB_USER MYSQL_PWD DB_HOST DB_NAME FILES_ROOT; do
-    if [ -z "${!v}" ]; then
-        echo "${v} must be set."
-        exit 1
-    fi
-done
+set -o nounset
 
 CURDATE=$(date "+%Y-%m-%d")
+
+RESET_SQL="${PROJECT_DIR}/scripts/landfill-reset.sql"
+
+if [ -e "$RESET_SQL" ]; then
+    mysql -s -u "${DB_USER}" \
+        -h "${DB_HOST}" \
+        "${DB_NAME}" < "$RESET_SQL"
+fi
 
 cd ${DUMP_DIR}
 mysqldump -u "${DB_USER}" \
