@@ -33,3 +33,6 @@ ZIPPY_PAAS_KEY = '<%= @zippy_paas_key %>'
 <% if @zippy_paas_secret -%>
 ZIPPY_PAAS_SECRET = '<%= @zippy_paas_secret %>'
 <% end -%>
+
+BOKU_MERCHANT_ID = '<%= @boku_merchant_id %>'
+BOKU_SECRET_KEY = '<%= @boku_secret_key %>'
