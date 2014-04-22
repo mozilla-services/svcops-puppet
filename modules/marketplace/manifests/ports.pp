@@ -7,6 +7,7 @@ class marketplace::ports {
   $addons_services     = '12004'
   $addons_update       = '12005'
   $addons_update_dev   = '12006'
+  $blocklist           = '12007'
   $webpay              = '12011'
   $geodude             = '12012'
   $addons_theme_update = '12013'
