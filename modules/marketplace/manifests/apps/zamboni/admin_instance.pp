@@ -22,7 +22,7 @@ define marketplace::apps::zamboni::admin_instance(
   file {
     "${app_dir}/settings_local.py":
       require => Git::Clone[$app_dir],
-      content => "from sites.${settings_site}.settings_addons import *";
+      content => "from sites.${settings_site}.settings_mkt import *";
     "${app_dir}/settings_local_mkt.py":
       require => Git::Clone[$app_dir],
       content => "from sites.${settings_site}.settings_mkt import *";
