@@ -1,6 +1,6 @@
 # celery instance class
 class marketplace::apps::zamboni::celery(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(marketplace::apps::zamboni::celery_instance, $instances)
+  create_resources(marketplace::apps::zamboni::celery_instance, $instances)
 }

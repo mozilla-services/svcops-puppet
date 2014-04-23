@@ -1,6 +1,6 @@
 # marketplace trunion web class.
 class marketplace::apps::trunion::web(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(marketplace::apps::trunion::web_instance, $instances)
+  create_resources(marketplace::apps::trunion::web_instance, $instances)
 }

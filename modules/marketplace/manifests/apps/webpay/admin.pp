@@ -1,6 +1,6 @@
 # admin instance class
 class marketplace::apps::webpay::admin(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(marketplace::apps::webpay::admin_instance, $instances)
+  create_resources(marketplace::apps::webpay::admin_instance, $instances)
 }

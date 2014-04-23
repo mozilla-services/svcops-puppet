@@ -1,6 +1,6 @@
 class pushgo::nginx {
-    class {
-        '::nginx':
-            nginx_conf => template('pushgo/nginx.conf');
-    }
+  class {
+    '::nginx':
+      nginx_conf => template('pushgo/nginx.conf');
+  }
 }

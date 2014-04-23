@@ -1,6 +1,6 @@
 # marketplace web class.
 class marketplace::apps::monolith::web(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(marketplace::apps::monolith::web_instance, $instances)
+  create_resources(marketplace::apps::monolith::web_instance, $instances)
 }

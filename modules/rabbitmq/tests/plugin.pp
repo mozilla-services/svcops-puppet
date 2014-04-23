@@ -1,5 +1,5 @@
 class { 'rabbitmq::server':
-    config_stomp => true,
+  config_stomp => true,
 }
 
 $rabbitmq_plugins = [ 'amqp_client', 'rabbitmq_stomp' ] 

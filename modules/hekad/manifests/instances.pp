@@ -1,6 +1,6 @@
-#hekad instances class
+# hekad instances class
 class hekad::instances(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(hekad::instance, $instances)
+  create_resources(hekad::instance, $instances)
 }

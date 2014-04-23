@@ -1,6 +1,6 @@
 # marketplace web class.
 class marketplace::apps::zamboni::web(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(marketplace::apps::zamboni, $instances)
+  create_resources(marketplace::apps::zamboni, $instances)
 }

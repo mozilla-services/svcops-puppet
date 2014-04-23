@@ -70,7 +70,7 @@ define postfix::virtual (
     require => [
       Package['postfix'],
       Augeas::Lens['postfix_virtual'],
-      ],
+    ],
     notify  => Postfix::Hash['/etc/postfix/virtual'],
   }
 }

@@ -1,3 +1,3 @@
 class marketplace::groups {
-    include uwsgi::groups
+  include uwsgi::groups
 }

@@ -1,48 +1,48 @@
 # implement syslogger.
 class mozwebsyslogger(
-    $tls = false,
-    $ca_cert_content = undef,
-    $server_cert_content = undef,
-    $server_key_content = undef
+  $tls = false,
+  $ca_cert_content = undef,
+  $server_cert_content = undef,
+  $server_key_content = undef
 
 ){
-    include rsyslog
+  include rsyslog
 
-    if $tls {
-        $inputname = 'tlsin'
-        class {
-            'rsyslog::tlsserver':
-              ca_cert_content     => $ca_cert_content,
-              server_cert_content => $server_cert_content,
-              server_key_content  => $server_key_content,
-        }
+  if $tls {
+    $inputname = 'tlsin'
+    class {
+      'rsyslog::tlsserver':
+        ca_cert_content     => $ca_cert_content,
+        server_cert_content => $server_cert_content,
+        server_key_content  => $server_key_content,
     }
-    else {
-        $inputname = 'imudp'
-        include rsyslog::udpserver
-    }
+  }
+  else {
+    $inputname = 'imudp'
+    include rsyslog::udpserver
+  }
 
-    file {
-        '/var/log/syslogs':
-            ensure  => directory,
-            mode    => '0755';
-    }
+  file {
+    '/var/log/syslogs':
+      ensure  => directory,
+      mode    => '0755';
+  }
 
-    file {
-        ['/var/log/syslogs/apps',
-        '/var/log/syslogs/hosts']:
-            ensure  => directory,
-            mode    => '0755';
-    }
+  file {
+    ['/var/log/syslogs/apps',
+      '/var/log/syslogs/hosts']:
+      ensure  => directory,
+      mode    => '0755';
+  }
 
-    rsyslog::config {
-        'websyslogger':
-            require => [File['/var/log/syslogs/hosts'], File['/var/log/syslogs/apps']],
-            content => template('mozwebsyslogger/syslog.conf');
-    }
+  rsyslog::config {
+    'websyslogger':
+      require => [File['/var/log/syslogs/hosts'], File['/var/log/syslogs/apps']],
+      content => template('mozwebsyslogger/syslog.conf');
+  }
 
-    file {
-        '/etc/logrotate.d/mozwebsyslogger':
-            content => template('mozwebsyslogger/logrotate');
-    }
+  file {
+    '/etc/logrotate.d/mozwebsyslogger':
+      content => template('mozwebsyslogger/logrotate');
+  }
 }

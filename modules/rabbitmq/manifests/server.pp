@@ -30,128 +30,128 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class rabbitmq::server(
-    $port = '5672',
-    $delete_guest_user = false,
-    $package_name = 'rabbitmq-server',
-    $version = 'UNSET',
-    $service_name = 'rabbitmq-server',
-    $service_ensure = 'running',
-    $config_stomp = false,
-    $stomp_port = '6163',
-    $config_cluster = false,
-    $cluster_disk_nodes = [],
-    $node_ip_address = 'UNSET',
-    $config='UNSET',
-    $env_config='UNSET',
-    $erlang_cookie='EOKOWXQREETZSHFNTPEY',
-    $wipe_db_on_cookie_change=false,
-    $nofile_limit='8192'
+  $port = '5672',
+  $delete_guest_user = false,
+  $package_name = 'rabbitmq-server',
+  $version = 'UNSET',
+  $service_name = 'rabbitmq-server',
+  $service_ensure = 'running',
+  $config_stomp = false,
+  $stomp_port = '6163',
+  $config_cluster = false,
+  $cluster_disk_nodes = [],
+  $node_ip_address = 'UNSET',
+  $config='UNSET',
+  $env_config='UNSET',
+  $erlang_cookie='EOKOWXQREETZSHFNTPEY',
+  $wipe_db_on_cookie_change=false,
+  $nofile_limit='8192'
 ) {
 
-    validate_bool($delete_guest_user, $config_stomp)
-    #validate_re($port, '\d+')
-    validate_re($stomp_port, '\d+')
+  validate_bool($delete_guest_user, $config_stomp)
+  # validate_re($port, '\d+')
+  validate_re($stomp_port, '\d+')
 
-    if $version == 'UNSET' {
-        $version_real = '2.4.1'
-        $pkg_ensure_real   = 'present'
-    } else {
-        $version_real = $version
-        $pkg_ensure_real   = $version
-    }
-    if $config == 'UNSET' {
-        $config_real = template("${module_name}/rabbitmq.config")
-    } else {
-        $config_real = $config
-    }
-    if $env_config == 'UNSET' {
-        $env_config_real = template("${module_name}/rabbitmq-env.conf.erb")
-    } else {
-        $env_config_real = $env_config
-    }
+  if $version == 'UNSET' {
+    $version_real = '2.4.1'
+    $pkg_ensure_real   = 'present'
+  } else {
+    $version_real = $version
+    $pkg_ensure_real   = $version
+  }
+  if $config == 'UNSET' {
+    $config_real = template("${module_name}/rabbitmq.config")
+  } else {
+    $config_real = $config
+  }
+  if $env_config == 'UNSET' {
+    $env_config_real = template("${module_name}/rabbitmq-env.conf.erb")
+  } else {
+    $env_config_real = $env_config
+  }
 
-    $plugin_dir = "/usr/lib/rabbitmq/lib/rabbitmq_server-${version_real}/plugins"
+  $plugin_dir = "/usr/lib/rabbitmq/lib/rabbitmq_server-${version_real}/plugins"
 
-    package { $package_name:
-        ensure => $pkg_ensure_real,
-        notify => Class['rabbitmq::service'],
+  package { $package_name:
+    ensure => $pkg_ensure_real,
+    notify => Class['rabbitmq::service'],
+  }
+
+  file { '/etc/rabbitmq':
+    ensure  => directory,
+    owner   => '0',
+    group   => '0',
+    mode    => '0644',
+    require => Package[$package_name],
+  }
+
+  file { 'rabbitmq.config':
+    ensure  => file,
+    path    => '/etc/rabbitmq/rabbitmq.config',
+    content => $config_real,
+    owner   => '0',
+    group   => '0',
+    mode    => '0644',
+    require => Package[$package_name],
+    notify  => Class['rabbitmq::service'],
+  }
+
+  if $config_cluster {
+    file { 'erlang_cookie':
+      path =>"/var/lib/rabbitmq/.erlang.cookie",
+      owner   => rabbitmq,
+      group   => rabbitmq,
+      mode    => '0400',
+      content => $erlang_cookie,
+      replace => true,
+      before  => File['rabbitmq.config'],
+      require => Exec['wipe_db'],
     }
+    # require authorize_cookie_change
 
-    file { '/etc/rabbitmq':
-        ensure  => directory,
-        owner   => '0',
-        group   => '0',
-        mode    => '0644',
+    if $wipe_db_on_cookie_change {
+      exec { 'wipe_db':
+        command => '/etc/init.d/rabbitmq-server stop; /bin/rm -rf /var/lib/rabbitmq/mnesia',
         require => Package[$package_name],
-    }
-
-    file { 'rabbitmq.config':
-        ensure  => file,
-        path    => '/etc/rabbitmq/rabbitmq.config',
-        content => $config_real,
-        owner   => '0',
-        group   => '0',
-        mode    => '0644',
+        unless  => "/bin/grep -qx ${erlang_cookie} /var/lib/rabbitmq/.erlang.cookie"
+      }
+    } else {
+      exec { 'wipe_db':
+        command => '/bin/false "Cookie must be changed but wipe_db is false"', # If the cookie doesn't match, just fail.
         require => Package[$package_name],
-        notify  => Class['rabbitmq::service'],
+        unless  => "/bin/grep -qx ${erlang_cookie} /var/lib/rabbitmq/.erlang.cookie"
+      }
     }
+  }
 
-    if $config_cluster {
-        file { 'erlang_cookie':
-            path =>"/var/lib/rabbitmq/.erlang.cookie",
-            owner   => rabbitmq,
-            group   => rabbitmq,
-            mode    => '0400',
-            content => $erlang_cookie,
-            replace => true,
-            before  => File['rabbitmq.config'],
-            require => Exec['wipe_db'],
-        }
-        # require authorize_cookie_change
+  file { 'rabbitmq-env.config':
+    ensure  => file,
+    path    => '/etc/rabbitmq/rabbitmq-env.conf',
+    content => $env_config_real,
+    owner   => '0',
+    group   => '0',
+    mode    => '0644',
+    notify  => Class['rabbitmq::service'],
+  }
 
-        if $wipe_db_on_cookie_change {
-            exec { 'wipe_db':
-                command => '/etc/init.d/rabbitmq-server stop; /bin/rm -rf /var/lib/rabbitmq/mnesia',
-                require => Package[$package_name],
-                unless  => "/bin/grep -qx ${erlang_cookie} /var/lib/rabbitmq/.erlang.cookie"
-            }
-        } else {
-            exec { 'wipe_db':
-                command => '/bin/false "Cookie must be changed but wipe_db is false"', # If the cookie doesn't match, just fail.
-                require => Package[$package_name],
-                unless  => "/bin/grep -qx ${erlang_cookie} /var/lib/rabbitmq/.erlang.cookie"
-            }
-        }
-    }
+  class { 'rabbitmq::service':
+    service_name => $service_name,
+    ensure       => $service_ensure,
+  }
+  file {
+    '/etc/security/limits.d/91-rabbitmq.conf':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => "# THIS FILE MANAGED BY PUPPET.\nrabbitmq soft nofile ${nofile_limit}\nrabbitmq hard nofile ${nofile_limit}\n";
+  }
 
-    file { 'rabbitmq-env.config':
-        ensure  => file,
-        path    => '/etc/rabbitmq/rabbitmq-env.conf',
-        content => $env_config_real,
-        owner   => '0',
-        group   => '0',
-        mode    => '0644',
-        notify  => Class['rabbitmq::service'],
+  if $delete_guest_user {
+    # delete the default guest user
+    rabbitmq_user{ 'guest':
+      ensure   => absent,
+      provider => 'rabbitmqctl',
     }
-
-    class { 'rabbitmq::service':
-        service_name => $service_name,
-        ensure       => $service_ensure,
-    }
-    file {
-        '/etc/security/limits.d/91-rabbitmq.conf':
-            owner   => 'root',
-            group   => 'root',
-            mode    => '0644',
-            content => "# THIS FILE MANAGED BY PUPPET.\nrabbitmq soft nofile ${nofile_limit}\nrabbitmq hard nofile ${nofile_limit}\n";
-    }
-
-    if $delete_guest_user {
-        # delete the default guest user
-        rabbitmq_user{ 'guest':
-            ensure   => absent,
-            provider => 'rabbitmqctl',
-        }
-    }
+  }
 
 }

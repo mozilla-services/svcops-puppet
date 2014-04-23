@@ -1,6 +1,6 @@
 # celery instance class
 class marketplace::apps::addon_registration::celery(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(marketplace::apps::addon_registration::celery_instance, $instances)
+  create_resources(marketplace::apps::addon_registration::celery_instance, $instances)
 }
