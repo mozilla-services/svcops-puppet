@@ -1,6 +1,6 @@
 # freddo class
 class freddo(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(freddo::instance, $instances)
+  create_resources(freddo::instance, $instances)
 }

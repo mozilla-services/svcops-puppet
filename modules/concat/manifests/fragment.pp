@@ -26,15 +26,15 @@
 #   reference for its use.  Defaults to 'puppet'
 #
 define concat::fragment(
-    $target,
-    $content=undef,
-    $source=undef,
-    $order=10,
-    $ensure = 'present',
-    $mode = '0644',
-    $owner = $::id,
-    $group = $concat::setup::root_group,
-    $backup = 'puppet') {
+  $target,
+  $content=undef,
+  $source=undef,
+  $order=10,
+  $ensure = 'present',
+  $mode = '0644',
+  $owner = $::id,
+  $group = $concat::setup::root_group,
+  $backup = 'puppet') {
   $safe_name = regsubst($name, '[/\n]', '_', 'GM')
   $safe_target_name = regsubst($target, '[/\n]', '_', 'GM')
   $concatdir = $concat::setup::concatdir

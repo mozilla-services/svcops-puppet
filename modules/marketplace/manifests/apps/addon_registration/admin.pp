@@ -1,6 +1,6 @@
 # admin instance class
 class marketplace::apps::addon_registration::admin(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(marketplace::apps::addon_registration::admin_instance, $instances)
+  create_resources(marketplace::apps::addon_registration::admin_instance, $instances)
 }

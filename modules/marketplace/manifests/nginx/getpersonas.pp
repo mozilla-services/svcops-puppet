@@ -1,15 +1,15 @@
 # getpersonas nginx config
 define marketplace::nginx::getpersonas(
-    $server_names # ['getpersonas.com']
+  $server_names # ['getpersonas.com']
 ) {
-    $config_name = $name
+  $config_name = $name
 
-    nginx::config {
-        $config_name:
-            content => template('marketplace/nginx/getpersonas.conf');
-    }
+  nginx::config {
+    $config_name:
+      content => template('marketplace/nginx/getpersonas.conf');
+  }
 
-    nginx::logdir {
-        $config_name:;
-    }
+  nginx::logdir {
+    $config_name:;
+  }
 }

@@ -1,18 +1,18 @@
 class pyrepo(
-    $server_name
+  $server_name
 ){
-    include nginx
+  include nginx
 
-    file {
-        '/data/pyrepo':
-            owner  => 'root',
-            group  => 'users',
-            mode   => '1775',
-            ensure => 'directory';
-    }
+  file {
+    '/data/pyrepo':
+      owner  => 'root',
+      group  => 'users',
+      mode   => '1775',
+      ensure => 'directory';
+  }
 
-    nginx::config {
-        'pyrepo':
-            content => template('pyrepo/nginx/pyrepo.conf');
-    }
+  nginx::config {
+    'pyrepo':
+      content => template('pyrepo/nginx/pyrepo.conf');
+  }
 }

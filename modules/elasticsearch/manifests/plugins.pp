@@ -1,10 +1,10 @@
 # elasticsearch plugins class
 class elasticsearch::plugins(
-    $plugins = undef
+  $plugins = undef
 ){
 
-    package {
-        $plugins:
-            ensure  => present;
-    }
+  package {
+    $plugins:
+      ensure  => present;
+  }
 }

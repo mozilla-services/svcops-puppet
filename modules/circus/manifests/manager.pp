@@ -33,19 +33,19 @@ class circus::manager(
   }
 
   service {
-      'circusd':
-          ensure   => running,
-          enable   => true,
-          start    => '/sbin/initctl start circusd',
-          restart  => '/sbin/initctl restart circusd',
-          stop     => '/sbin/initctl stop circusd',
-          status   => '/sbin/initctl status circusd | /bin/grep -qw running',
-          provider => 'base',
-          require  => [
-              Package[$circus_package],
-              File['/etc/init/circusd.conf'],
-              File['/etc/circus.ini'],
-          ];
+    'circusd':
+      ensure   => running,
+      enable   => true,
+      start    => '/sbin/initctl start circusd',
+      restart  => '/sbin/initctl restart circusd',
+      stop     => '/sbin/initctl stop circusd',
+      status   => '/sbin/initctl status circusd | /bin/grep -qw running',
+      provider => 'base',
+      require  => [
+        Package[$circus_package],
+        File['/etc/init/circusd.conf'],
+        File['/etc/circus.ini'],
+      ];
   }
 
   File {

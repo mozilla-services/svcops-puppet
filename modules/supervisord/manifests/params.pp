@@ -1,5 +1,5 @@
 class supervisord::params (
-    $ulimit = '-n 40000',
+  $ulimit = '-n 40000',
 ) {
-    # This class intentionally left empty.
+  # This class intentionally left empty.
 }

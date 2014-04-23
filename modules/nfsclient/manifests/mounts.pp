@@ -1,6 +1,6 @@
 # nfsclient instance class
 class nfsclient::mounts(
-    $instances = {}
+  $instances = {}
 ) {
-    create_resources(nfsclient::mount, $instances)
+  create_resources(nfsclient::mount, $instances)
 }

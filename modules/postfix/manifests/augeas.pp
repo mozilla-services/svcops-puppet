@@ -1,4 +1,4 @@
-#class postfix::augeas
+# class postfix::augeas
 #  This class provides the augeas lenses used by the postfix class
 #
 class postfix::augeas {

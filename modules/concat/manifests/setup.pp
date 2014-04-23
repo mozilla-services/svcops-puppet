@@ -42,14 +42,14 @@ class concat::setup {
     mode   => '0755',
     source => $fragments_source;
 
-  [ $concatdir, "${concatdir}/bin" ]:
-    ensure => directory,
-    owner  => $id,
-    group  => $root_group,
-    mode   => '0750';
+    [ $concatdir, "${concatdir}/bin" ]:
+      ensure => directory,
+      owner  => $id,
+      group  => $root_group,
+      mode   => '0750';
 
-  ## Old versions of this module used a different path.
-  '/usr/local/bin/concatfragments.sh':
-    ensure => absent;
+    ## Old versions of this module used a different path.
+    '/usr/local/bin/concatfragments.sh':
+      ensure => absent;
   }
 }

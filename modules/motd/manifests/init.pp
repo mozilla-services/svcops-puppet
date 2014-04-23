@@ -1,14 +1,14 @@
 # motd
 define motd(
-    $content,
-    $order=10
+  $content,
+  $order=10
 ){
-    include motd::base
+  include motd::base
 
-    concat::fragment {
-        $name:
-            target  => '/etc/motd',
-            content => $content,
-            order   => $order;
-    }
+  concat::fragment {
+    $name:
+      target  => '/etc/motd',
+      content => $content,
+      order   => $order;
+  }
 }

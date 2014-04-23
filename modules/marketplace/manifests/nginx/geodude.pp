@@ -1,15 +1,15 @@
 # pfs nginx config
 define marketplace::nginx::geodude(
-    $server_names # ['geo.marketplace.firefox.com']
+  $server_names # ['geo.marketplace.firefox.com']
 ) {
-    $config_name = $name
+  $config_name = $name
 
-    nginx::config {
-        $config_name:
-            content => template('marketplace/nginx/geodude.conf');
-    }
+  nginx::config {
+    $config_name:
+      content => template('marketplace/nginx/geodude.conf');
+  }
 
-    nginx::logdir {
-        $config_name:;
-    }
+  nginx::logdir {
+    $config_name:;
+  }
 }

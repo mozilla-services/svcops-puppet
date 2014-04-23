@@ -1,12 +1,12 @@
 # add an apache config
 define apache::config(
-    $content
+  $content
 ) {
-    include apache
-    $conf_name = $name
-    file {
-        "${apache::root}/${conf_name}.conf":
-            notify  => Service['httpd'],
-            content => $content;
-    }
+  include apache
+  $conf_name = $name
+  file {
+    "${apache::root}/${conf_name}.conf":
+      notify  => Service['httpd'],
+      content => $content;
+  }
 }

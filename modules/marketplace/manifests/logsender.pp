@@ -1,8 +1,8 @@
 # A send logs to a list of hosts.
 class marketplace::logsender(
-    $loghosts = []
+  $loghosts = []
 ){
-    rsyslog::udpnode {
-        $loghosts:;
-    }
+  rsyslog::udpnode {
+    $loghosts:;
+  }
 }

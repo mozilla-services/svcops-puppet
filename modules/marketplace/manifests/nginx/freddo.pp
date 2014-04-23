@@ -1,15 +1,15 @@
 # pfs nginx config
 define marketplace::nginx::freddo(
-    $server_names
+  $server_names
 ) {
-    $config_name = $name
+  $config_name = $name
 
-    nginx::config {
-        $config_name:
-            content => template('marketplace/nginx/freddo.conf');
-    }
+  nginx::config {
+    $config_name:
+      content => template('marketplace/nginx/freddo.conf');
+  }
 
-    nginx::logdir {
-        $config_name:;
-    }
+  nginx::logdir {
+    $config_name:;
+  }
 }

@@ -1,6 +1,6 @@
 # admin instance class
 class marketplace::apps::monolith::admin(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(marketplace::apps::monolith::admin_instance, $instances)
+  create_resources(marketplace::apps::monolith::admin_instance, $instances)
 }

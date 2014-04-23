@@ -1,6 +1,6 @@
 # flower class
 class flower(
-    $instances = {},
+  $instances = {},
 ) {
-    create_resources(flower::instance, $instances)
+  create_resources(flower::instance, $instances)
 }
