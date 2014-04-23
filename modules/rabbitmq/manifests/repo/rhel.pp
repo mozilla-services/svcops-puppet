@@ -9,9 +9,9 @@ class rabbitmq::repo::rhel (
 
   package { "rabbitmq-server":
     provider => rpm,
-    ensure => installed,
-    source => "http://www.rabbitmq.com/releases/rabbitmq-server/v${version}/rabbitmq-server-${version}-${relversion}.noarch.rpm",
-    require => Exec["rpm --import ${key}"],
+    ensure   => installed,
+    source   => "http://www.rabbitmq.com/releases/rabbitmq-server/v${version}/rabbitmq-server-${version}-${relversion}.noarch.rpm",
+    require  => Exec["rpm --import ${key}"],
   }
 
 }

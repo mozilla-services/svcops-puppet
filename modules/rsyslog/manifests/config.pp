@@ -5,7 +5,7 @@ define rsyslog::config(
   $config_name = $name
   file {
     "/etc/rsyslog.d/${config_name}.conf":
-      notify => Service['rsyslog'],
+      notify  => Service['rsyslog'],
       content => $content;
   }
 }

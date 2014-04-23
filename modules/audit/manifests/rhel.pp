@@ -8,8 +8,8 @@ class audit::rhel {
       ensure => 'latest',
       notify => Service['auditd'];
     'audit-mozilla-libs-python':
-      ensure => 'latest',
-      notify => Service['auditd'],
+      ensure  => 'latest',
+      notify  => Service['auditd'],
       require => [ Package['audit_package'], Package['audit-mozilla-libs'] ];
     'audit-mozilla-libs':
       ensure => 'latest',

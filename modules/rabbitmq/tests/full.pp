@@ -17,5 +17,5 @@ rabbitmq_user_permissions { 'dan@myhost':
   configure_permission => '.*',
   read_permission      => '.*',
   write_permission     => '.*',
-  provider => 'rabbitmqctl',
+  provider             => 'rabbitmqctl',
 }

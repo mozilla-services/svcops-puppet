@@ -9,28 +9,28 @@ class nfsclient {
 
   service {
     'nfs':
-      enable => true,
-      ensure => "running",
+      enable    => true,
+      ensure    => "running",
       hasstatus => true,
-      require => Package['nfs-utils'];
+      require   => Package['nfs-utils'];
 
     'nfslock':
-      enable => true,
-      ensure => "running",
-      before => Service['nfs'],
+      enable    => true,
+      ensure    => "running",
+      before    => Service['nfs'],
       hasstatus => true,
-      require => Package['nfs-utils'];
+      require   => Package['nfs-utils'];
   }
 
   if $operatingsystemrelease =~ /^6/ {
 
     service {
       'rpcbind':
-        enable => true,
-        ensure => "running",
-        before => Service['nfslock'],
+        enable    => true,
+        ensure    => "running",
+        before    => Service['nfslock'],
         hasstatus => true,
-        require => Package['nfs-utils'];
+        require   => Package['nfs-utils'];
     }
   }
 }
