@@ -1,5 +1,7 @@
 # base packages, we install these everywhere
-class base::packages {
+class base::packages(
+  $openssl_version = '1.0.1e-16.el6_5.7'
+){
   package {
     [
       'ack',
@@ -31,6 +33,6 @@ class base::packages {
   
   package {
     'openssl':
-      ensure => '1.0.1e-16.el6_5.7',
+      ensure => $openssl_version,
   }
 }
