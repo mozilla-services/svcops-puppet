@@ -1,16 +1,17 @@
 # solitude web instance
 define marketplace::apps::solitude::web_instance(
-  $project_dir,
   $port,
+  $project_dir,
   $server_names, # ['payments.mozilla.org']
-  $workers = 12,
-  $worker_name = 'payments',
-  $user = 'sol_prod',
-  $settings_module = 'solitude.settings',
   $appmodule = 'wsgi.playdoh:application',
   $is_proxy = false,
   $newrelic_license_key = '',
-  $scl = undef
+  $nginx_port = '81',
+  $scl = undef,
+  $settings_module = 'solitude.settings',
+  $user = 'sol_prod',
+  $workers = 12,
+  $worker_name = 'payments',
 ) {
   $config_name = $name
 
