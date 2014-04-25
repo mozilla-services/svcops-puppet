@@ -1,15 +1,15 @@
 # THIS FILE MANAGED BY PUPPET.
 --- 
   cluster: 
-    name: <%= cluster_name %>
+    name: <%= @cluster_name %>
     routing:
       allocation:
         node_concurrent_recoveries: 6
   bootstrap.mlockall: true
   multicast.enabled: false
   node: 
-    name: <%= es_name %>
-    datacenter: <%= datacenter %>
+    name: <%= @es_name %>
+    datacenter: <%= @datacenter %>
   discovery:
     zen:
       ping_retries: "2"
@@ -23,25 +23,25 @@
     refresh: 
       type: fixed
       reject_policy: caller
-      size: <%= es_threads %>
+      size: <%= @es_threads %>
     bulk: 
       type: fixed
       reject_policy: caller
-      size: <%= es_bulk_threads %>
+      size: <%= @es_bulk_threads %>
       queue_size: 10000
     search: 
       type: fixed
       reject_policy: caller
-      size: <%= es_threads %>
+      size: <%= @es_threads %>
     index: 
       type: fixed
       reject_policy: caller
-      size: <%= es_threads %>
+      size: <%= @es_threads %>
   settings: 
     number_of_shards: "10"
     number_of_replicas: "2"
   gateway: 
-    expected_nodes: "<%= expected_nodes %>"
+    expected_nodes: "<%= @expected_nodes %>"
     recovery_after_nodes: "2"
   action: 
     disable_shutdown: "true"
@@ -77,4 +77,4 @@
         max_bytes_per_sec: 20mb
     cache:
       filter:
-        size: <%= cache_filter_size %>
+        size: <%= @cache_filter_size %>
