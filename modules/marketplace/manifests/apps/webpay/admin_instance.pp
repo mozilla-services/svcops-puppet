@@ -34,11 +34,15 @@ define marketplace::apps::webpay::admin_instance(
 
   $app_dir = $name
 
-  file {"${app_dir}/webpay/deploysettings.py":
-    content => template('marketplace/apps/webpay/admin/deploysettings.py'),
-  }
+  git::clone { "${app_dir}/webpay":
+    repo => 'https://github.com/mozilla/webpay.git',
+  }->
+
 
   file {
+    "${app_dir}/webpay/deploysettings.py":
+      content => template('marketplace/apps/webpay/admin/deploysettings.py');
+
     "${app_dir}/webpay/local.py":
       content => template('marketplace/apps/webpay/admin/settings_local.py');
 
