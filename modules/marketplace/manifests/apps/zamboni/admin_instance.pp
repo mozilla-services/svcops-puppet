@@ -10,6 +10,7 @@ define marketplace::apps::zamboni::admin_instance(
   $settings, # zamboni::settings hash
   $settings_site,
   $ssh_key,
+  $webpay_settings = undef,
 ) {
   $instance_name = $name
   $project_dir = "/data/${cluster}/src/${domain}"
@@ -41,13 +42,35 @@ define marketplace::apps::zamboni::admin_instance(
     marketplace::apps::zamboni::deploysettings,
     {"${app_dir}" => $deploy_settings},
     {
-      require  => Git::Clone[$app_dir],
-      env     => $env,
-      cluster => $cluster,
-      domain  => $domain,
-      ssh_key => $ssh_key,
+      require                   => Git::Clone[$app_dir],
+      celery_service_mkt_prefix => "celeryd-marketplace-${env}",
+      cluster                   => $cluster,
+      cron_name                 => "zamboni-${env}",
+      domain                    => $domain,
+      env                       => $env,
+      ssh_key                   => $ssh_key,
     }
   )
+  
+  if $webpay_settings {
+    create_resources(
+      marketplace::apps::webpay::admin_instance,
+      {"${project_dir}-webpay" => $webpay_settings},
+      {
+        cache_prefix   => "${env}.webpay",
+        celery_service => "celeryd-webpay-${env}",
+        cluster        => $cluster,
+        cron_name      => "webpay-${env}",
+        domain         => "${domain}-webpay",
+        env            => $env,
+        scl_name       => 'python27',
+        ssh_key        => $ssh_key,
+        statsd_prefix  => "webpay-${env}",
+        syslog_tag     => "http_app_webpay_${env}",
+        uwsgi          => "webpay-${env}"
+      }
+    )
+  }
 
   marketplace::apps::fireplace::admin_instance { "${project_dir}/fireplace":
     cluster           => $cluster,
