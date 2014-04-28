@@ -57,17 +57,18 @@ define marketplace::apps::zamboni::admin_instance(
       marketplace::apps::webpay::admin_instance,
       {"${project_dir}-webpay" => $webpay_settings},
       {
-        cache_prefix   => "${env}.webpay",
-        celery_service => "celeryd-webpay-${env}",
-        cluster        => $cluster,
-        cron_name      => "webpay-${env}",
-        domain         => "${domain}-webpay",
-        env            => $env,
-        scl_name       => 'python27',
-        ssh_key        => $ssh_key,
-        statsd_prefix  => "webpay-${env}",
-        syslog_tag     => "http_app_webpay_${env}",
-        uwsgi          => "webpay-${env}"
+        cache_prefix      => "${env}.webpay",
+        celery_service    => "celeryd-webpay-${env}",
+        cluster           => $cluster,
+        cron_name         => "webpay-${env}",
+        domain            => "${domain}-webpay",
+        dreadnot_instance => $dreadnot_instance,
+        env               => $env,
+        scl_name          => 'python27',
+        ssh_key           => $ssh_key,
+        statsd_prefix     => "webpay-${env}",
+        syslog_tag        => "http_app_webpay_${env}",
+        uwsgi             => "webpay-${env}"
       }
     )
   }
