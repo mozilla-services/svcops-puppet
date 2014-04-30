@@ -1,0 +1,18 @@
+#!/bin/bash
+
+operatingsystemrelease=$(facter -p operatingsystemrelease)
+case "$operatingsystemrelease" in
+    5.*)
+        echo DANGER Do not run this on RHEL5
+        exit 1
+        ;;
+    6.*)
+        yum clean all
+        yum-complete-transaction --cleanup-only
+        yum -y --disablerepo mozilla* shell /usr/local/libexec/audit-yum-transaction-bug-969740.txt
+        ;;
+    *)
+        echo Unsupported operating system $operatingsystemrelease
+        exit 1
+        ;;
+esac
