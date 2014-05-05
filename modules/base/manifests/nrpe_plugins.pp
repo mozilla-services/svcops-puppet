@@ -1,5 +1,7 @@
 # corresponds to infra's nrpe_plugins class
-class base::nrpe_plugins ($plugins = []) {
+class base::nrpe_plugins () {
+  $plugins = hiera_array('base::nrpe_plugins::plugins', [])
+
   include nrpe::plugins
   # base plugins
   realize(
