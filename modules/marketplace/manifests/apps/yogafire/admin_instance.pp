@@ -5,6 +5,7 @@ define marketplace::apps::yogafire::admin_instance(
   $dreadnot_instance,
   $env,
   $ssh_key,
+  $zamboni_dir,
   $project_name = 'yogafire',
 ) {
   $yogafire_dir = $name
