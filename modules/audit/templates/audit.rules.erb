@@ -1,3 +1,6 @@
+# This file is managed by puppet
+# Version: $Id: audit.rules 20750 2011-09-20 15:18:28Z gdestuynder@mozilla.com $
+#
 # This file contains the auditctl rules that are loaded
 # whenever the audit daemon is started via the initscripts.
 # The rules are simply the parameters that would be passed
@@ -25,11 +28,12 @@
  
 ## Generic logging
 # Bypass regular calls
-<% if scope.lookupvar('::hardwaremodel') == 'i386' -%>
--a always,exit -F arch=b32 -S personality -k bypass
-<% end-%>
 <% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
 -a always,exit -F arch=b64 -S personality -k bypass
+-a always,exit -F arch=b32 -S personality -k bypass
+<% end -%>
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a exit,always -S personality -k bypass
 <% end -%>
 
 ## Exec logging
@@ -74,12 +78,11 @@
 # Setup the exec monitoring for all other cases
 <% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
 -a exit,always -F arch=b64 -S execve -k exec
-<%end -%>
-<% if scope.lookupvar('::hardwaremodel') == 'i386' -%>
 -a exit,always -F arch=b32 -S execve -k exec
-<%end -%>
-# For legacy 32bit support, uncomment the following instead:
-#-a exit,always -S execve -k exec
+<% end -%>
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a exit,always -S execve -k exec
+<% end -%>
  
 ## Log changes to system configuration files.
 # Modify audit configuration
@@ -128,21 +131,32 @@
 -w /etc/sudoers -p wa -k user
  
 # Time changes
+<% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
 -a always,exit -F arch=b32 -S adjtimex -S settimeofday -k time-change
 -a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change
+<% end -%>
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a always,exit -S adjtimex -S settimeofday -k time-change
+<% end -%>
 -w /etc/localtime -p wa -k time-change
  
 # Module loading
+<% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
 -a exit,always -F arch=b64 -S init_module -k module
 -a exit,always -F arch=b32 -S init_module -k module
+<% end -%>
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a exit,always -S init_module -k module
+<% end -%>
  
 # Swapping kernel via kexec
 <% if scope.lookupvar('::hardwaremodel') == 'x86_64' -%>
 -a exit,always -F arch=b64 -S kexec_load -k kexec
-<%end -%>
-<% if scope.lookupvar('::hardwaremodel') == 'i386' -%>
 -a exit,always -F arch=b32 -S kexec_load -k kexec
-<%end -%>
+<% end -%>
+<% if scope.lookupvar('::architecture') == 'i386' -%>
+-a exit,always -S kexec_load -k kexec
+<% end -%>
 
 # Changes to binaries (common locations)
 -w /usr/bin -p wa -k binaries
@@ -151,3 +165,6 @@
 -w /sbin -p wa -k binaries
 -w /usr/local/bin -p wa -k binaries
 -w /usr/local/sbin -p wa -k binaries
+
+# uncomment to temporarily disable auditd
+#-D

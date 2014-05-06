@@ -1,0 +1,4 @@
+remove audit-mozilla-libs audit-mozilla-libs-python audit-libs-devel audit-mozilla audispd-mozilla-plugins
+install audit audit-libs-python
+transaction solve
+transaction run

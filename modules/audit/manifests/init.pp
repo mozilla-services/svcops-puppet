@@ -1,69 +1,81 @@
+# audit
 class audit {
   case $::osfamily {
-    "Debian": {
+    'Debian': {
       include audit::debian
     }
-    "RedHat": {
-      include audit::rhel
+
+    'RedHat': {
+      case $::operatingsystemrelease {
+        /^5/: {
+          include audit::rhel5
+        }
+
+        /^(6|2013.03)/: {
+          include audit::rhel6
+        }
+      }
     }
     default: { }
   }
 
   service {
     'auditd':
-      ensure    => running,
+      ensure    => 'running',
       enable    => true,
       require   => Package['audit_package'],
       hasstatus => true;
   }
 
+  exec {
+    'restart-auditd-for-audisp-cef':
+      path    => '/usr/sbin:/sbin:/usr/local/sbin:/usr/bin:/bin:/usr/local/bin',
+      command => 'service auditd restart',
+      unless  => 'pidof audisp-cef',
+      require => Service['auditd'];
+  }
+
   file {
     '/etc/audit/auditd.conf':
-      ensure  => file,
+      ensure  => 'present',
       require => Package['audit_package'],
       notify  => Service['auditd'],
-      owner   => "root",
-      group   => "root",
+      owner   => 'root',
+      group   => 'root',
       mode    => '0600',
-      source  => "puppet:///modules/audit/auditd.conf";
+      source  => 'puppet:///modules/audit/auditd.conf';
 
     '/etc/audit/audit.rules':
-      ensure  => file,
+      ensure  => 'present',
       require => Package['audit_package'],
       notify  => Service['auditd'],
-      owner   => "root",
-      group   => "root",
+      owner   => 'root',
+      group   => 'root',
       mode    => '0600',
-      content => template("audit/audit.rules.erb");
+      content => template('audit/audit.rules.erb');
 
     '/etc/audisp/audispd.conf':
-      ensure  => file,
+      ensure  => 'present',
       require => Package['audit_package'],
       notify  => Service['auditd'],
-      owner   => "root",
-      group   => "root",
+      owner   => 'root',
+      group   => 'root',
       mode    => '0600',
-      source  => "puppet:///modules/audit/audispd.conf";
+      source  => 'puppet:///modules/audit/audispd.conf';
 
     '/etc/audisp/plugins.d/syslog.conf':
-      ensure  => file,
+      ensure  => 'present',
       require => Package['audit_package'],
       notify  => Service['auditd'],
-      owner   => root,
-      group   => root,
+      owner   => 'root',
+      group   => 'root',
       mode    => '0600',
-      source  => "puppet:///modules/audit/syslog.conf";
+      source  => 'puppet:///modules/audit/syslog.conf';
 
     '/var/log/audit':
-      ensure => directory,
+      ensure => 'directory',
       owner  => root,
       group  => root,
       mode   => '0700';
-  }
-  exec {
-    'restart-auditd':
-      path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-      command => '/etc/init.d/auditd restart',
-      onlyif  => "auditctl -s | grep 'pid=0\\|enabled=0' || if [ $(pidof audisp-cef) ]; then false; else true; fi";
   }
 }
