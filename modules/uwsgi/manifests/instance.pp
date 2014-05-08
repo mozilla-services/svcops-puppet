@@ -2,14 +2,15 @@
 define uwsgi::instance(
   $app_dir,
   $appmodule,
+  $port,
+  $user,
   $environ = '',
   $harakiri = undef,
   $home = undef, # point at venv
+  $lazy_apps = true,
   $log_syslog = true,
-  $port,
   $scl = undef,
   $use_unix_socket = true,
-  $user,
   $workers = 4,
 ) {
   include uwsgi
