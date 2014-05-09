@@ -33,3 +33,6 @@ find $LOG_DIR -type f -name "$PRE_DATE.log" ! -name '*.gz' -print0 | xargs -0 -r
 
 #ship files
 rsync -av --ignore-existing  --include='addons.mozilla.org' --include='marketplace.firefox.com' --include="$PRE_DATE.log.gz" --exclude="*" -e "ssh -o StrictHostKeyChecking=no -i $LOG_HOST_KEY" $LOG_DIR/ $LOG_HOST_USER@$LOG_HOST:/data/stats/logs/$HOSTNAME/  &> $RESULTLOG
+
+#cleanup old log files
+find $LOG_DIR -type f -name '*.log.gz' -mtime +14 -delete
