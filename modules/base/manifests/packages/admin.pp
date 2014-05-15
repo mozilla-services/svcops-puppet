@@ -5,8 +5,6 @@ class base::packages::admin{
       'git',
       'libxml2-devel',
       'libxslt-devel',
-      'python-fabdeploytools',
-      'python-fabric',
       'python-virtualenv',
     ]:
       ensure => 'latest';
