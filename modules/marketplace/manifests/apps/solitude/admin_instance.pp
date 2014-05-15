@@ -1,9 +1,9 @@
 # solitude admin_instance
 define marketplace::apps::solitude::admin_instance(
-  $deploy_settings,
   $env,
   $project_dir,
   $settings,
+  $deploy_settings = undef,
   $dreadnot_instance = undef,
   $is_proxy = false,
 ) {
@@ -30,16 +30,18 @@ define marketplace::apps::solitude::admin_instance(
     }
   )
 
-  create_resources(
-    marketplace::apps::solitude::deploysettings,
-    {"${project_dir}/solitude" => $deploy_settings},
-    {
-      'env'      => $env,
-      'is_proxy' => $is_proxy,
-      'require'  => Git::Clone[$app_dir],
-      'scl_name' => 'python27',
-    }
-  )
+  if $deploy_settings {
+    create_resources(
+      marketplace::apps::solitude::deploysettings,
+      {"${project_dir}/solitude" => $deploy_settings},
+      {
+        'env'      => $env,
+        'is_proxy' => $is_proxy,
+        'require'  => Git::Clone[$app_dir],
+        'scl_name' => 'python27',
+      }
+    )
+  }
 
   if $dreadnot_instance {
     dreadnot::stack { $solitude_name:
