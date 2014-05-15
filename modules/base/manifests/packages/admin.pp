@@ -5,7 +5,7 @@ class base::packages::admin{
       'git',
       'libxml2-devel',
       'libxslt-devel',
-      'python-virtualenv',
+      'python-virtualenv.noarch',
     ]:
       ensure => 'latest';
   }
