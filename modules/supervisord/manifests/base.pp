@@ -31,7 +31,7 @@ class supervisord::base inherits supervisord::params {
 
     '/etc/supervisord.conf.d/':
       ensure  => directory,
-      # notify  => Service['supervisord'],
+      notify  => Service['supervisord'],
       recurse => true,
       purge   => true;
 

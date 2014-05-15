@@ -22,7 +22,7 @@ define supervisord::service(
   file {
     "/etc/supervisord.conf.d/${name}.conf":
       require => File['/etc/supervisord.conf.d'],
-      # notify  => Service['supervisord'],
+      notify  => Service['supervisord'],
       content => template('supervisord/supervisor.conf');
 
     "/etc/init.d/${name}":
