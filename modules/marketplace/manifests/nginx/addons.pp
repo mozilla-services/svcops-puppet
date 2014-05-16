@@ -5,6 +5,7 @@ define marketplace::nginx::addons(
   $cdn_server_names, # ['addons-cdn.mozilla.net', 'static.addons.mozilla.net', 'static-ssl-cdn.addons.mozilla.net']
   $https_redirect_names, # ['addons.mozilla.org', 'addons.update.mozilla.org', 'addons-nl.stage.mozilla.com', 'addons-cdn.mozilla.net', 'static.addons.mozilla.net', 'm.addons.mozilla.org']
   $webroot, # /data/www/addons.mozilla.org
+  $blocklist_hostname = 'blocklist.addons.mozilla.org',
   $cdn_hostname, # addons.cdn.mozilla.net
   $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
   $app_name = 'zamboni',
