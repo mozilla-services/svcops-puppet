@@ -8,8 +8,9 @@ class base::firewall::pre(
     purge => true,
   }
 
-  firewallchain { 'SUBNET':
-    purge => true,
+  firewallchain { 'SUBNET:filter:IPv4':
+    ensure => present,
+    purge  => true,
   }->
   firewall { '400 log subnet':
     chain      => 'SUBNET',
@@ -49,8 +50,8 @@ class base::firewall::pre(
 
   if $host_network {
     firewall { '150 subnet jump':
-      before  => '200 allow ssh',
-      require => '130 allow mcast',
+      before  => Firewall['200 allow ssh'],
+      require => Firewall['130 allow mcast'],
       jump    => 'SUBNET',
       proto   => 'all',
       source  => $host_network,
