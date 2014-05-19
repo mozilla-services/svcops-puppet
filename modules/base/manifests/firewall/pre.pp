@@ -12,18 +12,6 @@ class base::firewall::pre(
     ensure => 'present',
     purge  => true,
   }->
-  firewall { '490 log subnet':
-    chain      => 'SUBNET',
-    jump       => 'LOG',
-    log_prefix => 'SUBNET: ',
-    proto      => 'all',
-  }->
-  firewall { '491 allow subnet':
-    action     => 'accept',
-    chain      => 'SUBNET',
-    proto      => 'all',
-  }
-
   firewall { '100 allow established/related':
     action  => 'accept',
     ctstate => ['ESTABLISHED', 'RELATED'],

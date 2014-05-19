@@ -1,6 +1,11 @@
 # monolith web firewall
 class marketplace::apps::monolith::web::firewall {
   require base::firewall::pre
+  include base::firewall::post
+
+  Firewall {
+    before => Class['base::firewall::post'],
+  }
 
   firewall { '400 allow subnet http':
     action => 'accept',
@@ -19,12 +24,6 @@ class marketplace::apps::monolith::web::firewall {
   }->
   firewall { '301 allow subnet ganglia':
     action => 'accept',
-    chain  => 'SUBNET',
     dport  => '8649',
-  }->
-  firewall { '990 log input':
-    jump       => 'LOG',
-    log_prefix => 'WILLDROP: ',
-    proto      => 'all',
   }
 }
