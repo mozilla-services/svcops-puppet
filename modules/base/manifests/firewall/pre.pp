@@ -12,13 +12,13 @@ class base::firewall::pre(
     ensure => present,
     purge  => true,
   }->
-  firewall { '400 log subnet':
+  firewall { '490 log subnet':
     chain      => 'SUBNET',
     jump       => 'LOG',
     log_prefix => 'SUBNET: ',
     proto      => 'all',
   }->
-  firewall { '401 allow subnet':
+  firewall { '491 allow subnet':
     action     => 'accept',
     chain      => 'SUBNET',
     proto      => 'all',
