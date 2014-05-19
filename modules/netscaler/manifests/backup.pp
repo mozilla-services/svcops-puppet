@@ -26,7 +26,7 @@ class netscaler::backup(
     '/usr/local/bin/backup_netscaler.sh':
       owner   => $user,
       mode    => '0700',
-      content => template('nswl/backup_netscaler.sh');
+      content => template('netscaler/backup_netscaler.sh');
   }
 
   cron {
