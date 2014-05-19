@@ -1,6 +1,6 @@
 # base firewall allows
 class base::firewall::pre(
-  $host_network = undef # e.g., 192.168.1.0/24
+  $host_network = '127.0.0.1/32' # e.g., 192.168.1.0/24
 ) {
   include firewall
 
@@ -9,7 +9,7 @@ class base::firewall::pre(
   }
 
   firewallchain { 'SUBNET:filter:IPv4':
-    ensure => present,
+    ensure => 'present',
     purge  => true,
   }->
   firewall { '490 log subnet':
@@ -43,18 +43,13 @@ class base::firewall::pre(
     pkttype => 'multicast',
     proto   => 'all',
   }->
+  firewall { '150 subnet jump':
+    jump    => 'SUBNET',
+    proto   => 'all',
+    source  => $host_network,
+  }->
   firewall { '200 allow ssh':
     action => 'accept',
     dport  => '22',
-  }
-
-  if $host_network {
-    firewall { '150 subnet jump':
-      before  => Firewall['200 allow ssh'],
-      require => Firewall['130 allow mcast'],
-      jump    => 'SUBNET',
-      proto   => 'all',
-      source  => $host_network,
-    }
   }
 }
