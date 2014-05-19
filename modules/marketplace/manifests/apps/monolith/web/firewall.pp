@@ -1,5 +1,10 @@
 # monolith web firewall
 class marketplace::apps::monolith::web::firewall {
+
+  resources { 'firewall':
+    purge => true,
+  }
+
   include firewall
   firewall {
     '100 allow established/related':
