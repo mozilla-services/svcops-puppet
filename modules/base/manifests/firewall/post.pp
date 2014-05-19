@@ -2,7 +2,6 @@
 class base::firewall::post(
   $default_rule = 'accept',
 ) {
-  require base::firewall::pre
 
   firewall { '990 log subnet':
     chain      => 'SUBNET',
