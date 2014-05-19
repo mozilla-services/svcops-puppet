@@ -4,6 +4,10 @@ class base::firewall::pre(
 ) {
   include firewall
 
+  Firewall {
+    require => undef,
+  }
+
   resources { 'firewall':
     purge => true,
   }
