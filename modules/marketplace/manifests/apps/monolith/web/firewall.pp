@@ -4,7 +4,8 @@ class marketplace::apps::monolith::web::firewall {
   firewall {
     '100 allow established/related':
       action  => 'accept',
-      cfstate => ['ESTABLISHED', 'RELATED'];
+      ctstate => ['ESTABLISHED', 'RELATED'],
+      proto   => 'all';
 
     '110 allow ICMP':
       action => 'accept',
@@ -12,7 +13,8 @@ class marketplace::apps::monolith::web::firewall {
 
     '120 allow lo':
       action  => 'accept',
-      iniface => 'lo';
+      iniface => 'lo',
+      proto   => 'all';
 
     '200 allow ssh':
       action => 'accept',
