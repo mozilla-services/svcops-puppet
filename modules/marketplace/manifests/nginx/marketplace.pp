@@ -15,6 +15,7 @@ define marketplace::nginx::marketplace(
   $commbadge_root = '',
   $landfill_dumps = undef,
   $rocketfuel_root = '',
+  $spartacus_root = undef,
   $marketplace_stats_root = '',
   $mkt_redirects = undef,
 ) {
