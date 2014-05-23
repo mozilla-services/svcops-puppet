@@ -7,7 +7,7 @@ define marketplace::apps::geodude::admin_instance(
   $ssh_key,
   $allow_post = 'True',
   $geo_db_format = 'mmdb',
-  $geo_db_path = 'GeoIP.dat',
+  $geo_db_path = 'GeoIP2-City.mmdb',
   $is_dev = 'False',
   $project_name = 'geodude',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
