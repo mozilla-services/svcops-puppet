@@ -42,6 +42,7 @@ class base::packages(
       'abrt',
       'abrt-cli',
       'abrt-libs',
+      'abrt-tui',
     ]:
       ensure => 'absent',
   }
