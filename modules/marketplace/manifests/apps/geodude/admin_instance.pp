@@ -12,6 +12,7 @@ define marketplace::apps::geodude::admin_instance(
   $project_name = 'geodude',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $update_ref = undef,
+  $uwsgi = 'geodude', # should be string separated by ";"
 ) {
   $geodude_dir = $name
 
