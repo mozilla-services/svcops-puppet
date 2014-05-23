@@ -3,7 +3,7 @@ define marketplace::apps::geodude::web_instance(
   $port,
   $project_dir,
   $server_names, # ['geodude.marketplace.firefox.com']
-  $appmodule = 'geodude',
+  $appmodule = 'wsgi.service',
   $scl = undef,
   $user = 'mkt_prod_geodude',
   $worker_name = 'geodude',
