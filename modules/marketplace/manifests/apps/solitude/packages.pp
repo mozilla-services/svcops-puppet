@@ -1,11 +1,7 @@
 # solitude packages
 class marketplace::apps::solitude::packages {
   include marketplace::virtual_packages
-  realize Package['abrt',
-    'abrt-addon-ccpp',
-    'abrt-addon-kerneloops',
-    'abrt-addon-python',
-    'abrt-cli',
+  realize Package[
     'MySQL-python',
     'node-clean-css',
     'node-less',
