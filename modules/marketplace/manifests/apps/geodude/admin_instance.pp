@@ -35,7 +35,7 @@ define marketplace::apps::geodude::admin_instance(
   }
 
   file {
-    "${geodude_dir}/geodude/settings.py":
+    "${geodude_dir}/settings.py":
       content => template('marketplace/apps/geodude/settings/settings.py');
   }
 }
