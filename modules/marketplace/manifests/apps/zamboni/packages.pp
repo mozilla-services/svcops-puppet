@@ -1,11 +1,7 @@
 # marketplace packages
 class marketplace::apps::zamboni::packages {
   include marketplace::virtual_packages
-  realize Package['abrt',
-    'abrt-addon-ccpp',
-    'abrt-addon-kerneloops',
-    'abrt-addon-python',
-    'abrt-cli',
+  realize Package[
     'MySQL-python',
     'MySQL-shared',
     'node-clean-css',

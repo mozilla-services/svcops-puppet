@@ -68,31 +68,15 @@ class marketplace::virtual_packages {
       ensure => '2.2.5-2';
 
     'totem':
-      ensure => 'present';
+      ensure => 'installed';
 
     'tracemonkey':
       ensure => '27.0-a1';
 
-    ['abrt', 'python-setproctitle']:
-      ensure => absent;
-
-    'abrt-cli':
-      ensure => absent,
-      before => [
-        Package['abrt-addon-ccpp'],
-        Package['abrt-addon-python'],
-        Package['abrt-addon-kerneloops'],
-      ];
-
-    [
-      'abrt-addon-ccpp',
-      'abrt-addon-python',
-      'abrt-addon-kerneloops',
-    ]:
-      ensure => absent,
-      before => Package['abrt'];
-
     'umemcache':
       ensure => '1.6.3-1';
+
+    'python-setproctitle':
+      ensure => 'absent';
   }
 }
