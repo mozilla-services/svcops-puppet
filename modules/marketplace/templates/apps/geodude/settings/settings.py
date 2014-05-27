@@ -6,12 +6,15 @@ def path(*a):
 
 
 # Set to True if this is a local development instance.
-DEV = <%= is_dev %>
+DEV = <%= @is_dev %>
 
 # Absolute path to the geodude binary data file.
-GEO_DB_PATH = path('<%= geo_db_path %>')
+GEO_DB_PATH = path('<%= @geo_db_path %>')
 
 # Allow POSTing of arbitrary IPs to get their location. This setting can not be
 # enabled on public facing sites due to licensing restrictions on the MaxMind
 # dataset.
-ALLOW_POST = <%= allow_post %>
+ALLOW_POST = <%= @allow_post %>
+
+
+GEO_DB_FORMAT = '<%= @geo_db_format %>'

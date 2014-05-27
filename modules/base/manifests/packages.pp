@@ -21,7 +21,7 @@ class base::packages(
       ensure => 'latest';
   }
 
-##http://h10025.www1.hp.com/ewfrf/wc/document?cc=us&lc=en&docname=c03465358
+  ##http://h10025.www1.hp.com/ewfrf/wc/document?cc=us&lc=en&docname=c03465358
   package {
     [
       'glibc.i686',
@@ -30,9 +30,21 @@ class base::packages(
     ]:
       ensure => 'latest';
   }
-  
+
   package {
     'openssl':
       ensure => $openssl_version,
   }
+
+# remove abrt
+  package {
+    [
+      'abrt',
+      'abrt-cli',
+      'abrt-libs',
+      'abrt-tui',
+    ]:
+      ensure => 'absent',
+  }
+
 }
