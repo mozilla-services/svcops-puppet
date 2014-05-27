@@ -41,6 +41,7 @@ do
     mkdir -p $BACKUPDIR/$host
   fi
   autopassword "scp $BACKUPUSER@$host:/var/ns_sys_backup/backup.$DATE.tgz $BACKUPDIR/$host/"
+  autopassword "ssh $BACKUPUSER@$host \"rm system backup backup.$DATE.tgz\""
   pushd $BACKUPDIR/$host
   tar xzf backup.$DATE.tgz
   rm -f backup.$DATE.tgz
@@ -50,6 +51,3 @@ done
 cd $BACKUPDIR
 git add *
 git commit -m "Netscaler Backup $DATE"
-
-# connect to first netscaler host and remove backup
-autopassword "ssh $BACKUPUSER@${NSHOSTS[0]} \"rm system backup backup.$DATE.tgz\""
