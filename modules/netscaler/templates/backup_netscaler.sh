@@ -50,3 +50,6 @@ done
 cd $BACKUPDIR
 git add *
 git commit -m "Netscaler Backup $DATE"
+
+# connect to first netscaler host and remove backup
+autopassword "ssh $BACKUPUSER@${NSHOSTS[0]} \"rm system backup backup.$DATE.tgz\""
