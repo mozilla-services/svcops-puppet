@@ -51,3 +51,4 @@ done
 cd $BACKUPDIR
 git add *
 git commit -m "Netscaler Backup $DATE"
+git push
