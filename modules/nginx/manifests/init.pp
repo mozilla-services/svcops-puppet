@@ -1,10 +1,11 @@
 # install and configure nginx
 class nginx(
-  $nx_user = 'nginx',
-  $version = 'present',
   $enable_compression = false,
+  $keepalive_timeout = 35,
   $nginx_conf = undef,
-  $keepalive_timeout = 35
+  $nx_user = 'nginx',
+  $server_names_hash_bucket_size = undef,
+  $version = 'present',
 ){
   realize(File['/data'], File['/data/logs'])
 
