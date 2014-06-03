@@ -40,6 +40,12 @@ define marketplace::nginx::marketplace(
     $rocketfuel_webroot = $webroot
   }
 
+  if $transonic_root {
+    $transonic_webroot = $transonic_root
+  } else {
+    $transonic_webroot = $webroot
+  }
+
   if $marketplace_stats_root {
     $marketplace_stats_webroot = $marketplace_stats_root
   } else {
