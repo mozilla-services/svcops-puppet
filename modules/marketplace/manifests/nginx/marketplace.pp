@@ -8,16 +8,17 @@ define marketplace::nginx::marketplace(
   $webpayroot, # /data/www/marketplace.firefox.com-webpay,
   $cdn_hostname, # marketplace.cdn.mozilla.net
   $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
-  $marketplace_worker_name = 'marketplace',
-  $webpay_worker_name = 'webpay-marketplace',
-  $template_file = 'marketplace/nginx/marketplace.conf',
-  $fireplace_root = '',
   $commbadge_root = '',
+  $fireplace_root = '',
   $landfill_dumps = undef,
+  $marketplace_stats_root = '',
+  $marketplace_worker_name = 'marketplace',
+  $mkt_redirects = undef,
   $rocketfuel_root = '',
   $spartacus_root = undef,
-  $marketplace_stats_root = '',
-  $mkt_redirects = undef,
+  $template_file = 'marketplace/nginx/marketplace.conf',
+  $transonic_root = '',
+  $webpay_worker_name = 'webpay-marketplace',
 ) {
   $config_name = $name
 
@@ -37,6 +38,12 @@ define marketplace::nginx::marketplace(
     $rocketfuel_webroot = $rocketfuel_root
   } else {
     $rocketfuel_webroot = $webroot
+  }
+
+  if $transonic_root {
+    $transonic_webroot = $transonic_root
+  } else {
+    $transonic_webroot = $webroot
   }
 
   if $marketplace_stats_root {
