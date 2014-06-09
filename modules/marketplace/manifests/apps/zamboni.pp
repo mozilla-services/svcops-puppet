@@ -41,7 +41,7 @@ define marketplace::apps::zamboni(
       home      => "${app_dir}/venv",
       user      => $user,
       workers   => $workers,
-      environ   => "DJANGO_SETTINGS_MODULE=${settings_module}${environ}",
+      environ   => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
   }
 
   if $nginx_settings {
