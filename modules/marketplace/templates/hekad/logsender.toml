@@ -5,21 +5,6 @@ file_match = '(?P<Domain>[^/]+)/access\.log'
 decoder = "NginxAccessLogDecoder"
 differentiator = ["Domain"]
 
-[WebServerAccessError]
-type = "LogstreamerInput"
-log_directory = "/data/logs/nginx"
-file_match = '(?P<Domain>[^/]+)/error\.log'
-decoder = "NginxErrorLogDecoder"
-differentiator = ["nginx-", "Domain", "-error"]
-
-[NginxErrorLogDecoder]
-type = "SandboxDecoder"
-script_type = "lua"
-filename = "lua_decoders/nginx_error.lua"
-
-[NginxErrorLogDecoder.config]
-tz = "UTC"
-
 [NginxAccessLogDecoder]
 type = "SandboxDecoder"
 script_type = "lua"
