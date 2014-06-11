@@ -17,9 +17,14 @@ ticker_interval = 5
 address = "<%= @statsd_address %>"
 stat_accum_name = 'StatAccumulator'
 
+[NginxAccessStatAccum]
+type = "StatAccumInput"
+flushInterval = 5
+
 [NginxAccessMetrics]
 type = "StatFilter"
 message_matcher = "Type == nginx.access"
+stat_accum_name = "NginxAccessStatAccum"
 
 [NginxAccessMetrics.Metric.status_code]
 type = "Counter"
