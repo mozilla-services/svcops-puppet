@@ -1,3 +1,41 @@
+[WebServerAccess]
+type = "LogstreamerInput"
+log_directory = "/data/logs/nginx"
+file_match = '(?P<Domain>[^/]+)/access\.log'
+decoder = "NginxAccessLogDecoder"
+differentiator = ["nginx-", "Domain", "-access"]
+
+[WebServerAccessError]
+type = "LogstreamerInput"
+log_directory = "/data/logs/nginx"
+file_match = '(?P<Domain>[^/]+)/error\.log'
+decoder = "NginxErrorLogDecoder"
+differentiator = ["nginx-", "Domain", "-error"]
+
+[NginxErrorLogDecoder]
+type = "SandboxDecoder"
+script_type = "lua"
+filename = "lua_decoders/nginx_error.lua"
+
+[NginxErrorLogDecoder.config]
+tz = "UTC"
+
+[NginxAccessLogDecoder]
+type = "SandboxDecoder"
+script_type = "lua"
+filename = "lua_decoders/nginx_access.lua"
+
+[NginxAccessLogDecoder.config]
+type = "nginx.access"
+user_agent_transform = true
+log_format = '$remote_addr $http_host $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"'
+
+[AggregatorOutput]
+type = "TcpOutput"
+address = "<%= @heka_aggregator %>"
+message_matcher = "TRUE" 
+
+<% if @mkt_prod %>
 [mktnginxdecoder]
 type = "PayloadRegexDecoder"
 match_regex = '^(?P<RemoteIP>(?:\d{1,3}\.){3}\d{1,3}) (?P<Host>\S+) \S+ \[(?P<Timestamp>\d\d/\w{3}/\d{4}:\d\d:\d\d:\d\d) \+\d+\] "(?P<Method>\w+) (?P<Url>\S+) HTTP.+?" (?P<StatusCode>\d+) (?P<Bytes>\d+) "(?P<Referer>.+?)" "(?P<UserAgent>.+?)" .*"DNT:(?P<DNT>.+?)" "X-MOZ-B2G-DEVICE:(?P<XMOZDevice>.*) X-MOZ-B2G-MCC:(?P<XMOZMcc>.*) X-MOZ-B2G-MNC:(?P<XMOZMnc>.*) X-MOZ-B2G-SHORTNAME:(?P<XMOZShortname>.*) X-MOZ-B2G-LONGNAME:(?P<XMOZLongname>.*)"'
@@ -33,3 +71,4 @@ url = "amqp://hekad:hekad@log1.mktmon.services.phx1.mozilla.com:5565/hekad"
 exchangeType = "fanout"
 exchange = "hekad"
 message_matcher = "Type == 'nginx.mkt.logline'"
+<% end %>
