@@ -9,6 +9,7 @@ define uwsgi::instance(
   $home = undef, # point at venv
   $lazy_apps = true,
   $log_syslog = true,
+  $max_requests = '5000',
   $scl = undef,
   $use_unix_socket = true,
   $workers = 4,
