@@ -1,7 +1,7 @@
 # hekad
 class hekad(
   $config_dir = '/etc/heka.d',
-  $version = '0.5.2-1'
+  $version = '0.6.0-1'
 ) {
 
   package {
