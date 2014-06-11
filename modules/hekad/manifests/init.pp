@@ -1,10 +1,8 @@
 # hekad
 class hekad(
-  $config_dir = $hekad::params::config_dir,
-  $version = $hekad::params::version,
+  $config_dir = '/etc/heka.d',
+  $version = '0.5.2-1'
 ) {
-
-  contain hekad::params
 
   package {
     'hekad3':
