@@ -23,7 +23,7 @@ flushInterval = 5
 
 [NginxAccessMetrics]
 type = "StatFilter"
-message_matcher = "Type == nginx.access"
+message_matcher = "Type == 'nginx.access'"
 stat_accum_name = "NginxAccessStatAccum"
 
 [NginxAccessMetrics.Metric.status_code]
