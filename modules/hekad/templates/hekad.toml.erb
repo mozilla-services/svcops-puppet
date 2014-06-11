@@ -27,8 +27,8 @@ stat_accum_name = "NginxAccessStatAccum"
 
 [NginxAccessMetrics.Metric.status_code]
 type = "Counter"
-name = "nginx.access.%Payload%"
-value = "%status%"
+name = "nginx.access.%Logger%.%status%"
+value = "1"
 
 [CarbonOutput]
 message_matcher = "Type == 'heka.statmetric'"
