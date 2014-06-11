@@ -2,7 +2,17 @@
 class hekad(
   $config_dir = $hekad::params::config_dir,
   $version = $hekad::params::version,
-) inherits hekad::params {
+) {
+
+  contains hekad::params
+
+  package {
+    'hekad3':
+      ensure => absent;
+    'heka':
+      ensure  => $version;
+  }->
+
   file {
     $config_dir:
       ensure  => directory,
@@ -10,13 +20,11 @@ class hekad(
       recurse => true;
     ['/var/cache/hekad', '/var/cache/hekad/seekjournals']:
       ensure => directory;
-  }
+  }->
 
-  package {
-    'hekad3':
-      ensure => absent;
-    'heka':
-      ensure  => $version;
+  # This is shipped in heka 6 and is temporary
+  file { '/usr/share/heka/lua_decoders/nginx_error.lua':
+    content => template('hekad/nginx_error.lua'),
   }
 
 }
