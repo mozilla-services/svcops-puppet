@@ -32,7 +32,7 @@ log_format = '$remote_addr $http_host $remote_user [$time_local] "$request" $sta
 
 [AggregatorOutput]
 type = "TcpOutput"
-address = "<%= @heka_aggregator %>"
+address = "<%= @log_tcp_host %>"
 message_matcher = "TRUE" 
 
 <% if @mkt_prod %>
