@@ -12,6 +12,7 @@ define marketplace::apps::olympia::web_instance(
   $newrelic_domain = undef,
   $nginx_settings = undef,
   $user = 'mkt_prod',
+  $uwsgi_max_requests = '5000',
 ) {
 
   $app_name = $name
@@ -25,13 +26,14 @@ define marketplace::apps::olympia::web_instance(
   }
 
   uwsgi::instance { $worker_name:
-    app_dir   => "${app_dir}/olympia",
-    appmodule => $appmodule,
-    port      => $port,
-    home      => "${app_dir}/venv",
-    user      => $user,
-    workers   => $workers,
-    environ   => $environ,
+    app_dir      => "${app_dir}/olympia",
+    appmodule    => $appmodule,
+    environ      => $environ,
+    home         => "${app_dir}/venv",
+    max_requests => $uwsgi_max_requests,
+    port         => $port,
+    user         => $user,
+    workers      => $workers,
   }
 
   if $nginx_settings {
