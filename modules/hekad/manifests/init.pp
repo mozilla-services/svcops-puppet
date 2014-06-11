@@ -4,7 +4,7 @@ class hekad(
   $version = $hekad::params::version,
 ) {
 
-  contains hekad::params
+  contain hekad::params
 
   package {
     'hekad3':
