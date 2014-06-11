@@ -17,6 +17,15 @@ ticker_interval = 5
 address = "<%= @statsd_address %>"
 stat_accum_name = 'StatAccumulator'
 
+[NginxAccessMetrics]
+type = "StatFilter"
+message_matcher = "Type == nginx.access"
+
+[NginxAccessMetrics.Metric.status_code]
+type = "Counter"
+name = "nginx.access.%Payload%"
+value = "%status%"
+
 [CarbonOutput]
 message_matcher = "Type == 'heka.statmetric'"
 address = "<%= @carbon_output_address %>"
