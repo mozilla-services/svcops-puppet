@@ -28,7 +28,7 @@ filename = "lua_decoders/nginx_access.lua"
 [NginxAccessLogDecoder.config]
 type = "nginx.access"
 user_agent_transform = true
-log_format = '$remote_addr $http_host $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"'
+log_format = '$remote_addr $http_host $remote_user [$time_local] \"$request_method $request_uri $server_protocol\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\"'
 
 [AggregatorOutput]
 type = "TcpOutput"
