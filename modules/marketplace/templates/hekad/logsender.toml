@@ -3,7 +3,7 @@ type = "LogstreamerInput"
 log_directory = "/data/logs/nginx"
 file_match = '(?P<Domain>[^/]+)/access\.log'
 decoder = "NginxAccessLogDecoder"
-differentiator = ["nginx-", "Domain", "-access"]
+differentiator = ["Domain"]
 
 [WebServerAccessError]
 type = "LogstreamerInput"
