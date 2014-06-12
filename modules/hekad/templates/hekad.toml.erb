@@ -67,7 +67,7 @@ max_filters = 100
 
 <% if @elasticsearch_url -%>
 [ElasticSearchOutput]
-message_matcher = "Type = 'nginx.access'"
+message_matcher = "Type == 'nginx.access'"
 server = "<%= elasticsearch_url %>"
 flush_interval = 5000
 flush_count = 10
