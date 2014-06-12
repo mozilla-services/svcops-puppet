@@ -1,6 +1,7 @@
 # base heka that some hosts share
 class hekad::common(
   $carbon_output_address = '127.0.0.1:2003',
+  $elasticsearch_url = undef,
   $log_output = false,
   $sandbox_hmac_key = '',
   $statsd_address = '127.0.0.1:8125',
