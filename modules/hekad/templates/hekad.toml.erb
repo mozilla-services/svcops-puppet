@@ -66,6 +66,9 @@ message_matcher = "Type == 'heka.control.sandbox'"
 max_filters = 100
 
 <% if @elasticsearch_url -%>
+[ESLogstashV0Encoder]
+es_index_from_timestamp = true
+
 [ElasticSearchOutput]
 message_matcher = "Type == 'nginx.access'"
 server = "<%= elasticsearch_url %>"
