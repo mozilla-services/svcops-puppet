@@ -64,3 +64,12 @@ type = "SandboxManagerFilter"
 message_signer = "dev"
 message_matcher = "Type == 'heka.control.sandbox'"
 max_filters = 100
+
+<% if @elasticsearch_url -%>
+[ElasticSearchOutput]
+message_matcher = "Type = 'nginx.access'"
+server = "<%= elastic_search_url %>"
+flush_interval = 5000
+flush_count = 10
+encoder = "ESLogstashV0Encoder"
+<% end -%>

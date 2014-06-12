@@ -1,7 +1,8 @@
 # runs a heka
 define hekad::instance(
   $config,
-  $hekabin = '/usr/bin/hekad'
+  $hekabin = '/usr/bin/hekad',
+  $elasticsearch_url = undef,
 ) {
   $heka_name = $name
   include hekad
