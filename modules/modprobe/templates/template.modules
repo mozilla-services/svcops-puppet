@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /sbin/modprobe <%= @module_name %> >/dev/null 2>&1
+exec /sbin/modprobe <%= @mod_name %> >/dev/null 2>&1
