@@ -54,5 +54,8 @@ class base::sysctl::memcache {
 
     'net.ipv4.tcp_keepalive_probes':
       value => '20';
+
+    'net.ipv4.ip_local_port_range':
+      value => '12000 64000';
   }
 }
