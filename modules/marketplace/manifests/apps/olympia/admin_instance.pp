@@ -6,6 +6,7 @@ define marketplace::apps::olympia::admin_instance(
   $caches_default_location,
   $databases_default_url,
   $databases_slave_url,
+  $deploy_domain,
   $domain,
   $dreadnot_name,
   $dreadnot_instance,
@@ -66,6 +67,13 @@ define marketplace::apps::olympia::admin_instance(
 ) {
   $project_dir = $name
   $app_dir = "${project_dir}/olympia"
+
+  if $deploy_domain {
+    $deploy_domain_ = $deploy_domain
+  }
+  else {
+    $deploy_domain_ = $domain
+  }
 
   git::clone { $app_dir:
     repo => 'https://github.com/mozilla/olympia.git',
