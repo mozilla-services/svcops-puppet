@@ -17,7 +17,7 @@ class marketplace::virtual_packages {
       ensure => '0.13.1-1.el6';
 
     'python-jinja2':
-      ensure => '2.5.5-1';
+      ensure => '2.7.2-1.el6';
 
     'python-imaging':
       ensure => '1.1.7-19.el6';
