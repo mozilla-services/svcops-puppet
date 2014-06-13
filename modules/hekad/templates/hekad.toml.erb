@@ -70,7 +70,7 @@ max_filters = 100
 es_index_from_timestamp = true
 
 [ElasticSearchOutput]
-message_matcher = "Type == 'nginx.access'"
+message_matcher = "Type == 'nginx.access' || Type == 'app.log'"
 server = "<%= elasticsearch_url %>"
 flush_interval = 5000
 flush_count = 10
