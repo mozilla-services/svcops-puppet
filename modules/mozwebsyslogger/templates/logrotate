@@ -1,6 +1,5 @@
 /data/syslogs/apps/*/*.log
 /data/syslogs/hosts/*/*.log
-/data/syslogs/hosts/*/*/*.log
 {
     daily
     dateext
