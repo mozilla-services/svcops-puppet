@@ -40,7 +40,7 @@ class memcached (
 
   limits {
     'memcached':
-      config => $limits_config;
+      config => $limits_config,
   }
 
 
@@ -51,19 +51,22 @@ class memcached (
 
   package {
     'perl-Cache-Memcached':
-      ensure => present;
+      ensure => 'installed',
   }
 
   service {
     'memcached':
-      ensure  => running,
+      ensure  => 'running',
       enable  => true,
-      require => Package[memcached];
+      require => [
+        Package[memcached],
+        Limits['memmcached'],
+      ],
   }
 
   file {
     '/etc/sysconfig/memcached':
-      ensure  => present,
+      ensure  => 'file',
       notify  => Service['memcached'],
       content => template('memcached/memcached'),
       require => Package[memcached];
