@@ -1,12 +1,18 @@
 # memcached class
 class memcached (
-  $version = 'present',
   $max_connections = '10024',
+  $max_threads = undef,
   $port = '11211',
-  $size = ''
+  $size = '',
+  $version = 'present',
 ) {
 
-  $threads = $::processorcount - 1
+  if $max_threads {
+    $threads = $max_threads
+  }
+  else {
+    $threads = $::processorcount - 1
+  }
 
   if $size == '' {
     $cachesize = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 1.05 ).to_i %>')
