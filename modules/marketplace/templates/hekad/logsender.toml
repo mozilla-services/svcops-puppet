@@ -35,6 +35,26 @@ type = "TcpOutput"
 address = "<%= @log_tcp_host %>"
 message_matcher = "TRUE" 
 
+[SyslogHostLogs]
+type = "LogstreamerInput"
+log_directory = "/data/syslogs/hosts"
+file_match = '(?P<Host>[^/]+)/host\.log'
+decoder = "HostLogDecoder"
+differentiator = ["Host"]
+
+[HostLogDecoder]
+type = "PayloadRegexDecoder"
+match_regex = '^(?P<Timestamp>\w{3} [ \d]\d \d\d:\d\d:\d\d) (?P<Hostname>[\w\d\.]+) (?P<ProgramName>\S+)(?<Pid>\[\d+\])?: (?P<Message>.+)'
+timestamp_layout = 'Jan 2 15:04:05'
+
+[HostLogDecoder.message_fields]
+Type = "host.log"
+Hostname = "%Hostname%"
+msg = "%Message%"
+programname = "%ProgramName%"
+pid = "%Pid%"
+Payload = ""
+
 [SyslogAppLogs]
 type = "LogstreamerInput"
 log_directory = "/data/syslogs/apps"
