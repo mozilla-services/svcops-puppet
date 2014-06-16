@@ -111,6 +111,8 @@ class nginx(
       source  => 'puppet:///modules/nginx/etc-init.d/nginx';
   }
 
+  nginx::logdir { 'default': }
+
   file {
     '/etc/nginx/conf.d/compression.conf':
       ensure  => $compression_ensure,
