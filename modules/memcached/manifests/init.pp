@@ -21,6 +21,28 @@ class memcached (
     $cachesize = $size
   }
 
+  $memlock_size = ($cachesize + 64) * 1024
+
+  $limits_config =  {
+    'memcached-soft' => {
+      'domain'       => 'nobody',
+      'type'         => 'soft',
+      'item'         => 'memlock',
+      'size'         => $memlock_size
+    },
+    'memcached-hard' => {
+      'domain'       => 'nobody',
+      'type'         => 'hard',
+      'item'         => 'memlock',
+      'size'         => $memlock_size
+    },
+  }
+
+  limits {
+    'memcached':
+      config => $limits_config,
+  }
+
 
   package {
     'memcached':
@@ -29,19 +51,22 @@ class memcached (
 
   package {
     'perl-Cache-Memcached':
-      ensure => present;
+      ensure => 'installed',
   }
 
   service {
     'memcached':
-      ensure  => running,
+      ensure  => 'running',
       enable  => true,
-      require => Package[memcached];
+      require => [
+        Package[memcached],
+        Limits['memcached'],
+      ],
   }
 
   file {
     '/etc/sysconfig/memcached':
-      ensure  => present,
+      ensure  => 'file',
       notify  => Service['memcached'],
       content => template('memcached/memcached'),
       require => Package[memcached];
