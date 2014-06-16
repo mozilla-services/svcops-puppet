@@ -60,7 +60,7 @@ class memcached (
       enable  => true,
       require => [
         Package[memcached],
-        Limits['memmcached'],
+        Limits['memcached'],
       ],
   }
 
