@@ -30,10 +30,12 @@ type = "nginx.access"
 user_agent_transform = true
 log_format = '$remote_addr $http_host $remote_user [$time_local] "$request_method $request_uri $server_protocol" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"'
 
+<% if @log_tcp_host -%>
 [AggregatorOutput]
 type = "TcpOutput"
 address = "<%= @log_tcp_host %>"
 message_matcher = "TRUE" 
+<% end -%>
 
 [SyslogHostLogs]
 type = "LogstreamerInput"
