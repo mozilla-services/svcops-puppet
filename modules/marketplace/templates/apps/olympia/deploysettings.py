@@ -1,5 +1,5 @@
 CLUSTER = '<%= @cluster %>'
-DOMAIN = '<%= @domain %>'
+DOMAIN = '<%= @deploy_domain_ %>'
 ENV = '<%= @env %>'
 SSH_KEY = '<%= @ssh_key %>'
 PYREPO = '<%= @pyrepo %>'

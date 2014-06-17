@@ -4,8 +4,9 @@ define marketplace::apps::fireplace::admin_instance(
   $domain,
   $dreadnot_instance,
   $env,
-  $project_name = 'fireplace',
   $ssh_key,
+  $project_name = 'fireplace',
+  $zamboni_dir = '',
 ) {
   $fireplace_dir = $name
 

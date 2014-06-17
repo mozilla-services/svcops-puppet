@@ -24,13 +24,15 @@ define nfsclient::mount($host, $path, $rw,
 
   # add a file resource for the mountpoint, if desired;
   # also make a /mnt/netapp for free if the mount is a subdirectory of that
-  if ($mkdir) {
+  if $title == '/data' {
+    realize(File['/data'])
+  } elsif ($mkdir) {
     if ($title =~ /^\/mnt\/netapp/) {
       include nfsclient::mnt_netapp
     }
     file {
       $title:
-        ensure => directory;
+        ensure => 'directory';
     }
   }
 
@@ -40,7 +42,7 @@ define nfsclient::mount($host, $path, $rw,
       atboot  => true,
       device  => "${host}:${path}",
       options => "${rw_opt},${options}",
-      fstype  => "nfs",
+      fstype  => 'nfs',
       require => [ File[$title], Class['nfsclient'] ];
   }
 }
