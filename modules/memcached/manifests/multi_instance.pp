@@ -11,7 +11,7 @@ define memcached::multi_instance (
   file {
     "/etc/sysconfig/memcached_${port}":
       ensure  => 'file',
-      notify  => Service['memcached'],
+      notify  => Service["memcached_${port}"],
       content => template('memcached/memcached');
 
     "/etc/init.d/memcached_${port}":
