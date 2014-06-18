@@ -9,6 +9,8 @@
 . /etc/rc.d/init.d/functions
 
 USER=nobody
+PIDFILE=/var/run/memcached/memcached_<%= @port %>.pid
+LOCKFILE=/var/lock/subsys/memcached_<%= @port %>
 
 if [ -f /etc/sysconfig/memcached_<%= @port %> ];then
     . /etc/sysconfig/memcached_<%= @port %>
@@ -27,19 +29,19 @@ start () {
     echo -n $"Starting $prog: "
     # insure that /var/run/memcached has proper permissions
     chown $USER /var/run/memcached
-    daemon memcached -d -p $PORT -u $USER  -m $CACHESIZE -c $MAXCONN -P /var/run/memcached/memcached_<%= @port %>.pid $OPTIONS
+    daemon memcached -d -p $PORT -u $USER  -m $CACHESIZE -c $MAXCONN -P $PIDFILE $OPTIONS
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/memcached_<%= @port %>
+    [ $RETVAL -eq 0 ] && touch $LOCKFILE
 }
 stop () {
     echo -n $"Stopping $prog: "
-    killproc memcached
+    killproc -p $PIDFILE
     RETVAL=$?
     echo
     if [ $RETVAL -eq 0 ] ; then
-        rm -f /var/lock/subsys/memcached_<%= @port %>
-        rm -f /var/run/memcached/memcached_<%= @port %>.pid
+        rm -f $PIDFILE
+        rm -f $LOCKFILE
     fi
 }
 
@@ -58,13 +60,13 @@ case "$1" in
     stop
     ;;
     status)
-    status memcached_<%= @port %>
+    status -p $PIDFILE memcached 
     ;;
     restart|reload)
     restart
     ;;
     condrestart)
-    [ -f /var/lock/subsys/memcached_<%= @port %> ] && restart || :
+    [ -f $LOCKFILE ] && restart || :
     ;;
     *)
     echo $"Usage: $0 {start|stop|status|restart|reload|condrestart}"
