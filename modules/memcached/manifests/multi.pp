@@ -5,7 +5,7 @@ class memcached::multi (
 ) {
 
   class {
-    'memcache::limits':
+    'memcached::limits':
       cachesize => $cachesize;
   }
 
