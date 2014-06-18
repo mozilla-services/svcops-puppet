@@ -1,11 +1,12 @@
 # marketplace::apps::zamboni::celery_instance
 define marketplace::apps::zamboni::celery_instance(
-    $app_dir = undef,
-    $marketplace_password = undef,
     $addons_password = undef,
+    $app_dir = undef,
     $env = 'prod',
+    $marketplace_password = undef,
+    $settings_module = 'settings_local_mkt',
+    $user = $marketplace_private::mkt::any::prod::params::mkt_user,
     $workers = '24',
-    $user = $marketplace_private::mkt::any::prod::params::mkt_user
 ){
 
     include marketplace::apps::zamboni::packages
@@ -13,7 +14,7 @@ define marketplace::apps::zamboni::celery_instance(
 
     $zamboni_dir = "${app_dir}/current/zamboni"
     $zamboni_python = "${app_dir}/current/venv/bin/python"
-    $environ = 'SPIDERMONKEY_INSTALLATION=/usr/bin/tracemonkey'
+    $environ = "DJANGO_SETTINGS_MODULE=${settings_module},SPIDERMONKEY_INSTALLATION=/usr/bin/tracemonkey"
 
     Celery::Service {
         app_dir => $zamboni_dir,
@@ -25,17 +26,17 @@ define marketplace::apps::zamboni::celery_instance(
 
     celery::service {
         "marketplace-${env}":
-            args => '-Q celery --settings=settings_local_mkt';
+            args => '-Q celery';
 
         "marketplace-${env}-priority":
-            args => '-Q priority,bulk --settings=settings_local_mkt';
+            args => '-Q priority,bulk';
 
         "marketplace-${env}-limited":
-            args    => '-Q limited --settings=settings_local_mkt',
+            args    => '-Q limited',
             workers => '2';
 
         "marketplace-${env}-devhub":
-            args => '-Q devhub,images --settings=settings_local_mkt';
+            args => '-Q devhub,images';
 
     }
 
