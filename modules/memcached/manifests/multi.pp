@@ -6,7 +6,7 @@ class memcached::multi (
 
   class {
     'memcache::limits':
-      cachesize => 'unlimited';
+      cachesize => $cachesize;
   }
 
   create_resources(
