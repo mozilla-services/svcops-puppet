@@ -2,8 +2,8 @@
 #
 # chkconfig: - 55 45
 # description:  The memcached daemon is a network memory cache service.
-# processname: memcached
-# config: /etc/sysconfig/memcached
+# processname: memcached_<%= @port %>
+# config: /etc/sysconfig/memcached_<%= @port %>
 
 # Source function library.
 . /etc/rc.d/init.d/functions
