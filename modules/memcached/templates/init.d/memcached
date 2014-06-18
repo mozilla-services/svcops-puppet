@@ -1,0 +1,76 @@
+#! /bin/sh
+#
+# chkconfig: - 55 45
+# description:  The memcached daemon is a network memory cache service.
+# processname: memcached_<%= @port %>
+# config: /etc/sysconfig/memcached_<%= @port %>
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+USER=nobody
+PIDFILE=/var/run/memcached/memcached_<%= @port %>.pid
+LOCKFILE=/var/lock/subsys/memcached_<%= @port %>
+
+if [ -f /etc/sysconfig/memcached_<%= @port %> ];then
+    . /etc/sysconfig/memcached_<%= @port %>
+fi
+
+# Check that networking is up.
+if [ "$NETWORKING" = "no" ]
+then
+    exit 0
+fi
+
+RETVAL=0
+prog="memcached"
+
+start () {
+    echo -n $"Starting $prog: "
+    # insure that /var/run/memcached has proper permissions
+    chown $USER /var/run/memcached
+    daemon memcached -d -p $PORT -u $USER  -m $CACHESIZE -c $MAXCONN -P $PIDFILE $OPTIONS
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $LOCKFILE
+}
+stop () {
+    echo -n $"Stopping $prog: "
+    killproc -p $PIDFILE
+    RETVAL=$?
+    echo
+    if [ $RETVAL -eq 0 ] ; then
+        rm -f $PIDFILE
+        rm -f $LOCKFILE
+    fi
+}
+
+restart () {
+    stop
+    start
+}
+
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+    stop
+    ;;
+    status)
+    status -p $PIDFILE memcached 
+    ;;
+    restart|reload)
+    restart
+    ;;
+    condrestart)
+    [ -f $LOCKFILE ] && restart || :
+    ;;
+    *)
+    echo $"Usage: $0 {start|stop|status|restart|reload|condrestart}"
+    exit 1
+esac
+
+exit $?
