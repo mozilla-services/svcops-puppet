@@ -49,3 +49,7 @@ REDIS_BACKENDS_CACHE = '<%= mkt_redis_backends_cache %>'
 REDIS_BACKENDS_CACHE_SLAVE = '<%= mkt_redis_backends_cache_slave %>'
 REDIS_BACKENDS_MASTER = '<%= mkt_redis_backends_master %>'
 REDIS_BACKENDS_SLAVE = '<%= mkt_redis_backends_slave %>'
+
+FXA_CLIENT_ID = '<%= @fxa_client_id %>'
+FXA_CLIENT_SECRET = '<%= @fxa_client_secret %>'
+FXA_OAUTH_URL = '<%= @fxa_oauth_url %>'
