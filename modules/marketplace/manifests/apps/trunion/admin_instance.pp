@@ -1,18 +1,18 @@
 # define admin instance for trunion.
 define marketplace::apps::trunion::admin_instance(
-  $cluster,
-  $domain,
   $app_name,
-  $env,
-  $keyfile,
   $certfile,
   $chainfile,
+  $cluster,
+  $domain,
+  $env,
+  $keyfile,
   $ssh_key,
   $update_ref,
   $dev = false,
+  $permitted_issuers = '',
+  $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $we_are_signing = 'apps',
-
-  $pyrepo = 'https://pyrepo.addons.mozilla.org/'
 ) {
   $project_dir = $name
   $installed_dir = regsubst($project_dir, 'src', 'www')
