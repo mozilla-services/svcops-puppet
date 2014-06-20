@@ -44,7 +44,7 @@ class base::packages(
       'abrt-libs',
       'abrt-tui',
     ]:
-      ensure => 'purged',
+      ensure => 'absent',
   }
 
 }
