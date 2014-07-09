@@ -3,6 +3,7 @@ define marketplace::apps::monolith::web_instance(
   $server_names, # a list of names
   $elasticsearch_endpoint,
   $es_index_prefix = '',
+  $nginx_port = '81',
   $user = 'mkt_prod_monolith'
 ) {
   $config_name = $name
