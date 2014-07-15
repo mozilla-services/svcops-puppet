@@ -81,6 +81,15 @@ define marketplace::apps::zamboni::admin_instance(
     ssh_key           => $ssh_key,
   }
 
+  marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
+    cluster           => $cluster,
+    domain            => "${domain}-spartacus",
+    dreadnot_instance => $dreadnot_instance,
+    env               => $env,
+    ssh_key           => $ssh_key,
+    webpay_dir        => "${project_dir}-webpay",
+  }
+
   dreadnot::stack { $domain:
     github_url    => 'https://github.com/mozilla/zamboni',
     git_url       => 'git://github.com/mozilla/zamboni.git',
