@@ -40,10 +40,10 @@ exports.run = function(dreadnot) {
         endPath = ['stacks', deployment.stack, 'regions', deployment.region, 'deployments', deployment.deployment, 'end'].join('.'),
         i;
 
-    var endMsgPrefix = deployment.user + ": ";
+    var endMsgPrefix = "";
     if(deployment.user !== 'webdeployer') {
       notify(msg);
-      endMsgPrefix = "";
+      endMsgPrefix = deployment.user + ": ";
     }
 
     dreadnot.emitter.once(endPath, function(success) {
