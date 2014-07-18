@@ -7,6 +7,6 @@ define marketplace::apps::zamboni::symlinks::fireplace(
   file {
     "${zamboni_media}/fireplace":
       ensure => link,
-      target => "${fireplace_dir}/fireplace/hearth/media"
+      target => "${fireplace_dir}/fireplace/src/media"
   }
 }
