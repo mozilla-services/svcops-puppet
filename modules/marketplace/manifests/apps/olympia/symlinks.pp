@@ -1,6 +1,7 @@
 # manages webroot symlinks
 define marketplace::apps::olympia::symlinks(
-  $netapp
+  $netapp,
+  $static_root,
 ) {
   $olympia_webroot = "${name}/default/webroot"
 
@@ -9,9 +10,13 @@ define marketplace::apps::olympia::symlinks(
       ensure => 'link',
       target => '../../media';
 
+    "${olympia_webroot}/static":
+      ensure => 'link',
+      target => $static_root;
+
     "${olympia_webroot}/favicon.ico":
       ensure => 'link',
-      target => '../../media/img/favicon.ico';
+      target => "${static_root}/img/favicon.ico";
 
     "${olympia_webroot}/storage":
       ensure => 'directory';
