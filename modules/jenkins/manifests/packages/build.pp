@@ -4,7 +4,6 @@ class jenkins::packages::build(
 ){
   # repos is needed for package installation
   realize Yumrepo['epel']
-  realize Yumrepo['mozilla']
   realize Yumrepo['mozilla-mkt']
 
   # install virtualenv
@@ -72,7 +71,6 @@ class jenkins::packages::build(
       'zlib-devel.i686',
     ]:
       ensure  => 'installed',
-      require => Yumrepo['mozilla'];
   }
 
   package {
