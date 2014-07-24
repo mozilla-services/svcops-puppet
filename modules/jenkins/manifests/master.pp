@@ -35,14 +35,14 @@ class jenkins::master(
 
   service {
     'jenkins':
-      ensure     => running,
+      ensure     => 'running',
       enable     => true,
       hasrestart => false,
       hasstatus  => true,
       require    => [
         Class['jenkins::packages'],
         Class['jenkins::config'],
-      ]
+      ];
 
   }
 }

@@ -10,16 +10,16 @@ class jenkins::packages::build(
   # install virtualenv
   package {
     'virtualenv':
-      ensure   => installed,
-      provider => 'pip'
+      ensure   => 'installed',
+      provider => 'pip';
   }
 
 
   package {
     'stackato-client':
-      ensure => installed;
+      ensure => 'installed';
     'npm':
-      ensure => installed;
+      ensure => 'installed';
   }
 
   # python27 packages
@@ -36,8 +36,8 @@ class jenkins::packages::build(
       'python27-python-sqlalchemy',
       'python27-python-tools',
     ]:
-      ensure  => installed,
-      require => Yumrepo['mozilla-mkt']
+      ensure  => 'installed',
+      require => Yumrepo['mozilla-mkt'];
   }
 
   # build requirements
@@ -74,12 +74,12 @@ class jenkins::packages::build(
       'vagrant',
       'zlib-devel.i686',
     ]:
-      ensure  => installed,
-      require => Yumrepo['mozilla']
+      ensure  => 'installed',
+      require => Yumrepo['mozilla'];
   }
 
   package {
     'nodejs':
-      ensure => $nodejs_version
+      ensure => $nodejs_version;
   }
 }
