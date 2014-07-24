@@ -1,8 +1,8 @@
 # jenkins packages
 class jenkins::packages(
-  $version      = 'present',
+  $version      = 'installed',
   $install_java = false,
-  $javapackage  = $jenkins::params::javapackage
+  $javapackage  = 'java-1.7.0-oracle',
 ){
   # repos is needed for package installation
   realize Yumrepo['jenkins']

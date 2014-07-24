@@ -1,13 +1,12 @@
 # jenkins class
 class jenkins::master(
-  $domain          = $jenkins::params::domain,
-  $jenkins_home    = $jenkins::params::jenkins_home,
-  $jenkins_port    = $jenkins::params::jenkins_port,
-  $jenkins_version = $jenkins::params::jenkins_version,
+  $domain          = 'ci.example.org',
+  $jenkins_home    = '/var/lib/jenkins',
+  $jenkins_version = '1.509.4-1.1',
   $include_common  = True,
   $include_nginx   = True
-) inherits jenkins::params {
-
+){
+  $jenkins_port = $jenkins::config::jenkins_port
   # install jenkins packages and requirements
   class {
     'jenkins::packages':
