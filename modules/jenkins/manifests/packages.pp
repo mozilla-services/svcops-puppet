@@ -12,7 +12,7 @@ class jenkins::packages(
   if $install_java {
     package {
       $javapackage:
-        ensure => present;
+        ensure => 'installed';
     }
   }
 
@@ -21,7 +21,7 @@ class jenkins::packages(
       ensure  => $version,
       require => [
         Yumrepo['jenkins']
-      ]
+      ];
   }
 
 }
