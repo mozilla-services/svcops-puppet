@@ -8,11 +8,4 @@ class base::yum::aws {
       enabled  => 1,
       priority => 5;
   }
-
-  yumrepo { 'mozilla-services-aws-mkt':
-    baseurl  => "https://s3.amazonaws.com/net.mozaws.ops.rpmrepo/${::operatingsystemmajrelease}/\$basearch/mkt",
-    descr    => 'Mozilla Services AWS MKT',
-    enabled  => 1,
-    priority => 1,
-  }
 }
