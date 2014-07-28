@@ -13,6 +13,7 @@ define marketplace::apps::trunion::admin_instance(
   $permitted_issuers = '',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $we_are_signing = 'apps',
+  $uwsgi = 'receipt-signer',
 ) {
   $project_dir = $name
   $installed_dir = regsubst($project_dir, 'src', 'www')
