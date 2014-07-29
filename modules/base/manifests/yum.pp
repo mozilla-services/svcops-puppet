@@ -75,9 +75,9 @@ class base::yum {
 
   @yumrepo { 'epel-nagios':
     baseurl        =>
-      'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.epel',
+    'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.epel',
     descr          =>
-      'Extra Packages for Enterprise Linux Nagios only $releasever - $basearch',
+    'Extra Packages for Enterprise Linux Nagios only $releasever - $basearch',
     enabled        => '1',
     includepkgs    => 'nagios*, nrpe*, nsca*, check-mk*',
     failovermethod => 'priority',
@@ -130,6 +130,13 @@ class base::yum {
     priority       => 2,
     gpgcheck       => 0,
     failovermethod => priority,
+  }
+
+  @yumrepo { 'jenkins':
+    descr    => 'Jenkins',
+    baseurl  => 'http://pkg.jenkins-ci.org/redhat-stable/',
+    gpgcheck => 0,
+    enabled  => 1;
   }
 
   file {
