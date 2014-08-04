@@ -28,7 +28,6 @@ define marketplace::apps::olympia::admin_instance(
   $recaptcha_private_key,
   $responsys_id,
   $services_database_url,
-  $static_root,
   $statsd_host,
   $statsd_port,
   $statsd_prefix,
@@ -62,6 +61,7 @@ define marketplace::apps::olympia::admin_instance(
   $domain = 'addons-olympia-dev.allizom.org',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $ssh_key = undef,
+  $static_root = '/tmp',
   $update_ref = 'origin/master',
   $uwsgi = 'addons-olympia-dev',
 ) {
