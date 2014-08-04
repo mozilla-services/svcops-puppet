@@ -19,15 +19,16 @@ define marketplace::apps::olympia::admin_instance(
   $heka_conf_sender_host,
   $heka_conf_sender_port,
   $netapp_storage_root,
-  $recaptcha_private_key,
   $recaptcha_public_key,
   $redirect_secret_key,
   $redis_backends_cache,
   $redis_backends_cache_slave,
   $redis_backends_master,
   $redis_backends_slave,
+  $recaptcha_private_key,
   $responsys_id,
   $services_database_url,
+  $static_root,
   $statsd_host,
   $statsd_port,
   $statsd_prefix,
@@ -79,7 +80,8 @@ define marketplace::apps::olympia::admin_instance(
   }
 
   marketplace::apps::olympia::symlinks { $app_dir:
-    netapp => $netapp_storage_root,
+    netapp      => $netapp_storage_root,
+    static_root => $static_root,
   }
 
   file {
