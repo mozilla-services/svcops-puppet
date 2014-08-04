@@ -14,6 +14,10 @@ define marketplace::apps::olympia::symlinks(
       ensure => 'link',
       target => $static_root;
 
+    "${olympia_webroot}/user-media":
+      ensure => 'link',
+      target => "${netapp}/shared_storage/uploads";
+
     "${olympia_webroot}/favicon.ico":
       ensure => 'link',
       target => "${static_root}/img/favicon.ico";
