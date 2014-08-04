@@ -12,4 +12,9 @@ class marketplace::landfill::web {
   nginx::config { 'landfill-marketplace':
     content => template('marketplace/nginx/landfill/landfill.marketplace.allizom.org.conf'),
   }
+
+  nginx::logdir {
+    ['landfill-addons.allizom.org',
+    'landfill-mkt.allizom.org']:
+  }
 }
