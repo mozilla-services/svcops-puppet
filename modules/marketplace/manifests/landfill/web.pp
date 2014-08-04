@@ -6,11 +6,11 @@ class marketplace::landfill::web {
   file { '/data/landfilldisabled/disabled.txt':
     content => 'landfill is currently offline. Join us in #amo and #marketplace for AMO and Marketplace development chat.',
   }->
-  nginx::config { 'landfill-addons':
-    content => template('marketplace/nginx/landfill/landfill.addons.allizom.org.conf'),
-  }->
-  nginx::config { 'landfill-marketplace':
-    content => template('marketplace/nginx/landfill/landfill.marketplace.allizom.org.conf'),
+  nginx::config {
+    'landfill-addons':
+      content => template('marketplace/nginx/landfill/landfill.addons.allizom.org.conf');
+    'landfill-marketplace':
+      content => template('marketplace/nginx/landfill/landfill.marketplace.allizom.org.conf');
   }
 
   nginx::logdir {
