@@ -1,6 +1,6 @@
 # installs dreadnot
 class dreadnot(
-  $version = '0.1.4-1.1c98b3abc7',
+  $version = '0.1.4-2.2360aa1aa6',
   $root = '/opt/dreadnot'
 ){
   include dreadnot::plugins
