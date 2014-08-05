@@ -9,6 +9,7 @@ define marketplace::nginx::marketplace(
   $cdn_hostname, # marketplace.cdn.mozilla.net
   $netapp_root, # /mnt/netapp_amo/addons.mozilla.org
   $commbadge_root = '',
+  $discoplace_root = undef,
   $fireplace_root = '',
   $landfill_dumps = undef,
   $marketplace_stats_root = '',
