@@ -44,7 +44,7 @@ define marketplace::apps::addon_registration::admin_instance(
   if $update_on_commit {
     go_freddo::branch { "${codename}_${dreadnot_name}_${env}":
       app    => $codename,
-      script => "/usr/local/bin/dreadnot.deploy -e ${env} ${domain}",
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
     }
   }
 }

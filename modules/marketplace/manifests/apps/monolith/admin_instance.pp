@@ -42,7 +42,7 @@ define marketplace::apps::monolith::admin_instance(
   if $update_on_commit {
     go_freddo::branch { "${codename}_${domain}_${env}":
       app    => $codename,
-      script => "/usr/local/bin/dreadnot.deploy -e ${env} ${domain}",
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
     }
   }
 }
