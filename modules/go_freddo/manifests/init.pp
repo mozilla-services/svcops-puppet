@@ -14,7 +14,7 @@ class go_freddo(
 
   supervisord::service { 'go-freddo':
     app_dir   => '/tmp',
-    command   => "/usr/bin/go-freddo -config '${config_file}' -bind ':${port}'",
+    command   => "/usr/bin/freddo -config '${config_file}' -bind ':${port}'",
     subscribe => Concat[$config_file],
     user      => 'root',
   }
