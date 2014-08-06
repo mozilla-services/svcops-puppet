@@ -8,9 +8,11 @@ define marketplace::apps::monolith::admin_instance(
     $ssh_key,
     $dreadnot_name,
     $dreadnot_instance,
-    $pyrepo = 'https://pyrepo.addons.mozilla.org/'
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+    $update_on_commit = false,
 ) {
     $project_dir = $name
+    $codename = 'monolith'
 
     git::clone {
         "${project_dir}/monolith":
@@ -36,4 +38,11 @@ define marketplace::apps::monolith::admin_instance(
             github_url    => 'https://github.com/mozilla/monolith',
             git_url       => 'git://github.com/mozilla/monolith.git';
     }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${env} ${domain}",
+    }
+  }
 }
