@@ -20,8 +20,10 @@ define marketplace::apps::monolith_aggregator::admin_instance(
     $log_level = 'debug',
     $es_index_prefix = undef,
     $cron_user = 'mkt_prod_monolith',
-    $pyrepo = 'https://pyrepo.addons.mozilla.org/'
+    $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+    $update_on_commit = false,
 ) {
+  $codename = 'monolith-aggregator'
     $project_dir = $name
     $installed_dir = regsubst($project_dir, 'src', 'www')
     git::clone {
@@ -79,5 +81,11 @@ define marketplace::apps::monolith_aggregator::admin_instance(
             project_dir   => "${project_dir}/monolith-aggregator",
             github_url    => 'https://github.com/mozilla/monolith-aggregator',
             git_url       => 'git://github.com/mozilla/monolith-aggregator.git';
+    }
+    if $update_on_commit {
+      go_freddo::branch { "${codename}_${domain}_${env}":
+        app    => $codename,
+        script => "/usr/local/bin/dreadnot.deploy -e ${env} ${domain}",
+      }
     }
 }

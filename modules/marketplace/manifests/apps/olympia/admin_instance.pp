@@ -63,8 +63,10 @@ define marketplace::apps::olympia::admin_instance(
   $ssh_key = undef,
   $static_root = '/tmp',
   $update_ref = 'origin/master',
+  $update_on_commit = false,
   $uwsgi = 'addons-olympia-dev',
 ) {
+  $codename = 'olympia'
   $project_dir = $name
   $app_dir = "${project_dir}/olympia"
 
@@ -104,5 +106,12 @@ define marketplace::apps::olympia::admin_instance(
   file { "${app_dir}/deploysettings.py":
     require => Git::Clone[$app_dir],
     content => template('marketplace/apps/olympia/deploysettings.py');
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${env} ${domain}",
+    }
   }
 }
