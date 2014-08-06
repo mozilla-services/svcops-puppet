@@ -6,6 +6,6 @@ define go_freddo::app(
   $app_name = $name
   concat::fragment { "go_freddo_${app_name}":
     target  => '/etc/go-freddo.toml',
-    content => "[apps.${app_name}]\nsecret=\"${secret}\"\n",
+    content => "[apps.${app_name}]\nsecret=\"${secret}\"\n\n",
   }
 }
