@@ -70,6 +70,7 @@ define marketplace::apps::zamboni::admin_instance(
         ssh_key           => $ssh_key,
         statsd_prefix     => "webpay-${env}",
         syslog_tag        => "http_app_webpay_${env}",
+        update_on_commit  => $update_on_commit,
         uwsgi             => "webpay-${env}"
       }
     )
@@ -81,6 +82,7 @@ define marketplace::apps::zamboni::admin_instance(
     dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
   }
 
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
@@ -89,6 +91,7 @@ define marketplace::apps::zamboni::admin_instance(
     dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
     webpay_dir        => "${project_dir}-webpay",
   }
 
