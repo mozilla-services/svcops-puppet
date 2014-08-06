@@ -29,11 +29,13 @@ define marketplace::apps::webpay::admin_instance(
   $uuid_hmac_key = '',
   $encrypted_cookie_key = '',
   $scl_name = undef,
+  $update_on_commit = false,
   $uwsgi = '', # should be string separated by ";"
 ) {
   require marketplace::apps::webpay::packages
 
   $app_dir = $name
+  $codename = 'webpay'
 
   git::clone { "${app_dir}/webpay":
     repo => 'https://github.com/mozilla/webpay.git',
@@ -58,6 +60,13 @@ define marketplace::apps::webpay::admin_instance(
       git_url       => 'git://github.com/mozilla/webpay.git',
       project_dir   => "${app_dir}/webpay",
       require       => File["${app_dir}/webpay/deploysettings.py"],
+    }
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e dev ${domain}",
     }
   }
 }

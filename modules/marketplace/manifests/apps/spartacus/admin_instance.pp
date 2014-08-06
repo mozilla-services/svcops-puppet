@@ -9,8 +9,10 @@ define marketplace::apps::spartacus::admin_instance(
   $webpay_dir = '',
 
   $project_name = 'spartacus',
+  $update_on_commit = false,
 ) {
   $spartacus_dir = $name
+  $codename = 'spartacus'
 
   git::clone { $spartacus_dir:
     repo => 'https://github.com/mozilla/spartacus.git',
@@ -29,5 +31,12 @@ define marketplace::apps::spartacus::admin_instance(
       github_url    => 'https://github.com/mozilla/spartacus',
       git_url       => 'git://github.com/mozilla/spartacus.git',
       project_dir   => $spartacus_dir;
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e dev ${domain}",
+    }
   }
 }

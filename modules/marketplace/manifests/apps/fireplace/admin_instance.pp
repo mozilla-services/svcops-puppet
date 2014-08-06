@@ -6,9 +6,11 @@ define marketplace::apps::fireplace::admin_instance(
   $env,
   $ssh_key,
   $project_name = 'fireplace',
+  $update_on_commit = false,
   $zamboni_dir = '',
 ) {
   $fireplace_dir = $name
+  $codename = 'fireplace'
 
   git::clone { $fireplace_dir:
     repo => 'https://github.com/mozilla/fireplace.git',
@@ -27,5 +29,12 @@ define marketplace::apps::fireplace::admin_instance(
       github_url    => 'https://github.com/mozilla/fireplace',
       git_url       => 'git://github.com/mozilla/fireplace.git',
       project_dir   => $fireplace_dir;
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e dev ${domain}",
+    }
   }
 }
