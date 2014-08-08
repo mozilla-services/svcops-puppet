@@ -19,10 +19,10 @@ define marketplace::apps::olympia::web_instance(
   $app_name = $name
 
   if $environ {
-    $environment = "DJANGO_SETTINGS_MODULE=${settings_module}"
+    $environment = "DJANGO_SETTINGS_MODULE=${settings_module},${environ}"
   }
   else {
-    $environment = "DJANGO_SETTINGS_MODULE=${settings_module},${environ}"
+    $environment = "DJANGO_SETTINGS_MODULE=${settings_module}"
   }
 
   if $newrelic_license_key {
