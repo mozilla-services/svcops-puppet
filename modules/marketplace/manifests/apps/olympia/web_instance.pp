@@ -3,7 +3,7 @@ define marketplace::apps::olympia::web_instance(
   $app_dir,
   $port,
   $appmodule = 'wsgi.zamboni:application',
-  $environ = '',
+  $environ = undef,
   $newrelic_domain = undef,
   $newrelic_license_key = '',
   $nginx_settings = undef,
@@ -18,6 +18,13 @@ define marketplace::apps::olympia::web_instance(
 
   $app_name = $name
 
+  if $environ {
+    $environment = "DJANGO_SETTINGS_MODULE=${settings_module}"
+  }
+  else {
+    $environment = "DJANGO_SETTINGS_MODULE=${settings_module},${environ}"
+  }
+
   if $newrelic_license_key {
     marketplace::newrelic::python { $app_name:
       before          => Uwsgi::Instance[$worker_name],
@@ -26,10 +33,11 @@ define marketplace::apps::olympia::web_instance(
     }
   }
 
+
   uwsgi::instance { $worker_name:
     app_dir      => "${app_dir}/olympia",
     appmodule    => $appmodule,
-    environ      => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
+    environ      => $environment,
     home         => "${app_dir}/venv",
     max_requests => $uwsgi_max_requests,
     port         => $port,
