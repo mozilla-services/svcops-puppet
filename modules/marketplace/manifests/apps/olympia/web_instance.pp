@@ -30,7 +30,6 @@ define marketplace::apps::olympia::web_instance(
     app_dir      => "${app_dir}/olympia",
     appmodule    => $appmodule,
     environ      => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
-    environ      => $environ,
     home         => "${app_dir}/venv",
     max_requests => $uwsgi_max_requests,
     port         => $port,
