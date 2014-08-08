@@ -5,14 +5,17 @@ define marketplace::apps::zippy::web_instance(
   $project_dir,
   $user = 'nobody'
 ) {
-  $app_name = $name
+  $domain = $name
 
   package { "deploy-zippy-${env}":
     ensure => 'installed',
   }->
-  supervisord::service { "zippy-${app_name}":
+  supervisord::service { "zippy-${domain}":
     app_dir => "${project_dir}/zippy",
     command => "/usr/bin/node main.js -p ${port}",
     user    => $user,
+  }->
+  nginx::serverproxy { $domain:
+    proxyto => "http://localhost:${port}",
   }
 }
