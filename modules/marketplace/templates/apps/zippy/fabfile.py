@@ -22,7 +22,6 @@ def pre_update(ref):
 @task
 def update():
     with lcd(APP):
-        local('npm install')
         local('npm rebuild')
 
 
