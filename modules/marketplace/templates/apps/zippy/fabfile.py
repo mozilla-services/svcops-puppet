@@ -10,6 +10,9 @@ env.key_filename = settings.SSH_KEY
 fabdeploytools.envs.loadenv(settings.CLUSTER)
 ROOT, APP = helpers.get_app_dirs(__file__)
 
+if not os.environ.get('HOME'):
+    os.environ['HOME'] = '/tmp'
+
 
 @task
 def pre_update(ref):
