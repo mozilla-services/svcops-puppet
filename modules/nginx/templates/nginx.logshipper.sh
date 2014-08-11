@@ -28,6 +28,9 @@ do
     fi
 done
 
+#change permissions
+find $LOG_DIR -type f -name "$PRE_DATE.log" ! -name '*.gz' -exec chmod 644 {} \;
+
 #compress files
 find $LOG_DIR -type f -name "$PRE_DATE.log" ! -name '*.gz' -print0 | xargs -0 -r -n 1 -P 4 nice -n 10 gzip
 
