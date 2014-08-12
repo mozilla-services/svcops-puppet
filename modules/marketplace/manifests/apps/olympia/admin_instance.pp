@@ -61,7 +61,6 @@ define marketplace::apps::olympia::admin_instance(
   $domain = 'addons-olympia-dev.allizom.org',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $ssh_key = undef,
-  $static_root = '/tmp',
   $update_ref = 'origin/master',
   $update_on_commit = false,
   $uwsgi = 'addons-olympia-dev',
