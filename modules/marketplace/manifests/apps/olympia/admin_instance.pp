@@ -82,7 +82,6 @@ define marketplace::apps::olympia::admin_instance(
 
   marketplace::apps::olympia::symlinks { $app_dir:
     netapp      => $netapp_storage_root,
-    static_root => $static_root,
   }
 
   file {
