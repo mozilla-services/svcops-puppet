@@ -8,6 +8,7 @@ define marketplace::apps::testmanifest::admin_instance(
   $ssh_key,
   $project_name = 'testmanifest',
   $update_on_commit = false,
+  $user = 'nobody',
 ) {
   $testmanifest_dir = $name
   $codename = 'testmanifest'
@@ -19,7 +20,8 @@ define marketplace::apps::testmanifest::admin_instance(
       $shared_storage_root,
       "${shared_storage_root}/manifests"
     ]:
-      ensure => 'directory';
+      ensure => 'directory',
+      owner  => $user;
   }->
   file {
     "${testmanifest_dir}/manifests":
