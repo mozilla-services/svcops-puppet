@@ -16,11 +16,11 @@ define marketplace::apps::testmanifest::web_instance(
     user    => $user,
   }->
   nginx::serverproxy { $domain:
-    listen  => '81',
+    listen  => '80',
     proxyto => "http://localhost:${port}",
   }
   nginx::serverproxy { "*.${domain}":
-    listen  => '81',
+    listen  => '80',
     proxyto => "http://localhost:${port}",
   }
 }
