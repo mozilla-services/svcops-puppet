@@ -1,13 +1,20 @@
 # Creates zamboni settings file.
 define marketplace::apps::olympia::admin_instance(
+  $addons_paypal_app_id,
+  $addons_paypal_embedded_auth_user,
+  $addons_paypal_embedded_password,
+  $addons_paypal_embedded_signature,
+  $addons_responsys_id,
+  $addons_secret_key,
+  $addons_sentry_dsn,
   $api_access_secret_key,
   $broker_url,
   $builder_secret_key,
   $caches_default_location,
   $databases_default_url,
   $databases_slave_url,
-  $dreadnot_name,
   $dreadnot_instance,
+  $dreadnot_name,
   $email_blacklist,
   $email_host,
   $es_hosts,
@@ -19,25 +26,18 @@ define marketplace::apps::olympia::admin_instance(
   $heka_conf_sender_host,
   $heka_conf_sender_port,
   $netapp_storage_root,
+  $recaptcha_private_key,
   $recaptcha_public_key,
   $redirect_secret_key,
   $redis_backends_cache,
   $redis_backends_cache_slave,
   $redis_backends_master,
   $redis_backends_slave,
-  $recaptcha_private_key,
   $responsys_id,
   $services_database_url,
   $statsd_host,
   $statsd_port,
   $statsd_prefix,
-  $addons_paypal_app_id,
-  $addons_paypal_embedded_auth_user,
-  $addons_paypal_embedded_password,
-  $addons_paypal_embedded_signature,
-  $addons_responsys_id,
-  $addons_secret_key,
-  $addons_sentry_dsn,
   $aws_access_key_id = '',
   $aws_secret_access_key = '',
   $aws_storage_bucket_name = '',
@@ -81,7 +81,7 @@ define marketplace::apps::olympia::admin_instance(
   }
 
   marketplace::apps::olympia::symlinks { $app_dir:
-    netapp      => $netapp_storage_root,
+    netapp => $netapp_storage_root,
   }
 
   file {
