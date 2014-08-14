@@ -3,6 +3,7 @@ define marketplace::apps::olympia::celery_instance(
   $app_dir = undef,
   $env = 'prod',
   $password = undef,
+  $settings_module = 'settings_local',
   $user = $olympia_private::mkt::any::prod::params::mkt_user,
   $workers = '6',
 ){
@@ -11,7 +12,7 @@ define marketplace::apps::olympia::celery_instance(
 
   $olympia_dir = "${app_dir}/current/olympia"
   $olympia_python = "${app_dir}/current/venv/bin/python"
-  $environ = 'SPIDERMONKEY_INSTALLATION=/usr/bin/tracemonkey'
+  $environ = "DJANGO_SETTINGS_MODULE=${settings_module},SPIDERMONKEY_INSTALLATION=/usr/bin/tracemonkey"
 
   Celery::Service {
     app_dir => $olympia_dir,
