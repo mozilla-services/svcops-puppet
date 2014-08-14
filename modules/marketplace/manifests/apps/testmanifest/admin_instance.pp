@@ -4,6 +4,7 @@ define marketplace::apps::testmanifest::admin_instance(
   $domain,
   $dreadnot_instance,
   $env,
+  $shared_storage_root,
   $ssh_key,
   $project_name = 'testmanifest',
   $update_on_commit = false,
@@ -14,7 +15,16 @@ define marketplace::apps::testmanifest::admin_instance(
   git::clone { $testmanifest_dir:
     repo => 'https://github.com/oremj/node-testmanifest.git',
   }->
+  file { [
+      $shared_storage_root,
+      "${shared_storage_root}/manifests"
+    ]:
+      ensure => 'directory';
+  }->
   file {
+    "${testmanifest_dir}/manifests":
+      ensure => 'link',
+      target => "${shared_storage_root}/manifests";
     "${testmanifest_dir}/deploysettings.py":
       content => template('marketplace/apps/testmanifest/deploysettings.py');
     "${testmanifest_dir}/fabfile.py":
