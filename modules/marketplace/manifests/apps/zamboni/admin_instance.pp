@@ -106,4 +106,8 @@ define marketplace::apps::zamboni::admin_instance(
     require       => Git::Clone[$app_dir],
     fireplace_dir => "/data/${cluster}/www/${domain}-fireplace/current",
   }
+
+  marketplace::apps::zamboni::symlinks::discoplace { $app_dir:
+    discoplace_dir => "/data/${cluster}/www/${domain}-discoplace/current",
+  }
 }
