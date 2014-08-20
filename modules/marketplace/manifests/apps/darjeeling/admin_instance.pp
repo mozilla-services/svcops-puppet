@@ -6,8 +6,10 @@ define marketplace::apps::darjeeling::admin_instance(
   $dreadnot_name,
   $env,
   $ssh_key,
+  $update_on_commit = false,
 ) {
   $project_dir = $name
+  $codename = 'darjeeling'
   $app_dir = "${project_dir}/darjeeling"
 
   $git_repo = 'https://github.com/mozilla/darjeeling'
@@ -26,5 +28,12 @@ define marketplace::apps::darjeeling::admin_instance(
   file { "${app_dir}/deploysettings.py":
     require => Git::Clone[$app_dir],
     content => template('marketplace/apps/darjeeling/deploysettings.py');
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+    }
   }
 }

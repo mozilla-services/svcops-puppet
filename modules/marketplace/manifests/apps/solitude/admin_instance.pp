@@ -6,8 +6,10 @@ define marketplace::apps::solitude::admin_instance(
   $deploy_settings = undef,
   $dreadnot_instance = undef,
   $is_proxy = false,
+  $update_on_commit = false,
 ) {
   $solitude_name = $name
+  $codename = 'solitude'
   $app_dir = "${project_dir}/solitude"
 
   git::clone { $app_dir:
@@ -49,6 +51,13 @@ define marketplace::apps::solitude::admin_instance(
       github_url    => 'https://github.com/mozilla/solitude',
       git_url       => 'git://github.com/mozilla/solitude.git',
       project_dir   => $app_dir,
+    }
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${solitude_name}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${solitude_name}",
     }
   }
 }

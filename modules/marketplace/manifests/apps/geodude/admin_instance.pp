@@ -12,9 +12,11 @@ define marketplace::apps::geodude::admin_instance(
   $project_name = 'geodude',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $update_ref = undef,
+  $update_on_commit = false,
   $uwsgi = 'geodude', # should be string separated by ";"
 ) {
   $geodude_dir = $name
+  $codename = 'geodude'
 
   git::clone { $geodude_dir:
     repo => 'https://github.com/mozilla/geodude.git',
@@ -38,5 +40,12 @@ define marketplace::apps::geodude::admin_instance(
   file {
     "${geodude_dir}/settings.py":
       content => template('marketplace/apps/geodude/settings/settings.py');
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+    }
   }
 }

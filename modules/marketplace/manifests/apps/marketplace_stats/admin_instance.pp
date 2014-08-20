@@ -6,8 +6,10 @@ define marketplace::apps::marketplace_stats::admin_instance(
     $ssh_key,
     $dreadnot_name,
     $dreadnot_instance,
+    $update_on_commit = false,
 ) {
     $project_dir = $name
+    $codename = 'marketplace-stats'
     git::clone {
         "${project_dir}/marketplace-stats":
             repo => 'https://github.com/mozilla/marketplace-stats.git';
@@ -30,4 +32,10 @@ define marketplace::apps::marketplace_stats::admin_instance(
             github_url    => 'https://github.com/mozilla/marketplace-stats',
             git_url       => 'git://github.com/mozilla/marketplace-stats.git';
     }
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+    }
+  }
 }

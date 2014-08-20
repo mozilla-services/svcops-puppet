@@ -10,11 +10,13 @@ define marketplace::apps::zamboni::admin_instance(
   $settings, # zamboni::settings hash
   $settings_site,
   $ssh_key,
+  $update_on_commit = false,
   $webpay_settings = undef,
 ) {
   $instance_name = $name
+  $codename = 'zamboni'
   $project_dir = "/data/${cluster}/src/${domain}"
-  $app_dir = "${project_dir}/zamboni"
+  $app_dir = "${project_dir}/${codename}"
 
   git::clone { $app_dir:
     repo => 'https://github.com/mozilla/zamboni.git',
@@ -68,6 +70,7 @@ define marketplace::apps::zamboni::admin_instance(
         ssh_key           => $ssh_key,
         statsd_prefix     => "webpay-${env}",
         syslog_tag        => "http_app_webpay_${env}",
+        update_on_commit  => $update_on_commit,
         uwsgi             => "webpay-${env}"
       }
     )
@@ -79,6 +82,7 @@ define marketplace::apps::zamboni::admin_instance(
     dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
   }
 
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
@@ -87,6 +91,7 @@ define marketplace::apps::zamboni::admin_instance(
     dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
     webpay_dir        => "${project_dir}-webpay",
   }
 
@@ -95,6 +100,13 @@ define marketplace::apps::zamboni::admin_instance(
     git_url       => 'git://github.com/mozilla/zamboni.git',
     instance_name => $dreadnot_instance,
     project_dir   => $app_dir,
+  }
+
+  if $update_on_commit {
+    go_freddo::branch { "${codename}_${domain}_${env}":
+      app    => $codename,
+      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+    }
   }
 
   marketplace::apps::zamboni::symlinks { $app_dir:
