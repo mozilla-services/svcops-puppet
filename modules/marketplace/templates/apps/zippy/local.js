@@ -10,5 +10,10 @@ module.exports = {
   OAuthRealm: '<%= @oauth_realm %>',
   // Session secret cannot be blank.
   sessionSecret: '<%= @session_secret %>',
-  logging: {format: 'dev'}
+  logging: {format: 'dev'},
+  redisConn: {
+      database: 3,
+      host: '<%= @redis_host %>',
+      port: <%= @redis_port %>
+  }
 };
