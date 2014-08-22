@@ -2,7 +2,8 @@
 define nginx::serverproxy(
   $proxyto, # http://testhost
 
-  $listen = '80'
+  $listen = '80',
+  $ssl_proxy = false,
 ) {
   $server_name = $name
   nginx::config { $server_name:

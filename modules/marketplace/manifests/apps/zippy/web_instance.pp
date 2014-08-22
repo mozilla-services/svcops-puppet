@@ -16,7 +16,8 @@ define marketplace::apps::zippy::web_instance(
     user    => $user,
   }->
   nginx::serverproxy { $domain:
-    listen  => '81',
-    proxyto => "http://localhost:${port}",
+    listen    => '81',
+    proxyto   => "http://localhost:${port}",
+    ssl_proxy => true
   }
 }
