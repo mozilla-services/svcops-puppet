@@ -1,10 +1,9 @@
 # Manage rhn related files
 class base::rhn {
-  /*
-  file {
-    '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT':
-      ensure  => present,
-      content => template('base/RHN-ORG-TRUSTED-SSL-CERT')
+  $rhn_cert = hiera('rhn_ssl_cert', '')
+  if $rhn_cert == '' {
+    file { '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT':
+      content => template('base/RHN-ORG-TRUSTED-SSL-CERT'),
+    }
   }
-  */
 }
