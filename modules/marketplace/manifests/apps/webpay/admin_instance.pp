@@ -46,8 +46,8 @@ define marketplace::apps::webpay::admin_instance(
     "${app_dir}/webpay/deploysettings.py":
       content => template('marketplace/apps/webpay/admin/deploysettings.py');
 
-    "${app_dir}/webpay/local.py":
-      content => template('marketplace/apps/webpay/admin/settings_local.py');
+    "${app_dir}/webpay/webpay/settings/local.py":
+      content => "from .sites.${env}.settings_base import *\n";
 
     "${app_dir}/webpay/webpay/settings/sites/${env}/private_base.py":
       content => template('marketplace/apps/webpay/admin/private_base.py');

@@ -15,6 +15,9 @@ define marketplace::apps::zippy::admin_instance(
   $signature_key,
 
   $oauth_realm = 'Zippy',
+
+  $redis_host = 'redis-dev-master',
+  $redis_port = '6379',
 ) {
   $zippy_dir = $name
   $codename = 'zippy'

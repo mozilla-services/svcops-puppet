@@ -5,6 +5,7 @@ define marketplace::apps::fireplace::admin_instance(
   $dreadnot_instance,
   $env,
   $ssh_key,
+  $package_name = undef,
   $project_name = 'fireplace',
   $update_on_commit = false,
   $zamboni_dir = '',
