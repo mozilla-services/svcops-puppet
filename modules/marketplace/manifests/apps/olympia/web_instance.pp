@@ -43,6 +43,7 @@ define marketplace::apps::olympia::web_instance(
     port         => $port,
     user         => $user,
     workers      => $workers,
+    lazy_apps    => false,
   }
 
   if $nginx_settings {
