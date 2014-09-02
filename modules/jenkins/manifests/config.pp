@@ -1,24 +1,24 @@
-# jenkins config class
-class jenkins::config(
-  $memory_size  = false,
-  $jenkins_port = '8080',
-  $jenkins_handler_max = '50',
-  $jenkins_handler_idle = '10',
-){
-  # allocate a quater of system memory to jvm
-  if  $memory_size == false {
-    $jvm_memory = inline_template('<%= @memorysize =~ /^(\d+)/; val = ( ( $1.to_i * 1024) / 4 ).to_i %>m')
-  }
-  else {
-    $jvm_memory = $memory_size
+# Parameters:
+# config_hash = {} (Default)
+# Hash with config options to set in sysconfig/jenkins defaults/jenkins
+#
+# Example use
+#
+# class{ 'jenkins::config':
+#   config_hash => {
+#     'HTTP_PORT' => { 'value' => '9090' }, 'AJP_PORT' => { 'value' => '9009' }
+#   }
+# }
+#
+class jenkins::config {
+
+  if $caller_module_name != $module_name {
+    fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  # manage jenkins sysconfig
-  file {
-    '/etc/sysconfig/jenkins':
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0400',
-      content => template('jenkins/sysconfig/jenkins');
-  }
+  include jenkins::package
+
+  Class['Jenkins::Package']->Class['Jenkins::Config']
+  create_resources( 'jenkins::sysconfig', $::jenkins::config_hash )
 }
+

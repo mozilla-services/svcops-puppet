@@ -132,13 +132,6 @@ class base::yum {
     failovermethod => priority,
   }
 
-  @yumrepo { 'jenkins':
-    descr    => 'Jenkins',
-    baseurl  => 'http://pkg.jenkins-ci.org/redhat-stable/',
-    gpgcheck => 0,
-    enabled  => 1;
-  }
-
   file {
     '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
       ensure => present,

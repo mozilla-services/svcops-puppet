@@ -53,7 +53,7 @@ class marketplace::virtual_packages {
       ensure => '2.3.2-1';
 
     'nodejs':
-      ensure => '0.10.26-1.el6';
+      ensure => '0.10.28-1.el6';
 
     'node-clean-css':
       ensure => '0.10.1-2';
@@ -71,7 +71,7 @@ class marketplace::virtual_packages {
       ensure => 'installed';
 
     'tracemonkey':
-      ensure => '27.0-a1';
+      ensure => '34.0a1-1';
 
     'umemcache':
       ensure => '1.6.3-1';
