@@ -117,7 +117,7 @@ define marketplace::apps::zamboni::settings(
 
       "zamboni::settings::${name}/settings_local.py":
         content  => "sites.${env}.settings_mkt import *",
-        filename => 'settings_local.py';
+        filename => ['settings_local.py', 'settings_local_mkt.py'];
 
       "zamboni::settings::${name}/private_base.py":
         content  => template('marketplace/apps/zamboni/settings/private_base.py'),
