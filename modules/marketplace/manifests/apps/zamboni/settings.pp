@@ -116,11 +116,11 @@ define marketplace::apps::zamboni::settings(
         filename => "sites/${env}";
 
       "zamboni::settings::${name}/settings_local.py":
-        content  => "sites.${env}.settings_mkt import *",
+        content  => "from sites.${env}.settings_mkt import *",
         filename => 'settings_local.py';
 
       "zamboni::settings::${name}/settings_local_mkt.py":
-        content  => "sites.${env}.settings_mkt import *",
+        content  => "from sites.${env}.settings_mkt import *",
         filename => 'settings_local_mkt.py';
 
       "zamboni::settings::${name}/private_base.py":
