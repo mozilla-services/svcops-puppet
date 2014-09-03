@@ -95,8 +95,29 @@ define marketplace::apps::zamboni::settings(
   $mkt_paypal_embedded_auth_signature = '',
   $mkt_signed_apps_key = '',
   $mkt_static_url = undef
+
+  $cluster = undef,
+  $env = undef,
 ) {
   $app_dir = $name
+  if $cluster and $env {
+    Marketplace::Overlay {
+      app     => 'zamboni',
+      cluster => $cluster,
+      env     => $env,
+    }
+    marketplace::overlay {
+      "sites/${env}":
+        ensure => directory;
+
+      "sites/${env}/private_base.py":
+        content => template('marketplace/apps/zamboni/settings/private_base.py');
+
+      "sites/${env}/private_mkt.py":
+        content => template('marketplace/apps/zamboni/settings/private_mkt.py');
+    }
+  }
+
   file {
     "${app_dir}/private_base.py":
       content => template('marketplace/apps/zamboni/settings/private_base.py');
