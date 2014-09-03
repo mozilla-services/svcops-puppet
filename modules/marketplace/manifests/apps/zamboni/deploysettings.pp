@@ -16,11 +16,12 @@ define marketplace::apps::zamboni::deploysettings(
 ) {
   $zamboni_dir = $name
 
-  marketplace::overlay { 'deploysettings.py':
-    app     => 'zamboni',
-    cluster => $cluster,
-    content => template('marketplace/apps/zamboni/deploysettings.py'),
-    env     => $env,
+  marketplace::overlay { "zamboni::deploysettings::${name}":
+    app      => 'zamboni',
+    cluster  => $cluster,
+    content  => template('marketplace/apps/zamboni/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
   }
 
   file { "${zamboni_dir}/deploysettings.py":
