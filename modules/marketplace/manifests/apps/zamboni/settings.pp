@@ -123,10 +123,6 @@ define marketplace::apps::zamboni::settings(
         content  => template('marketplace/apps/zamboni/settings/private_base.py'),
         filename => "sites/${env}/private_base.py";
 
-      "zamboni::settings::${name}/private_base.py":
-        content  => template('marketplace/apps/zamboni/settings/private_base.py'),
-        filename => "sites/${env}/private_base.py";
-
       "zamboni::settings::${name}/private_mkt.py":
         content  => template('marketplace/apps/zamboni/settings/private_mkt.py'),
         filename => "sites/${env}/private_mkt.py";
