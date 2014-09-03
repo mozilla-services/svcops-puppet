@@ -3,12 +3,12 @@ define marketplace::overlay(
   $app,
   $cluster,
   $env,
+  $filename,
 
   $content = undef,
   $ensure = undef
 ) {
   require marketplace::overlays
-  $filename = $name
 
   $root = "${marketplace::overlays::root}/${cluster}"
   $envdir = "${root}/${env}-${app}"
