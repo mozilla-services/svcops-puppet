@@ -36,6 +36,8 @@ define marketplace::apps::zamboni::admin_instance(
     {"${app_dir}/sites/${settings_site}" => $settings},
     {
       require             => Git::Clone[$app_dir],
+      cluster             => $cluster,
+      env                 => $env,
       netapp_storage_root => $netapp_root,
     }
   )
