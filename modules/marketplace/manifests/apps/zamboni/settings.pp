@@ -107,7 +107,11 @@ define marketplace::apps::zamboni::settings(
       env     => $env,
     }
     marketplace::overlay {
-      "zamboni::settings::${name}":
+      "zamboni::settings::${name}::sites":
+        ensure   => directory,
+        filename => 'sites';
+
+      "zamboni::settings::${name}::sites/env":
         ensure   => directory,
         filename => "sites/${env}";
 
