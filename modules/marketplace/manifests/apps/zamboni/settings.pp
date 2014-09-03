@@ -94,7 +94,7 @@ define marketplace::apps::zamboni::settings(
   $mkt_paypal_embedded_auth_password = '',
   $mkt_paypal_embedded_auth_signature = '',
   $mkt_signed_apps_key = '',
-  $mkt_static_url = undef
+  $mkt_static_url = undef,
 
   $cluster = undef,
   $env = undef,
