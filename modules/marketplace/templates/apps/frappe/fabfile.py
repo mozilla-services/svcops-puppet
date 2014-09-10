@@ -1,5 +1,5 @@
 import os
-from os.pathpath import join as pjoin
+from os.path import join as pjoin
 
 import fabdeploytools.envs
 from fabric.api import env, lcd, local, task
