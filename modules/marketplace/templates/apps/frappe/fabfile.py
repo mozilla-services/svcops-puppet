@@ -1,4 +1,5 @@
 import os
+from os.pathpath import join as pjoin
 
 import fabdeploytools.envs
 from fabric.api import env, lcd, local, task
@@ -9,6 +10,9 @@ import deploysettings as settings
 env.key_filename = settings.SSH_KEY
 fabdeploytools.envs.loadenv(settings.CLUSTER)
 ROOT, APP = helpers.get_app_dirs(__file__)
+
+VIRTUALENV = pjoin(ROOT, 'venv')
+PYTHON = pjoin(VIRTUALENV, 'bin', 'python')
 
 
 @task
