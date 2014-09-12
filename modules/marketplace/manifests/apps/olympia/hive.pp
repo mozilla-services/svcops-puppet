@@ -6,7 +6,6 @@ class marketplace::apps::olympia::hive(
     'fix-hive-perms':
       command => "/bin/chmod -R g+w ${dirpath} > /dev/null 2>&1",
       user    => 'root',
-      hour    => '8',
-      minute  => '0',
+      minute  => '*/15',
   }
 }
