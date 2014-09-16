@@ -33,7 +33,7 @@ if [ ! -d $BACKUPDIR ]; then
 fi
 
 # connect to first netscaler host and run create backup
-autopassword "ssh $BACKUPUSER@${NSHOSTS[1]} \"create system backup backup.$DATE -level basic\""
+autopassword "ssh $BACKUPUSER@${NSHOSTS[0]} \"create system backup backup.$DATE -level basic\""
 
 for host in "${NSHOSTS[@]}"
 do
