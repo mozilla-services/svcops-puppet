@@ -20,9 +20,9 @@ define marketplace::apps::frappe::admin_instance(
 
   file {
     "${frappe_dir}/deploysettings.py":
-      content => template('marketplace/apps/frappe/deploysettings.py');
+      content => template('marketplace/apps/frappe/admin/deploysettings.py');
     "${frappe_dir}/fabfile.py":
-      content => template('marketplace/apps/frappe/fabfile.py');
+      content => template('marketplace/apps/frappe/admin/fabfile.py');
   }->
   dreadnot::stack {
     $domain:
