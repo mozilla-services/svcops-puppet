@@ -18,6 +18,15 @@ ROOT, APP = helpers.get_app_dirs(__file__)
 
 VIRTUALENV = pjoin(ROOT, 'venv')
 PYTHON = pjoin(VIRTUALENV, 'bin', 'python')
+SRC = pjoin(APP, 'src')
+
+USER_DATA = pjoin(settings.DATA_PATH, 'dumped-users', 'users')
+APP_DATA = pjoin(settings.DATA_PATH, 'dumped-apps', 'apps')
+
+
+def managecmd(cmd):
+    with lcd(SRC):
+        local('%s manage.py %s' % (PYTHON, cmd))
 
 
 @task
@@ -37,7 +46,8 @@ def pre_update(ref):
 
 @task
 def update():
-    placeholder = None
+    fill_data()
+    modelcrafter()
 
 
 @task
@@ -48,3 +58,15 @@ def deploy():
                    cluster=settings.CLUSTER,
                    domain=settings.DOMAIN,
                    root=ROOT)
+
+
+@task
+def fill_data():
+    managecmd('fill items %s' % APP_DATA)
+    managecmd('fill users %s' % USER_DATA)
+
+
+@task
+def modelcrafter():
+    managecmd('modelcrafter train tensorcofi')
+    managecmd('modelcrafter train popularity')
