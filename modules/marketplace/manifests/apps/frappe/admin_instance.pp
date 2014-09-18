@@ -16,6 +16,7 @@ define marketplace::apps::frappe::admin_instance(
   $domain = $name
 
   $codename = 'frappe'
+  $project_name = $codename
 
   git::clone { $project_dir:
     repo => 'https://github.com/grafos-ml/frappe',
