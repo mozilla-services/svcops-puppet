@@ -9,6 +9,11 @@ import deploysettings as settings
 
 env.key_filename = settings.SSH_KEY
 fabdeploytools.envs.loadenv(settings.CLUSTER)
+
+SCL_NAME = getattr(settings, 'SCL_NAME', False)
+if SCL_NAME:
+    helpers.scl_enable(SCL_NAME)
+
 ROOT, APP = helpers.get_app_dirs(__file__)
 
 VIRTUALENV = pjoin(ROOT, 'venv')
