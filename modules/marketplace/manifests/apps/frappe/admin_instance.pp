@@ -7,6 +7,7 @@ define marketplace::apps::frappe::admin_instance(
   $ssh_key,
   $project_name = 'frappe',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+  $scl_name = undef,
   $update_on_commit = false,
   $user = 'nobody',
 ) {
