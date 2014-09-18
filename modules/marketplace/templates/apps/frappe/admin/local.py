@@ -29,14 +29,10 @@ CACHES_DEFAULT_LOCATION = '<%= @caches_default_location %>'
 CACHES = {
     'default': {
         'BACKEND': "django.core.cache.backends.memcached.MemcachedCache",
-        'LOCATION': splitstrip(CACHES_DEFAULT_LOCATION),
+        'LOCATION': CACHES_DEFAULT_LOCATION.split(';'),
         'TIMEOUT': 500,
         'KEY_PREFIX': CACHE_PREFIX,
         }
     }
 
 CACHES['distributed'] = CACHES['default']
-
-
-def splitstrip(s):
-    return [x.strip() for x in s.split(';')]
