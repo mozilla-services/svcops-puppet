@@ -14,7 +14,7 @@ SECRET_KEY = '<%= @secret_key %>'
 
 MAX_THREADS = <%= @max_threads %>
 
-ALLOWED_HOSTS = '<%= @domain %>'
+ALLOWED_HOSTS = ['<%= @domain %>']
 
 DATABASES = {}
 DATABASES_DEFAULT_URL = '<%= @databases_default_url %>'
