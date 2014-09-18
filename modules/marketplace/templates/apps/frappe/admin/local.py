@@ -36,3 +36,29 @@ CACHES = {
     }
 
 CACHES['distributed'] = CACHES['default']
+
+
+INSTALLED_APPS = (
+    # Apps need for the recommendation
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.staticfiles",
+    # Recommendation apps
+    "recommendation",
+    "recommendation.api",
+    "recommendation.filter_owned",
+    "recommendation.language",
+    "recommendation.simple_logging",
+)
+
+# Middleware needed
+MIDDLEWARE_CLASSES = [
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.middleware.transaction.TransactionMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
+]
