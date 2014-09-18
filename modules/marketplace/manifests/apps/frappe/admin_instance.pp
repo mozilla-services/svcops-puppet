@@ -5,6 +5,7 @@ define marketplace::apps::frappe::admin_instance(
   $dreadnot_instance,
   $env,
   $ssh_key,
+  $data_path = undef,
   $project_name = 'frappe',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $scl_name = undef,
