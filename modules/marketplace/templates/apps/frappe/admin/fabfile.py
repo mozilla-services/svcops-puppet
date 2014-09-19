@@ -59,6 +59,7 @@ def deploy():
                    env=settings.ENV,
                    cluster=settings.CLUSTER,
                    domain=settings.DOMAIN,
+                   package_dirs=['frappe', 'venv'],
                    root=ROOT)
 
 
