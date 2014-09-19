@@ -11,6 +11,7 @@ define marketplace::apps::frappe::admin_instance(
   $scl_name = undef,
   $update_on_commit = false,
   $user = 'nobody',
+  $uwsgi = 'frappe',
 
 ) {
   $domain = $name

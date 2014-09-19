@@ -62,6 +62,8 @@ def deploy():
                    package_dirs=['frappe', 'venv'],
                    root=ROOT)
 
+    helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
+
 
 @task
 def fill_data():
