@@ -1,4 +1,4 @@
-<% if @ship_access %>
+<% if @send_access %>
 [NginxAccess]
 type = "LogstreamerInput"
 log_directory = "/data/logs/nginx"
