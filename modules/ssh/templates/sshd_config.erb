@@ -135,6 +135,10 @@ PrintLastLog yes
 # override default of no subsystems
 Subsystem   sftp    /usr/libexec/openssh/sftp-server
 
+<% if @enable_duo -%>
+ForceCommand /usr/sbin/login_duo
+<% end -%>
+
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
 #   X11Forwarding no
