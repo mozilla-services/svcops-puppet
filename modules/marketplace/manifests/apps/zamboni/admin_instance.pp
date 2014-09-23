@@ -36,6 +36,8 @@ define marketplace::apps::zamboni::admin_instance(
     {"${app_dir}/sites/${settings_site}" => $settings},
     {
       require             => Git::Clone[$app_dir],
+      cluster             => $cluster,
+      env                 => $env,
       netapp_storage_root => $netapp_root,
     }
   )
@@ -53,7 +55,7 @@ define marketplace::apps::zamboni::admin_instance(
       ssh_key                   => $ssh_key,
     }
   )
-  
+
   if $webpay_settings {
     create_resources(
       marketplace::apps::webpay::admin_instance,
@@ -83,6 +85,7 @@ define marketplace::apps::zamboni::admin_instance(
     env               => $env,
     ssh_key           => $ssh_key,
     update_on_commit  => $update_on_commit,
+    zamboni_dir       => $project_dir,
   }
 
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":

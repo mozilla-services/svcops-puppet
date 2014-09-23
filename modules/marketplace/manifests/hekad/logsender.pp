@@ -2,6 +2,7 @@
 class marketplace::hekad::logsender(
   $log_tcp_host = undef,
   $mkt_prod = true,
+  $send_access = false,
 ) {
   hekad::instance {
     'marketplace-logsender':

@@ -1,9 +1,11 @@
-#[NginxAccess]
-#type = "LogstreamerInput"
-#log_directory = "/data/logs/nginx"
-#file_match = '(?P<Domain>[^/]+)/access\.log'
-#decoder = "NginxAccessLogDecoder"
-#differentiator = ["Domain"]
+<% if @send_access %>
+[NginxAccess]
+type = "LogstreamerInput"
+log_directory = "/data/logs/nginx"
+file_match = '(?P<Domain>[^/]+)/access\.log'
+decoder = "NginxAccessLogDecoder"
+differentiator = ["Domain"]
+<% end %>
 
 [NginxError]
 type = "LogstreamerInput"

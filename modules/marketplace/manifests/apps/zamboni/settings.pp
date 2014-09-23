@@ -94,9 +94,45 @@ define marketplace::apps::zamboni::settings(
   $mkt_paypal_embedded_auth_password = '',
   $mkt_paypal_embedded_auth_signature = '',
   $mkt_signed_apps_key = '',
-  $mkt_static_url = undef
+  $mkt_static_url = undef,
+
+  $cluster = undef,
+  $env = undef,
 ) {
   $app_dir = $name
+  if $cluster and $env {
+    Marketplace::Overlay {
+      app     => 'zamboni',
+      cluster => $cluster,
+      env     => $env,
+    }
+    marketplace::overlay {
+      "zamboni::settings::${name}::sites":
+        ensure   => directory,
+        filename => 'sites';
+
+      "zamboni::settings::${name}::sites/env":
+        ensure   => directory,
+        filename => "sites/${env}";
+
+      "zamboni::settings::${name}/settings_local.py":
+        content  => "from sites.${env}.settings_mkt import *",
+        filename => 'settings_local.py';
+
+      "zamboni::settings::${name}/settings_local_mkt.py":
+        content  => "from sites.${env}.settings_mkt import *",
+        filename => 'settings_local_mkt.py';
+
+      "zamboni::settings::${name}/private_base.py":
+        content  => template('marketplace/apps/zamboni/settings/private_base.py'),
+        filename => "sites/${env}/private_base.py";
+
+      "zamboni::settings::${name}/private_mkt.py":
+        content  => template('marketplace/apps/zamboni/settings/private_mkt.py'),
+        filename => "sites/${env}/private_mkt.py";
+    }
+  }
+
   file {
     "${app_dir}/private_base.py":
       content => template('marketplace/apps/zamboni/settings/private_base.py');

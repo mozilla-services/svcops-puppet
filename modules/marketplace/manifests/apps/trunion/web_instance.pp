@@ -3,13 +3,15 @@ define marketplace::apps::trunion::web_instance(
   $worker_name,
   $app_dir,
   $appmodule = 'trunion.run:application',
-  $port = '000',
+  $lazy_apps = undef,
+  $max_requests = undef,
+  $nginx_log_buffer = true,
   $nginx_port = '80',
   $nginx_ssl_port = '81',
   $nginx_template = 'marketplace/nginx/trunion.conf',
-  $nginx_log_buffer = true,
+  $port = '000',
   $user = 'nobody',
-  $workers = 4
+  $workers = 4,
 ) {
   include marketplace::apps::trunion::packages
 
@@ -24,13 +26,15 @@ define marketplace::apps::trunion::web_instance(
 
   uwsgi::instance {
     $worker_name:
-      app_dir   => "${app_dir}/trunion",
-      appmodule => $appmodule,
-      port      => $real_port,
-      home      => "${app_dir}/venv",
-      user      => $user,
-      workers   => $workers,
-      environ   => $environ;
+      app_dir      => "${app_dir}/trunion",
+      appmodule    => $appmodule,
+      environ      => $environ,
+      home         => "${app_dir}/venv",
+      lazy_apps    => $lazy_apps,
+      max_requests => $max_requests,
+      port         => $real_port,
+      user         => $user,
+      workers      => $workers,
   }
 
   nginx::config {

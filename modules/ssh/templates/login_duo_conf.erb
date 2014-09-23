@@ -1,0 +1,11 @@
+[duo]
+; Duo integration key
+ikey = <%= @ssh_duo_integration_key %>
+; Duo secret key
+skey = <%= @ssh_duo_security_key %>
+; Duo API host
+host = <%= @ssh_duo_api_host %>
+; Enable Autopush (Use duo security app by default)
+autopush = yes
+; Allow only 1 prompt to be shown if autopush is enabled
+prompts = 1
