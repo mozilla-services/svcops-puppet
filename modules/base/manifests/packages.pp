@@ -7,6 +7,7 @@ class base::packages(
       'ack',
       'atop',
       'augeas',
+      'bash',
       'bash-completion',
       'dstat',
       'htop',
