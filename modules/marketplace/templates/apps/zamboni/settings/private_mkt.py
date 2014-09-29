@@ -53,3 +53,5 @@ REDIS_BACKENDS_SLAVE = '<%= mkt_redis_backends_slave %>'
 FXA_CLIENT_ID = '<%= @fxa_client_id %>'
 FXA_CLIENT_SECRET = '<%= @fxa_client_secret %>'
 FXA_OAUTH_URL = '<%= @fxa_oauth_url %>'
+
+PREVERIFIED_ACCOUNT_KEY = '<%= @preverified_account_key %>'
