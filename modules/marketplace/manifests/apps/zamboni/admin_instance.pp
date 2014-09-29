@@ -40,7 +40,7 @@ define marketplace::apps::zamboni::admin_instance(
       cluster                 => $cluster,
       env                     => $env,
       netapp_storage_root     => $netapp_root,
-      preverified_account_key => regsubst("${project_dir}/aeskeys/preverified_account.key", 'src', 'www'),
+      preverified_account_key => regsubst("${project_dir}/current/aeskeys/preverified_account.key", 'src', 'www'),
     }
   )
 
