@@ -10,6 +10,7 @@ class marketplace::apps::zamboni::packages {
     'node-uglify-js',
     'nodejs',
     'pyOpenSSL',
+    'python-crypto',
     'python-imaging',
     'python-jinja2',
     'python-lxml',
