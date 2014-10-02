@@ -3,22 +3,22 @@ class base::hputils {
   if $::manufacturer == 'HP' {
     package {
       'hpacucli':
-        ensure => 'installed';
+        ensure => 'latest';
 
       'hpadu':
-        ensure => 'installed';
+        ensure => 'latest';
 
       'hp-health':
-        ensure => 'installed';
+        ensure => 'latest';
 
       'hponcfg':
-        ensure => 'installed';
+        ensure => 'latest';
 
       'hpsmh':
-        ensure => 'installed';
+        ensure => 'latest';
 
       'hp-snmp-agents':
-        ensure => 'installed';
+        ensure => 'latest';
     }
   }
 }
