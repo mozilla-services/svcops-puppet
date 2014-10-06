@@ -9,7 +9,7 @@ class base::cacert {
   file {
     '/etc/pki/tls/certs/ca-bundle.crt':
       ensure  => 'file',
-      content => template('base//etc/cacert/ca-bundle.crt'),
+      content => template('base/etc/cacert/ca-bundle.crt'),
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
