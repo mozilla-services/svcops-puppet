@@ -14,4 +14,13 @@ class base::cacert {
       owner   => 'root',
       group   => 'root',
   }
+
+  file {
+    '/etc/pki/tls/certs/mozilla-root.crt':
+      ensure  => 'file',
+      content => template('base/etc/cacert/mozilla-root.crt'),
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+  }
 }
