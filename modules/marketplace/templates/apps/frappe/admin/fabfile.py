@@ -34,7 +34,7 @@ def managecmd(cmd):
 @task
 def create_virtualenv(update_on_change=True):
     helpers.create_venv(VIRTUALENV, settings.PYREPO,
-                        pjoin(APP, 'requirements.txt'),
+                        pjoin(APP, 'requirements.prod.txt'),
                         update_on_change=update_on_change)
 
 

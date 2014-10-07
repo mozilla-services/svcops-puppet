@@ -1,11 +1,12 @@
 # zamboni admin instance
 # name is the project dir
 define marketplace::apps::zamboni::admin_instance(
+  $aeskeys,
   $cluster,
-  $domain,
-  $env,
-  $dreadnot_instance,
   $deploy_settings, # zamboni::deploysettings hash
+  $domain,
+  $dreadnot_instance,
+  $env,
   $netapp_root,
   $settings, # zamboni::settings hash
   $settings_site,
@@ -35,11 +36,17 @@ define marketplace::apps::zamboni::admin_instance(
     marketplace::apps::zamboni::settings,
     {"${app_dir}/sites/${settings_site}" => $settings},
     {
-      require             => Git::Clone[$app_dir],
-      cluster             => $cluster,
-      env                 => $env,
-      netapp_storage_root => $netapp_root,
+      require                 => Git::Clone[$app_dir],
+      cluster                 => $cluster,
+      env                     => $env,
+      netapp_storage_root     => $netapp_root,
+      preverified_account_key => regsubst("${project_dir}/current/aeskeys/preverified_account.key", 'src', 'www'),
     }
+  )
+
+  create_resources(
+    marketplace::apps::zamboni::aeskeys,
+    {"${project_dir}" => $aeskeys},
   )
 
   create_resources(

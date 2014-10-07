@@ -16,6 +16,9 @@ class marketplace::virtual_packages {
     'pyOpenSSL':
       ensure => '0.13.1-1.el6';
 
+    'python-crypto':
+      ensure => '2.6.1-1.el6.rfx';
+
     'python-jinja2':
       ensure => '2.7.2-1.el6';
 
@@ -71,7 +74,7 @@ class marketplace::virtual_packages {
       ensure => 'installed';
 
     'tracemonkey':
-      ensure => '27.0-a1';
+      ensure => '34.0a1-1';
 
     'umemcache':
       ensure => '1.6.3-1';

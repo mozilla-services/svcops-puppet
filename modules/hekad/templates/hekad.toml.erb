@@ -65,17 +65,19 @@ message_signer = "dev"
 message_matcher = "Type == 'heka.control.sandbox'"
 max_filters = 100
 
-[HTTPStatus]
+<% @http_status_loggers.each do |logger| %>
+[HTTPStatus<%= logger.gsub(/[^a-zA-Z]/, "") %>]
 type = "SandboxFilter"
 filename = "lua_filters/http_status.lua"
 ticker_interval = 60
-message_matcher = "Type == 'nginx.access'"
+message_matcher = "Type == 'nginx.access' && Logger == '<%= logger %>'"
 
-[HTTPStatus.config]
+[HTTPStatus<%= logger.gsub(/[^a-zA-Z]/, "") %>.config]
 sec_per_row = 60
 rows = 1440
 anomaly_config = 'roc("HTTP Status", 2, 15, 0, 1.5, true, false) roc("HTTP Status", 4, 15, 0, 1.5, true, false) mww_nonparametric("HTTP Status", 5, 15, 10, 0.8)'
 preservation_version = 0
+<% end %>
 
 <% if @elasticsearch_url -%>
 [ESLogstashV0Encoder]
