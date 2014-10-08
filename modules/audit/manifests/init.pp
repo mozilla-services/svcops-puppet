@@ -10,9 +10,11 @@ class audit {
         /^5/: {
           include audit::rhel5
         }
-
         /^(6|2013.03)/: {
           include audit::rhel6
+        }
+        /^7/: {
+          include audit::rhel7
         }
       }
     }
@@ -37,7 +39,7 @@ class audit {
 
   file {
     '/etc/audit/auditd.conf':
-      ensure  => 'present',
+      ensure  => 'file',
       require => Package['audit_package'],
       notify  => Service['auditd'],
       owner   => 'root',
@@ -46,7 +48,7 @@ class audit {
       source  => 'puppet:///modules/audit/auditd.conf';
 
     '/etc/audit/audit.rules':
-      ensure  => 'present',
+      ensure  => 'file',
       require => Package['audit_package'],
       notify  => Service['auditd'],
       owner   => 'root',
@@ -55,7 +57,7 @@ class audit {
       content => template('audit/audit.rules.erb');
 
     '/etc/audisp/audispd.conf':
-      ensure  => 'present',
+      ensure  => 'file',
       require => Package['audit_package'],
       notify  => Service['auditd'],
       owner   => 'root',
@@ -64,7 +66,7 @@ class audit {
       source  => 'puppet:///modules/audit/audispd.conf';
 
     '/etc/audisp/plugins.d/syslog.conf':
-      ensure  => 'present',
+      ensure  => 'file',
       require => Package['audit_package'],
       notify  => Service['auditd'],
       owner   => 'root',
@@ -74,8 +76,8 @@ class audit {
 
     '/var/log/audit':
       ensure => 'directory',
-      owner  => root,
-      group  => root,
+      owner  => 'root',
+      group  => 'root',
       mode   => '0700';
   }
 }
