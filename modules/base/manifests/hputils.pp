@@ -2,12 +2,6 @@
 class base::hputils {
   if $::manufacturer == 'HP' {
     package {
-      'hpacucli':
-        ensure => 'latest';
-
-      'hpadu':
-        ensure => 'latest';
-
       'hp-health':
         ensure => 'latest';
 
@@ -20,5 +14,27 @@ class base::hputils {
       'hp-snmp-agents':
         ensure => 'latest';
     }
+    case $::operatingsystemmajrelease {
+      '6': {
+        package {
+          'hpacucli':
+            ensure => 'latest';
+
+          'hpadu':
+            ensure => 'latest';
+        }
+      }
+      '7': {
+        package {
+          'hpssacli':
+            ensure => 'latest';
+
+          'hpssa':
+            ensure => 'latest';
+        }
+      }
+      default: { }
+    }
+
   }
 }
