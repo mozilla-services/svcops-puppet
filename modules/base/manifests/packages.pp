@@ -2,6 +2,12 @@
 class base::packages(
   $openssl_version = 'installed',
 ){
+
+  $nc = $::operatingsystemmajrelease ? {
+    '7'     => 'nmap-ncat',
+    default => 'nc',
+  }
+
   package {
     [
       'ack',
@@ -12,7 +18,6 @@ class base::packages(
       'dstat',
       'htop',
       'nano',
-      'nc',
       'strace',
       'sysstat',
       'telnet',
@@ -22,14 +27,21 @@ class base::packages(
       ensure => 'latest';
   }
 
-  ##http://h10025.www1.hp.com/ewfrf/wc/document?cc=us&lc=en&docname=c03465358
   package {
-    [
-      'glibc.i686',
-      'libstdc++.i686',
-      'libstdc++'
-    ]:
-      ensure => 'installed';
+    $nc:
+      ensure => 'latest',
+  }
+
+  ##http://h10025.www1.hp.com/ewfrf/wc/document?cc=us&lc=en&docname=c03465358
+  if $::manufacturer == 'HP' {
+    package {
+      [
+        'glibc.i686',
+        'libstdc++.i686',
+        'libstdc++'
+      ]:
+        ensure => 'installed';
+    }
   }
 
   package {
@@ -37,7 +49,7 @@ class base::packages(
       ensure => $openssl_version,
   }
 
-# remove abrt
+  # remove abrt
   package {
     [
       'abrt',
