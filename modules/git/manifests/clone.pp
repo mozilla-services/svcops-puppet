@@ -2,6 +2,8 @@
 define git::clone(
   $repo
 ) {
+  contain git
+
   $clone_dir = $name
 
   exec {
