@@ -1,13 +1,19 @@
 # THIS FILE MANAGED BY PUPPET.
---- 
-  cluster: 
+---
+<% if @tcp_port -%>
+  transport.tcp.port: <%= tcp_port %>
+<% end -%>
+<% if @http_port -%>
+  http.port: <%= @http_port %>
+<% end -%>
+  cluster:
     name: <%= @cluster_name %>
     routing:
       allocation:
         node_concurrent_recoveries: 6
   bootstrap.mlockall: true
   multicast.enabled: false
-  node: 
+  node:
     name: <%= @es_name %>
     datacenter: <%= @datacenter %>
   discovery:
@@ -19,45 +25,45 @@
 <% [nodes].flatten.each do |node| -%>
       - <%= node %>
 <% end -%>
-  threadpool: 
-    refresh: 
+  threadpool:
+    refresh:
       type: fixed
       reject_policy: caller
       size: <%= @es_threads %>
-    bulk: 
+    bulk:
       type: fixed
       reject_policy: caller
       size: <%= @es_bulk_threads %>
       queue_size: 10000
-    search: 
+    search:
       type: fixed
       reject_policy: caller
       size: <%= @es_threads %>
-    index: 
+    index:
       type: fixed
       reject_policy: caller
       size: <%= @es_threads %>
-  settings: 
+  settings:
     number_of_shards: "10"
     number_of_replicas: "2"
-  gateway: 
+  gateway:
     expected_nodes: "<%= @expected_nodes %>"
     recovery_after_nodes: "2"
-  action: 
+  action:
     disable_shutdown: "true"
     disable_delete_all_indices: "true"
-  index: 
-    analysis: 
-      analyzer: 
-        standardPlusWordDelimiter: 
+  index:
+    analysis:
+      analyzer:
+        standardPlusWordDelimiter:
           type: custom
           filter: [standard, wordDelim, lowercase, stop, dict]
           tokenizer: standard
-      filter: 
-        dict: 
+      filter:
+        dict:
           type: dictionary_decompounder
           word_list_path: wordlist.txt
-        wordDelim: 
+        wordDelim:
           preserve_original: "true"
           type: word_delimiter
     cache:
@@ -69,7 +75,7 @@
         policy:
             max_merged_segment: 2g
             segments_per_tier: 24
-            max_merge_at_once: 8 
+            max_merge_at_once: 8
   indices:
     recovery:
         concurrent:
