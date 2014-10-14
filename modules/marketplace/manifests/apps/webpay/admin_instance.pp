@@ -31,6 +31,7 @@ define marketplace::apps::webpay::admin_instance(
   $scl_name = undef,
   $update_on_commit = false,
   $uwsgi = '', # should be string separated by ";"
+  $zamboni_shared_key = '',
 ) {
   require marketplace::apps::webpay::packages
 

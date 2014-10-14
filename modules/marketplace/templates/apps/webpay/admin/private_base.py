@@ -27,3 +27,5 @@ STATSD_PREFIX = '<%= statsd_prefix %>'
 UUID_HMAC_KEY = '<%= uuid_hmac_key %>'
 
 ENCRYPTED_COOKIE_KEY = '<%= encrypted_cookie_key %>'
+
+ZAMBONI_SHARED_KEY = '<%= @zamboni_shared_key %>'
