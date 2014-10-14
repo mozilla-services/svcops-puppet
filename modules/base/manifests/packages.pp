@@ -29,7 +29,7 @@ class base::packages(
       'libstdc++.i686',
       'libstdc++'
     ]:
-      ensure => 'latest';
+      ensure => 'installed';
   }
 
   package {
