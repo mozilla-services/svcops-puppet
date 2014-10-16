@@ -27,31 +27,19 @@ CACHE_PREFIX = '<%= cache_prefix %>'
 CACHES_DEFAULT_LOCATION = '<%= @caches_default_location %>'
 
 CACHES = {
-    'default': {
-        'BACKEND': "django.core.cache.backends.memcached.MemcachedCache",
-        'LOCATION': CACHES_DEFAULT_LOCATION.split(';'),
-        'TIMEOUT': 500,
-        'KEY_PREFIX': CACHE_PREFIX,
-        }
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": CACHES_DEFAULT_LOCATION.split(";"),
+        "TIMEOUT": 500,
+        "KEY_PREFIX": CACHE_PREFIX,
+        },
+    "local": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "django_default_cache",
+        "OPTIONS": {"MAX_ENTRIES": 10000000}
     }
+}
 
-CACHES['distributed'] = CACHES['default']
-
-
-INSTALLED_APPS = (
-    # Apps need for the recommendation
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.staticfiles",
-    # Recommendation apps
-    "recommendation",
-    "recommendation.api",
-    "recommendation.filter_owned",
-    "recommendation.language",
-    "recommendation.simple_logging",
-)
 
 # Middleware needed
 MIDDLEWARE_CLASSES = [
