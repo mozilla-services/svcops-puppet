@@ -67,8 +67,8 @@ def deploy():
 
 @task
 def fill_data():
-    managecmd('fill items %s' % APP_DATA)
-    managecmd('fill users %s' % USER_DATA)
+    managecmd('fill items --mozilla %s' % APP_DATA)
+    managecmd('fill users --mozilla %s' % USER_DATA)
 
 
 @task
