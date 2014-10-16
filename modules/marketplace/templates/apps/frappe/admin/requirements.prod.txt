@@ -1,5 +1,3 @@
 -r requirements.txt
 dj-database-url==0.2.2
-six==1.4.1
-python-dateutil
-pytz
+numpy
