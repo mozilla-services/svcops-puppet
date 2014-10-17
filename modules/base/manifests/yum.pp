@@ -73,6 +73,13 @@ class base::yum {
     enabled  => 1;
   }
 
+  @yumrepo { 'pagerduty':
+    descr    => 'Pagerduty Agent',
+    baseurl  => 'http://packages.pagerduty.com/pdagent/rpm',
+    gpgcheck => 0,
+    enabled  => 1;
+  }
+
   @yumrepo { 'epel-nagios':
     baseurl        =>
     'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.epel',
