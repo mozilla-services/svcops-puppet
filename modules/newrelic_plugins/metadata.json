@@ -1,0 +1,14 @@
+{
+  "name": "newrelic-newrelic_plugins",
+  "version": "1.1.0",
+  "author": "newrelic",
+  "summary": "Puppet module for New Relic Plugins",
+  "license": "MIT",
+  "source": "git://github.com/newrelic-platform/newrelic_plugins_puppet.git",
+  "project_page": "https://github.com/newrelic-platform/newrelic_plugins_puppet",
+  "issues_url": "https://github.com/newrelic-platform/newrelic_plugins_puppet/issues",
+  "description": "Module for New Relic Plugin configuration",
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 2.4.0"}
+  ]
+}
