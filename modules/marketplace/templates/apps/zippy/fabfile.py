@@ -25,7 +25,7 @@ def pre_update(ref):
 @task
 def update():
     with lcd(APP):
-        local('npm rebuild')
+        local('npm install')
         local('npm install grunt-cli')
         local('./node_modules/.bin/grunt stylus')
 
