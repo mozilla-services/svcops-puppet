@@ -61,7 +61,7 @@
 #     ]
 #   }
 #
-class newrelic_plugins::memcached_java (
+class newrelic_plugins::elasticsearch_java (
     $license_key,
     $install_path,
     $user,
