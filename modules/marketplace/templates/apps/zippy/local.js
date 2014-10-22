@@ -12,7 +12,6 @@ module.exports = {
   sessionSecret: '<%= @session_secret %>',
   logging: {format: 'dev'},
   redisConn: {
-      database: 3,
       host: '<%= @redis_host %>',
       port: <%= @redis_port %>
   }
