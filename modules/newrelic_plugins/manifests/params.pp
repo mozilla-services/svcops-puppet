@@ -43,6 +43,10 @@ class newrelic_plugins::params {
   $memcached_java_options = '-Xmx128m'
   $memcached_java_download_baseurl = 'https://raw.github.com/newrelic-platform/newrelic_memcached_java_plugin/master/dist/newrelic_memcached_plugin'
 
+  $elasticsearch_java_version = '1.1.0'
+# $elasticsearch_java_options = ''
+  $elasticsearch_java_download_baseurl = 'https://raw.github.com/secondimpression/newrelic_elasticsearch_agent/master/dist/newrelic_elasticsearch_agent'
+
   $rackspace_load_balancers_version = '1.2.0'
   $rackspace_load_balancers_download_baseurl = 'https://github.com/newrelic-platform/newrelic_rackspace_load_balancers_plugin/archive'
 
