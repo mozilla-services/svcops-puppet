@@ -62,7 +62,7 @@
 #   }
 #
 class newrelic_plugins::elasticsearch_java (
-    $license_key,
+    $license_key = '',
     $install_path,
     $user,
     $version = $newrelic_plugins::params::elasticsearch_java_version,
