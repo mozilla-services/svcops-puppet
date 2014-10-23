@@ -11,6 +11,7 @@ define uwsgi::instance(
   $log_syslog = true,
   $max_requests = '5000',
   $scl = undef,
+  $stats = false,
   $use_unix_socket = true,
   $workers = 4,
 ) {

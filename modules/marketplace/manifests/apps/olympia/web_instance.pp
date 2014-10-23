@@ -11,6 +11,7 @@ define marketplace::apps::olympia::web_instance(
   $timeout = '90',
   $user = 'mkt_prod',
   $uwsgi_max_requests = '5000',
+  $uwsgi_stats = false,
   $worker_class = 'sync',
   $worker_name = 'addons-olympia-dev',
   $workers = 12,
@@ -44,6 +45,7 @@ define marketplace::apps::olympia::web_instance(
     user         => $user,
     workers      => $workers,
     lazy_apps    => false,
+    stats        => $uwsgi_stats,
   }
 
   if $nginx_settings {
