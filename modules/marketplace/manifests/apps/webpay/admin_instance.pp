@@ -19,6 +19,8 @@ define marketplace::apps::webpay::admin_instance(
   $sentry_dsn,
   $dreadnot_instance = undef,
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+  $fxa_client_id = '',
+  $fxa_client_secret = '',
   $update_ref = false,
   $mkt_oauth_key = '',
   $mkt_oauth_secret = '',
