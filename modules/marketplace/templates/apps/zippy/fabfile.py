@@ -28,8 +28,8 @@ def pre_update(ref):
 def update():
     with lcd(APP):
         local('npm install')
-        local('npm install grunt-cli')
-        local('./node_modules/.bin/grunt stylus')
+        local('node -e "require(\'grunt\').cli()" null abideCompile')
+        local('node -e "require(\'grunt\').cli()" null stylus')
 
 
 @task
