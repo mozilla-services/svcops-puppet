@@ -8,7 +8,7 @@ define marketplace::apps::frappe::web_instance(
   $scl = undef,
   $timeout = '90',
   $worker_name = 'frappe',
-  $workers = 4,
+  $workers = 2,
 ) {
 
   $config_name = $name
@@ -20,6 +20,7 @@ define marketplace::apps::frappe::web_instance(
       appmodule => $appmodule,
       environ   => $environ,
       home      => "${project_dir}/venv",
+      lazy_apps => false,
       port      => $port,
       scl       => $scl,
       user      => $user,
