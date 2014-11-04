@@ -1,14 +1,6 @@
-# define services.addons nginx config
-define marketplace::nginx::services_addons(
-  $webroot
+# nginx services_addons class
+class marketplace::nginx::services_addons(
+  $instances = {}
 ) {
-  $server_name = $name
-  nginx::config {
-    $server_name:
-      content => template('marketplace/nginx/services_addons.conf');
-  }
-
-  nginx::logdir {
-    $server_name:;
-  }
+  create_resources(marketplace::nginx::services_addons_instance, $instances)
 }
