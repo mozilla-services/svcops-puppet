@@ -37,16 +37,9 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "django_default_cache",
         "OPTIONS": {"MAX_ENTRIES": 10000000}
+    },
+    "userfactors": {
+        "BACKEND": "uwsgicache.UWSGICache",
+        "LOCATION": "userfactors"
     }
 }
-
-
-# Middleware needed
-MIDDLEWARE_CLASSES = [
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.middleware.transaction.TransactionMiddleware",
-    "django.middleware.cache.UpdateCacheMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",
-]
