@@ -55,3 +55,5 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+RESPONSE_TIMEOUT = 1
