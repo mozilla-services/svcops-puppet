@@ -4,7 +4,7 @@ import dj_database_url
 
 from default_settings import *
 
-TEMPLATE_DEBUG = False
+DEBUG = False
 
 TESTING_MODE = False
 
