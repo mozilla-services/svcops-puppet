@@ -4,6 +4,7 @@ define uwsgi::instance(
   $appmodule,
   $port,
   $user,
+  $cache = undef,
   $environ = '',
   $harakiri = undef,
   $home = undef, # point at venv
