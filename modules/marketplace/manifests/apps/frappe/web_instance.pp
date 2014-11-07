@@ -4,7 +4,7 @@ define marketplace::apps::frappe::web_instance(
   $project_dir,
   $user,
   $appmodule = 'recommendation.wsgi:application',
-  $cache = 'name=userfactors,items=1500000,blocksize=80,keysize=200',
+  $cache = 'name=userfactors,items=1500000,blocksize=80,keysize=100',
   $nginx_port = '83',
   $scl = undef,
   $timeout = '90',
