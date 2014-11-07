@@ -95,6 +95,15 @@ define marketplace::apps::zamboni::admin_instance(
     zamboni_dir       => $project_dir,
   }
 
+  marketplace::apps::marketplace_operator_dashboard::admin_instance { "${project_dir}/marketplace-operator-dashboard":
+    cluster           => $cluster,
+    domain            => "${domain}-marketplace-operator-dashboard",
+    dreadnot_instance => $dreadnot_instance,
+    env               => $env,
+    ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
+  }
+
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
     cluster           => $cluster,
     domain            => "${domain}-spartacus",

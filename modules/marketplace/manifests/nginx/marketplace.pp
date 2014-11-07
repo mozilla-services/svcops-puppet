@@ -13,6 +13,7 @@ define marketplace::nginx::marketplace(
   $fireplace_root = '',
   $landfill_dumps = undef,
   $marketplace_stats_root = '',
+  $marketplace_operator_dashboard_root = '',
   $marketplace_worker_name = 'marketplace',
   $mkt_redirects = undef,
   $rocketfuel_root = '',
@@ -51,6 +52,12 @@ define marketplace::nginx::marketplace(
     $marketplace_stats_webroot = $marketplace_stats_root
   } else {
     $marketplace_stats_webroot = $webroot
+  }
+
+  if $marketplace_operator_dashboard_root {
+    $marketplace_operator_dashboard_webroot = $marketplace_operator_dashboard_root
+  } else {
+    $marketplace_operator_dashboard_webroot = $webroot
   }
 
   nginx::config {
