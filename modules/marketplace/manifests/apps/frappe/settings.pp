@@ -8,7 +8,7 @@ define marketplace::apps::frappe::settings(
   $max_threads = '2',
 ) {
   $cache_prefix = md5($domain)
-  $settings_dir = "${project_dir}/src/recommendation"
+  $settings_dir = "${project_dir}/src/frappe_settings"
 
   file {
     "${project_dir}/requirements.prod.txt":

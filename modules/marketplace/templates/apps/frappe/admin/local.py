@@ -2,9 +2,9 @@ import os
 import sys
 import dj_database_url
 
-from default_settings import *
+from settings import *
 
-TEMPLATE_DEBUG = False
+DEBUG = False
 
 TESTING_MODE = False
 
@@ -27,38 +27,31 @@ CACHE_PREFIX = '<%= cache_prefix %>'
 CACHES_DEFAULT_LOCATION = '<%= @caches_default_location %>'
 
 CACHES = {
-    'default': {
-        'BACKEND': "django.core.cache.backends.memcached.MemcachedCache",
-        'LOCATION': CACHES_DEFAULT_LOCATION.split(';'),
-        'TIMEOUT': 500,
-        'KEY_PREFIX': CACHE_PREFIX,
-        }
+    "owned_items": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": CACHES_DEFAULT_LOCATION.split(";"),
+        "TIMEOUT": 500,
+        "KEY_PREFIX": CACHE_PREFIX,
+        },
+    "local": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "django_default_cache",
+        "OPTIONS": {"MAX_ENTRIES": 10000000}
     }
+}
 
-CACHES['distributed'] = CACHES['default']
+CACHES["default"] = CACHES["local"]
 
-
-INSTALLED_APPS = (
-    # Apps need for the recommendation
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.staticfiles",
-    # Recommendation apps
-    "recommendation",
-    "recommendation.api",
-    "recommendation.filter_owned",
-    "recommendation.language",
-    "recommendation.simple_logging",
-)
-
-# Middleware needed
 MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.transaction.TransactionMiddleware",
     "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+RESPONSE_TIMEOUT = 1
