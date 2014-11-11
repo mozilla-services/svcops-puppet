@@ -1,6 +1,5 @@
 # install and configure nginx
 class nginx(
-  $enable_compression = false,
   $keepalive_timeout = 35,
   $nginx_conf = undef,
   $nx_user = 'nginx',
@@ -8,12 +7,6 @@ class nginx(
   $version = 'present',
 ){
   realize(File['/data'], File['/data/logs'])
-
-  $compression_ensure = enable_compression ? {
-    true    => present,
-    false   => absent,
-    default => absent
-  }
 
   package {
     'nginx':
@@ -115,7 +108,7 @@ class nginx(
 
   file {
     '/etc/nginx/conf.d/compression.conf':
-      ensure  => $compression_ensure,
+      ensure  => 'file',
       content => template('nginx/compression.conf'),
       notify  => Service['nginx'];
   }
