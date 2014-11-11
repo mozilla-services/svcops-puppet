@@ -2,7 +2,7 @@ import os
 import sys
 import dj_database_url
 
-from default_settings import *
+from settings import *
 
 DEBUG = False
 
@@ -27,7 +27,7 @@ CACHE_PREFIX = '<%= cache_prefix %>'
 CACHES_DEFAULT_LOCATION = '<%= @caches_default_location %>'
 
 CACHES = {
-    "default": {
+    "owned_items": {
         "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
         "LOCATION": CACHES_DEFAULT_LOCATION.split(";"),
         "TIMEOUT": 500,
@@ -37,12 +37,10 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
         "LOCATION": "django_default_cache",
         "OPTIONS": {"MAX_ENTRIES": 10000000}
-    },
-    "userfactors": {
-        "BACKEND": "uwsgicache.UWSGICache",
-        "LOCATION": "userfactors"
     }
 }
+
+CACHES["default"] = CACHES["local"]
 
 MIDDLEWARE_CLASSES = [
     "django.contrib.sessions.middleware.SessionMiddleware",

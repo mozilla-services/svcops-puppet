@@ -3,7 +3,7 @@ define marketplace::apps::frappe::web_instance(
   $port,
   $project_dir,
   $user,
-  $appmodule = 'recommendation.wsgi:application',
+  $appmodule = 'frappe_settings.wsgi:application',
   $cache = 'name=userfactors,items=1500000,blocksize=80,keysize=100',
   $nginx_port = '83',
   $scl = undef,
@@ -13,7 +13,7 @@ define marketplace::apps::frappe::web_instance(
 ) {
 
   $config_name = $name
-  $environ = 'DJANGO_SETTINGS_MODULE=recommendation.local'
+  $environ = 'DJANGO_SETTINGS_MODULE=frappe_settings.local'
 
   uwsgi::instance {
     $worker_name:
