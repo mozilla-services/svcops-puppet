@@ -22,7 +22,6 @@ define marketplace::apps::frappe::web_instance(
       appmodule       => $appmodule,
       environ         => $environ,
       home            => "${project_dir}/venv",
-      lazy_apps       => false,
       offload_threads => $offload_threads,
       port            => $port,
       scl             => $scl,
