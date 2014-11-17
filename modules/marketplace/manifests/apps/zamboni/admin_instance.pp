@@ -141,4 +141,8 @@ define marketplace::apps::zamboni::admin_instance(
   marketplace::apps::zamboni::symlinks::discoplace { $app_dir:
     discoplace_dir => "/data/${cluster}/www/${domain}-discoplace/current",
   }
+
+  marketplace::apps::zamboni::symlinks::marketplace_operator_dashboard { $app_dir:
+    marketplace_operator_dashboard_dir => "/data/${cluster}/www/${domain}-marketplace-operator-dashboard/current",
+  }
 }
