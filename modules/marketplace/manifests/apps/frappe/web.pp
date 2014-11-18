@@ -5,6 +5,11 @@ class marketplace::apps::frappe::web(
   $uid,
 ) {
 
+  package {
+    'atlas':
+      ensure => 'installed';
+  }
+
   user {
     $user:
       shell  => '/sbin/nologin',
