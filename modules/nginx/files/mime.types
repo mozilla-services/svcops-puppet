@@ -9,6 +9,7 @@ types {
     application/atom+xml                  atom;
     application/rss+xml                   rss;
     application/json                      json;
+    application/x-web-app-manifest+json   webapp;
 
     text/mathml                           mml;
     text/plain                            txt woff jwk ttf;
