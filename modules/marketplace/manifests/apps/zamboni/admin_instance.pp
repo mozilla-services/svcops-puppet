@@ -95,6 +95,15 @@ define marketplace::apps::zamboni::admin_instance(
     zamboni_dir       => $project_dir,
   }
 
+  marketplace::apps::transonic::admin_instance { "${project_dir}/transonic":
+    cluster           => $cluster,
+    domain            => "${domain}-transonic",
+    dreadnot_instance => $dreadnot_instance,
+    env               => $env,
+    ssh_key           => $ssh_key,
+    update_on_commit  => $update_on_commit,
+  }
+
   marketplace::apps::marketplace_operator_dashboard::admin_instance { "${project_dir}/marketplace-operator-dashboard":
     cluster           => $cluster,
     domain            => "${domain}-marketplace-operator-dashboard",
@@ -140,5 +149,13 @@ define marketplace::apps::zamboni::admin_instance(
 
   marketplace::apps::zamboni::symlinks::discoplace { $app_dir:
     discoplace_dir => "/data/${cluster}/www/${domain}-discoplace/current",
+  }
+
+  marketplace::apps::zamboni::symlinks::transonic { $app_dir:
+    transonic_dir => "/data/${cluster}/www/${domain}-transonic/current",
+  }
+
+  marketplace::apps::zamboni::symlinks::marketplace_operator_dashboard { $app_dir:
+    marketplace_operator_dashboard_dir => "/data/${cluster}/www/${domain}-marketplace-operator-dashboard/current",
   }
 }

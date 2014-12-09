@@ -11,6 +11,7 @@ define uwsgi::instance(
   $lazy_apps = true,
   $log_syslog = true,
   $max_requests = '5000',
+  $offload_threads = undef,
   $scl = undef,
   $stats = false,
   $use_unix_socket = true,

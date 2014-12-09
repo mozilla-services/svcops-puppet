@@ -6,6 +6,7 @@ define marketplace::apps::frappe::web_instance(
   $appmodule = 'frappe_settings.wsgi:application',
   $cache = 'name=userfactors,items=1500000,blocksize=80,keysize=100',
   $nginx_port = '83',
+  $offload_threads = 1,
   $scl = undef,
   $timeout = '90',
   $worker_name = 'frappe',
@@ -17,16 +18,15 @@ define marketplace::apps::frappe::web_instance(
 
   uwsgi::instance {
     $worker_name:
-      app_dir   => "${project_dir}/frappe/src",
-      appmodule => $appmodule,
-      cache     => $cache,
-      environ   => $environ,
-      home      => "${project_dir}/venv",
-      lazy_apps => false,
-      port      => $port,
-      scl       => $scl,
-      user      => $user,
-      workers   => $workers,
+      app_dir         => "${project_dir}/frappe/src",
+      appmodule       => $appmodule,
+      environ         => $environ,
+      home            => "${project_dir}/venv",
+      offload_threads => $offload_threads,
+      port            => $port,
+      scl             => $scl,
+      user            => $user,
+      workers         => $workers,
   }
 
   nginx::config {
