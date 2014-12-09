@@ -3,7 +3,7 @@ define marketplace::apps::frappe::admin_instance(
   $cluster,
   $dreadnot_instance,
   $env,
-  $project_dir,
+  $domain,
   $settings,
   $ssh_key,
   $data_path = undef,
@@ -14,7 +14,7 @@ define marketplace::apps::frappe::admin_instance(
   $uwsgi = 'frappe',
 
 ) {
-  $domain = $name
+  $project_dir = $name
 
   $codename = 'frappe'
   $project_name = $codename
