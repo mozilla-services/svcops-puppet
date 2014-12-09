@@ -66,6 +66,12 @@ def deploy():
 
 
 @task
+def cron():
+    update()
+    helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
+
+
+@task
 def fill_data():
     managecmd('fill items --mozilla %s' % APP_DATA)
     managecmd('fill users --mozilla %s' % USER_DATA)
