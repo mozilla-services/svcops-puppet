@@ -12,7 +12,6 @@ define marketplace::apps::frappe::admin_instance(
   $update_on_commit = false,
   $user = 'nobody',
   $uwsgi = 'frappe',
-
 ) {
   $project_dir = $name
 
@@ -46,6 +45,14 @@ define marketplace::apps::frappe::admin_instance(
       github_url    => 'https://github.com/grafos-ml/frappe',
       git_url       => 'git://github.com/grafos-ml/frappe',
       project_dir   => $project_dir;
+  }
+
+  cron {
+    "frappe-daily-${env}":
+      command => "cd ${project_dir} && /usr/bin/fab cron",
+      user    => 'root',
+      hour    => '6',
+      minute  => '5',
   }
 
   if $update_on_commit {
