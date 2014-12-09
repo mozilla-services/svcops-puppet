@@ -23,7 +23,7 @@ SRC = pjoin(APP, 'src')
 USER_DATA = pjoin(settings.DATA_PATH, 'dumped-users', 'users')
 APP_DATA = pjoin(settings.DATA_PATH, 'dumped-apps', 'apps')
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'frappe_settings.local'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'recommendation.settings.local'
 
 
 def managecmd(cmd):
