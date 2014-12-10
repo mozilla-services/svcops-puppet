@@ -5,6 +5,7 @@ define marketplace::apps::frappe::settings(
   $domain,
   $project_dir,
   $secret_key,
+  $sentry_dsn,
   $max_threads = '2',
 ) {
   $cache_prefix = md5($domain)
