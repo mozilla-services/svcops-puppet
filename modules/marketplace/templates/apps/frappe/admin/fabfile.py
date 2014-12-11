@@ -44,10 +44,12 @@ def pre_update(ref):
         local('git fetch')
         local('git fetch -t')
         local('git reset --hard %s' % ref)
+        create_virtualenv()
 
 
 @task
 def update():
+    managecmd('syncdb')
     fill_data()
     modelcrafter()
 
