@@ -23,7 +23,7 @@ SRC = pjoin(APP, 'src')
 USER_DATA = pjoin(settings.DATA_PATH, 'dumped-users', 'users')
 APP_DATA = pjoin(settings.DATA_PATH, 'dumped-apps', 'apps')
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'frappe_settings.local'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'recommendation.settings.local'
 
 
 def managecmd(cmd):
@@ -44,10 +44,12 @@ def pre_update(ref):
         local('git fetch')
         local('git fetch -t')
         local('git reset --hard %s' % ref)
+        create_virtualenv()
 
 
 @task
 def update():
+    managecmd('syncdb')
     fill_data()
     modelcrafter()
 
@@ -62,6 +64,12 @@ def deploy():
                    package_dirs=['frappe', 'venv'],
                    root=ROOT)
 
+    helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
+
+
+@task
+def cron():
+    update()
     helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
 
 

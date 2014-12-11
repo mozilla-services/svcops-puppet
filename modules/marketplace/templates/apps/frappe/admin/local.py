@@ -1,8 +1,11 @@
 import os
 import sys
 import dj_database_url
+import pymysql
 
-from settings import *
+from base import *
+
+pymysql.install_as_MySQLdb()
 
 DEBUG = False
 
@@ -42,16 +45,6 @@ CACHES = {
 
 CACHES["default"] = CACHES["local"]
 
-MIDDLEWARE_CLASSES = [
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.transaction.TransactionMiddleware",
-    "django.middleware.cache.UpdateCacheMiddleware",
-    "django.middleware.cache.FetchFromCacheMiddleware",
-]
-
 RESPONSE_TIMEOUT = 5
+
+SENTRY_DSN = '<%= @sentry_dsn %>'
