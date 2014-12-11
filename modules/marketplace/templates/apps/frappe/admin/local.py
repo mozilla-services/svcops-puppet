@@ -1,8 +1,11 @@
 import os
 import sys
 import dj_database_url
+import pymysql
 
 from base import *
+
+pymysql.install_as_MySQLdb()
 
 DEBUG = False
 
