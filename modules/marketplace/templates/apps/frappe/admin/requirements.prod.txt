@@ -1,5 +1,4 @@
 -r requirements.txt
 dj-database-url==0.2.2
 numpy
-pymysql
 https://github.com/grafos-ml/test.fm/archive/v1.0.4.tar.gz
