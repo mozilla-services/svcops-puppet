@@ -21,8 +21,8 @@ DATABASES_DEFAULT_URL = '<%= @databases_default_url %>'
 DATABASES['default'] = dj_database_url.parse(DATABASES_DEFAULT_URL)
 DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 DATABASES['default']['OPTIONS'] = {'init_command': 'SET storage_engine=InnoDB'}
-DATABASES['default']['CONN_MAX_AGE'] = 300
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+# DATABASES['default']['CONN_MAX_AGE'] = 300
+# DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 CACHE_PREFIX = '<%= cache_prefix %>'
 CACHES_DEFAULT_LOCATION = '<%= @caches_default_location %>'
