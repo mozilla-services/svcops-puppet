@@ -50,8 +50,6 @@ def pre_update(ref):
 @task
 def update():
     managecmd('syncdb')
-    fill_data()
-    modelcrafter()
 
 
 @task
@@ -69,7 +67,8 @@ def deploy():
 
 @task
 def cron():
-    update()
+    fill_data()
+    modelcrafter()
     helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
 
 
