@@ -60,6 +60,8 @@ define marketplace::apps::olympia::admin_instance(
   $deploy_domain = undef,
   $domain = 'addons-olympia-dev.allizom.org',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
+  $signing_reviewer_server = '',
+  $signing_server = '',
   $ssh_key = undef,
   $update_ref = 'origin/master',
   $update_on_commit = false,
