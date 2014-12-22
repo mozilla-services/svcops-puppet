@@ -23,6 +23,7 @@ class marketplace::apps::zamboni::packages {
     'python27-python',
     'python27-python-lxml',
     'python27-uwsgi',
+    'totem',
     'tracemonkey',
     'umemcache'
   ]
