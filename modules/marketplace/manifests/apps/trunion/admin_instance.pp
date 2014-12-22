@@ -10,10 +10,13 @@ define marketplace::apps::trunion::admin_instance(
   $ssh_key,
   $update_ref,
   $dev = false,
+  $ca_certfile = '',
+  $dnbase_organization = 'Mozilla',
+  $dnbase_organizational_unit = 'Mozilla Addons Dev',
   $permitted_issuers = '',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
-  $we_are_signing = 'apps',
   $uwsgi = 'receipt-signer',
+  $we_are_signing = 'apps',
 ) {
   $project_dir = $name
   $installed_dir = regsubst($project_dir, 'src', 'www')
@@ -26,10 +29,19 @@ define marketplace::apps::trunion::admin_instance(
 
   }
 
-  file {
-    "${project_dir}/trunion/production.ini":
-      require => Git::Clone["${project_dir}/trunion"],
-      content => template('marketplace/apps/trunion/admin/production.ini');
+  if $we_are_signing == 'addons' {
+    file {
+      "${project_dir}/trunion/production.ini":
+        require => Git::Clone["${project_dir}/trunion"],
+        content => template('marketplace/apps/trunion/admin/production.addons.ini');
+    }
+  }
+  else {
+    file {
+      "${project_dir}/trunion/production.ini":
+        require => Git::Clone["${project_dir}/trunion"],
+        content => template('marketplace/apps/trunion/admin/production.ini');
+    }
   }
 
   file {
