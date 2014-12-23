@@ -41,6 +41,7 @@ define marketplace::apps::olympia::admin_instance(
   $aws_access_key_id = '',
   $aws_secret_access_key = '',
   $aws_storage_bucket_name = '',
+  $email_qa_whitelist = '[]',
   $secret_key = '',
   $addons_paypal_cgi_auth_password = '',
   $addons_paypal_cgi_auth_signature = '',

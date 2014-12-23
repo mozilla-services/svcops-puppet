@@ -35,3 +35,5 @@ AES_KEYS = {
 }
 HEKA_CONF_SENDER_HOST = '<%= heka_conf_sender_host %>'
 HEKA_CONF_SENDER_PORT = <%= heka_conf_sender_port %>
+
+EMAIL_QA_WHITELIST = <%= @email_qa_whitelist %>
