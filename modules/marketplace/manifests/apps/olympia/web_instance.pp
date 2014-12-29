@@ -7,6 +7,7 @@ define marketplace::apps::olympia::web_instance(
   $newrelic_domain = undef,
   $newrelic_license_key = '',
   $nginx_settings = undef,
+  $scl = undef,
   $settings_module = 'settings_local',
   $timeout = '90',
   $user = 'mkt_prod',
@@ -40,12 +41,13 @@ define marketplace::apps::olympia::web_instance(
     appmodule    => $appmodule,
     environ      => $environment,
     home         => "${app_dir}/venv",
+    lazy_apps    => false,
     max_requests => $uwsgi_max_requests,
     port         => $port,
+    scl          => $scl,
+    stats        => $uwsgi_stats,
     user         => $user,
     workers      => $workers,
-    lazy_apps    => false,
-    stats        => $uwsgi_stats,
   }
 
   if $nginx_settings {
