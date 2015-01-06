@@ -1,5 +1,6 @@
 # install and configure nginx
 class nginx(
+  $default_ports = ['80', '81'],
   $keepalive_timeout = 35,
   $nginx_conf = undef,
   $nx_user = 'nginx',
