@@ -6,59 +6,35 @@
 #   Content of the config file for this plugin. It is up to the caller to
 #   create this content from a template or any other mean.
 #
-# update_url = undef
-#   
 define jenkins::plugin(
-  $version         = 0,
+  $version=0,
   $manage_config   = false,
   $config_filename = undef,
   $config_content  = undef,
-  $update_url      = undef,
 ) {
-  include ::jenkins::params
 
   $plugin            = "${name}.hpi"
   $plugin_dir        = '/var/lib/jenkins/plugins'
   $plugin_parent_dir = inline_template('<%= @plugin_dir.split(\'/\')[0..-2].join(\'/\') %>')
-  validate_bool($manage_config)
-  # TODO: validate_str($update_url)
+  validate_bool ($manage_config)
 
   if ($version != 0) {
-    $plugins_host = $update_url ? {
-      undef   => $::jenkins::params::default_plugins_host,
-      default => $update_url,
-    }
-    $base_url = "${plugins_host}/download/plugins/${name}/${version}/"
+    $base_url = "http://updates.jenkins-ci.org/download/plugins/${name}/${version}/"
     $search   = "${name} ${version}(,|$)"
   }
   else {
-    $plugins_host = $update_url ? {
-      undef   => $::jenkins::params::default_plugins_host,
-      default => $update_url,
-    }
-    $base_url = "${plugins_host}/latest/"
+    $base_url = 'http://updates.jenkins-ci.org/latest/'
     $search   = "${name} "
   }
 
   if (!defined(File[$plugin_dir])) {
-    if (!defined(File[$plugin_parent_dir])) {
-      file { $plugin_parent_dir:
-        ensure  => directory,
-        owner   => 'jenkins',
-        group   => 'jenkins',
-        mode    => '0755',
-        require => [Group['jenkins'], User['jenkins']],
-      }
-    }
-
-    file { $plugin_dir:
+    file { [$plugin_parent_dir, $plugin_dir]:
       ensure  => directory,
       owner   => 'jenkins',
       group   => 'jenkins',
       mode    => '0755',
       require => [Group['jenkins'], User['jenkins']],
     }
-
   }
 
   if (!defined(Group['jenkins'])) {
@@ -83,7 +59,8 @@ define jenkins::plugin(
   }
 
   if (empty(grep([ $::jenkins_plugins ], $search))) {
-    if ($jenkins::proxy_host) {
+
+    if ($jenkins::proxy_host){
       Exec {
         environment => [
           "http_proxy=${jenkins::proxy_host}:${jenkins::proxy_port}",
@@ -92,23 +69,11 @@ define jenkins::plugin(
       }
     }
 
-    # create a pinned file if the plugin has a .jpi extension
-    #   to override the builtin module versions
-    exec { "create-pinnedfile-${name}" :
-      command => "touch ${plugin_dir}/${name}.jpi.pinned",
-      cwd     => $plugin_dir,
-      require => File[$plugin_dir],
-      path    => ['/usr/bin', '/usr/sbin', '/bin'],
-      onlyif  => "test -f ${plugin_dir}/${name}.jpi -a ! -f ${plugin_dir}/${name}.jpi.pinned",
-      before  => Exec["download-${name}"],
-    }
-
-
     exec { "download-${name}" :
-      command => "rm -rf ${name} ${name}.hpi ${name}.jpi && wget --no-check-certificate ${base_url}${plugin}",
-      cwd     => $plugin_dir,
-      require => [File[$plugin_dir], Package['wget']],
-      path    => ['/usr/bin', '/usr/sbin', '/bin'],
+      command    => "rm -rf ${name} ${name}.* && wget --no-check-certificate ${base_url}${plugin}",
+      cwd        => $plugin_dir,
+      require    => [File[$plugin_dir], Package['wget']],
+      path       => ['/usr/bin', '/usr/sbin', '/bin'],
     }
 
     file { "${plugin_dir}/${plugin}" :
@@ -134,4 +99,3 @@ define jenkins::plugin(
     }
   }
 }
-
