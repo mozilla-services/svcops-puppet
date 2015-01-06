@@ -2,7 +2,10 @@
 define nginx::sslserverproxy(
   $proxyto, # http://testhost
   $ssl_key,
-  $ssl_certificate
+  $ssl_certificate,
+
+  $http_redirect = true,
+  $ssl_port = '443',
 ) {
   $server_name = $name
   nginx::config {
