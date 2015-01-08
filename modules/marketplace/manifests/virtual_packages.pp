@@ -7,6 +7,9 @@ class marketplace::virtual_packages {
     'MySQL-shared':
       ensure => '5.6.12-2.el6';
 
+    'm2crypto':
+      ensure => '0.22.3-1.el6';
+
     'pngcrush':
       ensure => '1.7.73-1.el6.rf';
 
