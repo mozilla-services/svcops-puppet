@@ -17,6 +17,14 @@ define marketplace::apps::fireplace::admin_instance(
     repo => 'https://github.com/mozilla/fireplace.git',
   }
 
+  marketplace::overlay { "fireplace::deploysettings::${name}":
+    app      => 'fireplace',
+    cluster  => $cluster,
+    content  => template('marketplace/apps/fireplace/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
+  }
+
   file {
     "${fireplace_dir}/deploysettings.py":
       require => Git::Clone[$fireplace_dir],
