@@ -18,7 +18,7 @@ define marketplace::apps::fireplace::admin_instance(
   }
 
   marketplace::overlay { "fireplace::deploysettings::${name}":
-    app      => 'fireplace',
+    app      => $project_name,
     cluster  => $cluster,
     content  => template('marketplace/apps/fireplace/deploysettings.py'),
     env      => $env,
