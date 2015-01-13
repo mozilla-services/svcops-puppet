@@ -67,6 +67,22 @@ define marketplace::apps::webpay::admin_instance(
       content  => template('marketplace/apps/webpay/admin/deploysettings.py'),
       filename => 'deploysettings.py';
 
+    "${codename}::settings::${name}/webpay":
+      ensure   => 'directory',
+      filename => 'webpay';
+
+    "${codename}::settings::${name}/webpay/settings":
+      ensure   => 'directory',
+      filename => 'webpay/settings';
+
+    "${codename}::settings::${name}/webpay/settings/sites":
+      ensure   => 'directory',
+      filename => 'webpay/settings/sites';
+
+    "${codename}::settings::${name}/webpay/settings/sites/env":
+      ensure   => 'directory',
+      filename => "webpay/settings/sites/${env}";
+
     "${codename}::settings::${name}/local.py":
       content  => "from .sites.${env}.settings_base import *\n",
       filename => 'webpay/settings/local.py';
