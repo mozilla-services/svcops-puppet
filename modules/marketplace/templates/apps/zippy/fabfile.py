@@ -42,7 +42,7 @@ def deploy_jenkins():
                             root=ROOT)
 
     rpm.local_install()
-    rpm.remote_install()
+    rpm.remote_install(['web'])
     execute(restart_worker)
 
 
