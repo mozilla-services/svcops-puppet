@@ -25,6 +25,28 @@ def pre_update(ref):
 
 
 @task
+def build():
+    with lcd(APP):
+        local('npm install')
+        local('node -e "require(\'grunt\').cli()" null abideCompile')
+        local('node -e "require(\'grunt\').cli()" null stylus')
+
+
+@task
+def deploy_jenkins():
+    rpm = helpers.build_rpm(name=settings.PROJECT_NAME,
+                            app_dir='zippy',
+                            env=settings.ENV,
+                            cluster=settings.CLUSTER,
+                            domain=settings.DOMAIN,
+                            root=ROOT)
+
+    rpm.local_install()
+    rpm.remote_install()
+    execute(restart_worker)
+
+
+@task
 def update():
     with lcd(APP):
         local('npm install')
