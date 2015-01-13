@@ -4,6 +4,7 @@ class marketplace::apps::zamboni::packages {
   realize Package[
     'MySQL-python',
     'MySQL-shared',
+    'm2crypto',
     'node-clean-css',
     'node-less',
     'node-stylus',
@@ -18,8 +19,8 @@ class marketplace::apps::zamboni::packages {
     'python-pylibmc',
     'python-setproctitle',
     'python-simplejson',
-    'python27-m2crypto',
     'python27-MySQL-python',
+    'python27-m2crypto',
     'python27-python',
     'python27-python-lxml',
     'python27-uwsgi',

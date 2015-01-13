@@ -24,6 +24,14 @@ define marketplace::apps::spartacus::admin_instance(
       content => template('marketplace/apps/spartacus/deploysettings.py');
   }
 
+  marketplace::overlay { "spartacus::deploysettings::${name}":
+    app      => $project_name,
+    cluster  => $cluster,
+    content  => template('marketplace/apps/spartacus/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
+  }
+
   dreadnot::stack {
     $domain:
       require       => File["${spartacus_dir}/deploysettings.py"],

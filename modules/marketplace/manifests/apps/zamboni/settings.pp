@@ -72,7 +72,7 @@ define marketplace::apps::zamboni::settings(
   $mkt_webapps_receipt_url = '',
   $mkt_webtrends_password = '',
   $mkt_webtrends_username = '',
-  $mkt_whitelisted_clients_email_api = '[]',
+  $mkt_allowed_clients_email_api = '[]',
   $secret_key = '',
   $addons_domain = undef,
   $addons_paypal_cgi_auth_password = '',
