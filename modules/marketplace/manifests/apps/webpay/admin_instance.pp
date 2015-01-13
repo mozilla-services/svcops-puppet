@@ -56,6 +56,26 @@ define marketplace::apps::webpay::admin_instance(
       content => template('marketplace/apps/webpay/admin/private_base.py');
   }
 
+  Marketplace::Overlay {
+    app      => $codename,
+    cluster  => $cluster,
+    env      => $env,
+  }
+
+  marketplace::overlay {
+    "${codename}::deploysettings::${name}":
+      content  => template('marketplace/apps/webpay/admin/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "${codename}::settings::${name}/local.py":
+      content  => "from .sites.${env}.settings_base import *\n",
+      filename => 'webpay/settings/local.py';
+
+    "${codename}::settings::${name}/private_base.py":
+      content  => template('marketplace/apps/webpay/admin/private_base.py'),
+      filename => "webpay/settings/sites/${env}/private_base.py";
+  }
+
   if $dreadnot_instance {
     dreadnot::stack { $domain:
       instance_name => $dreadnot_instance,
