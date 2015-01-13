@@ -22,6 +22,14 @@ define marketplace::apps::yogafire::admin_instance(
       content => template('marketplace/apps/yogafire/deploysettings.py');
   }
 
+  marketplace::overlay { "${codename}::deploysettings::${name}":
+    app      => $codename,
+    cluster  => $cluster,
+    content  => template('marketplace/apps/yogafire/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
+  }
+
   dreadnot::stack {
     $domain:
       require       => File["${yogafire_dir}/deploysettings.py"],
