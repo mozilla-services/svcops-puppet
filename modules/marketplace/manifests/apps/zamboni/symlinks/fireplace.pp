@@ -9,7 +9,7 @@ define marketplace::apps::zamboni::symlinks::fireplace(
 
   if $cluster and $env {
     Marketplace::Overlay {
-      app     => 'zamboni-symlinks',
+      app     => 'zamboni-symlinks-fireplace',
       cluster => $cluster,
       env     => $env,
     }
