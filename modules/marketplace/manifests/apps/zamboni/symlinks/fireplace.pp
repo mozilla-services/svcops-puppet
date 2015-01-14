@@ -21,13 +21,14 @@ define marketplace::apps::zamboni::symlinks::fireplace(
 
       "zamboni::symlinks::${name}::media::fireplace":
         ensure   => 'link',
-        filename =>  "media/fireplace",
-        target   => "${fireplace_dir}/fireplace/src/media"
+        filename =>  'media/fireplace',
+        target   => "${fireplace_dir}/fireplace/src/media";
     }
+  }
 
   file {
     "${zamboni_media}/fireplace":
       ensure => 'link',
-      target => "${fireplace_dir}/fireplace/src/media"
+      target => "${fireplace_dir}/fireplace/src/media";
   }
 }
