@@ -6,7 +6,8 @@ define marketplace::overlay(
   $filename,
 
   $content = undef,
-  $ensure = undef
+  $ensure = undef,
+  $target = undef,
 ) {
   require marketplace::overlays
 
@@ -27,5 +28,6 @@ define marketplace::overlay(
   file { "${envdir}/${filename}":
     ensure  => $ensure,
     content => $content,
+    target  => $target,
   }
 }
