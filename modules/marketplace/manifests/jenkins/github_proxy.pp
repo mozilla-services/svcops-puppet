@@ -4,7 +4,7 @@ define marketplace::jenkins::github_proxy(
 ) {
   $server_name = $name
 
-  nginx::config { $server_name:
+  nginx::config { "${server_name}-${listen}":
     content => template('marketplace/nginx/jenkins_github_proxy.conf'),
   }->
   nginx::config { 'github':
