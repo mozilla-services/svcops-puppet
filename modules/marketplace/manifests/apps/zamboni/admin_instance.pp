@@ -44,6 +44,11 @@ define marketplace::apps::zamboni::admin_instance(
     }
   )
 
+  Marketplace::Apps::Zamboni::Aeskeys {
+    cluster => $cluster,
+    env     => $env,
+  }
+
   create_resources(
     marketplace::apps::zamboni::aeskeys,
     {"${project_dir}" => $aeskeys},
