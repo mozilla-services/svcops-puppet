@@ -1,6 +1,8 @@
 define marketplace::jenkins::github_proxy(
   $listen,
   $proxyto,
+
+  $hide_auth = false,
 ) {
   $server_name = $name
 
