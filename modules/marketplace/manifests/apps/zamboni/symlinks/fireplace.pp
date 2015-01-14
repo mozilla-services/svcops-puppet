@@ -9,17 +9,17 @@ define marketplace::apps::zamboni::symlinks::fireplace(
 
   if $cluster and $env {
     Marketplace::Overlay {
-      app     => 'zamboni-symlinks-fireplace',
+      app     => 'zamboni-symlinks',
       cluster => $cluster,
       env     => $env,
     }
 
     marketplace::overlay {
-      "zamboni::symlinks::${name}::media":
+      "zamboni::symlinks::fireplace::${name}::media":
         ensure   => 'directory',
         filename => 'media';
 
-      "zamboni::symlinks::${name}::media::fireplace":
+      "zamboni::symlinks::fireplace::${name}::media::fireplace":
         ensure   => 'link',
         filename =>  'media/fireplace',
         target   => "${fireplace_dir}/fireplace/src/media";
