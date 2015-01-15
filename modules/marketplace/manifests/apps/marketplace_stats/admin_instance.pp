@@ -18,11 +18,12 @@ define marketplace::apps::marketplace_stats::admin_instance(
 
     marketplace::apps::generic_js::deploysettings {
         "${project_dir}/marketplace-stats":
-            cluster => $cluster,
-            domain  => $domain,
-            env     => $env,
-            ssh_key => $ssh_key,
-            require => Git::Clone["${project_dir}/marketplace-stats"],
+            cluster      => $cluster,
+            domain       => $domain,
+            env          => $env,
+            project_name => $codename,
+            ssh_key      => $ssh_key,
+            require      => Git::Clone["${project_dir}/marketplace-stats"],
     }
 
     dreadnot::stack {
