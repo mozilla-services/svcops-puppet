@@ -10,7 +10,7 @@ define marketplace::apps::zamboni::symlinks(
 
   if $cluster and $env {
     Marketplace::Overlay {
-      app     => 'zamboni-symlinks',
+      app     => 'zamboni',
       cluster => $cluster,
       env     => $env,
     }
