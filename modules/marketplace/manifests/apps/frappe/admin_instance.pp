@@ -38,8 +38,13 @@ define marketplace::apps::frappe::admin_instance(
   file {
     "${project_dir}/deploysettings.py":
       content => template('marketplace/apps/frappe/admin/deploysettings.py');
+
     "${project_dir}/fabfile.py":
       content => template('marketplace/apps/frappe/admin/fabfile.py');
+
+    "${project_dir}/requirements.prod.txt":
+      content => template('marketplace/apps/frappe/admin/requirements.prod.txt');
+
   }->
   dreadnot::stack {
     $domain:
@@ -72,6 +77,10 @@ define marketplace::apps::frappe::admin_instance(
     "frappe::fabfile::${name}":
       content => template('marketplace/apps/frappe/admin/fabfile.py'),
       filename => 'fabfile.py';
+
+    "frappe::requirements::${name}":
+      content => template('marketplace/apps/frappe/admin/requirements.prod.txt'),
+      filename => 'requirements.prod.txt';
   }
 
   if $update_on_commit {
