@@ -33,19 +33,12 @@ define marketplace::apps::frappe::settings(
       ensure   => 'directory',
       filename => 'src/recommendation/settings';
 
-    "frappe::src::recommendation::settings::requirements::${name}":
-      content  => template('marketplace/apps/frappe/admin/requirements.prod.txt'),
-      filename => 'src/recommendation/settings/requirements.prod.txt';
-
     "frappe::src::recommendation::settings::local::${name}":
       content  => template('marketplace/apps/frappe/admin/local.py'),
       filename => 'src/recommendation/settings/local.py';
   }
 
   file {
-    "${project_dir}/requirements.prod.txt":
-      content => template('marketplace/apps/frappe/admin/requirements.prod.txt');
-
     "${settings_dir}/local.py":
       content => template('marketplace/apps/frappe/admin/local.py');
   }
