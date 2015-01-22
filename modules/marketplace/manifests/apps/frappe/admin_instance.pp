@@ -26,8 +26,11 @@ define marketplace::apps::frappe::admin_instance(
     'marketplace::apps::frappe::settings',
     { "${domain}" => $settings},
     {
-      'project_dir' => $project_dir,
+      'cluster'     => $cluster,
+      'codename'    => $codename,
       'domain'      => $domain,
+      'env'         => $env,
+      'project_dir' => $project_dir,
       'require'     => Git::Clone[$project_dir],
     }
   )
@@ -53,6 +56,22 @@ define marketplace::apps::frappe::admin_instance(
       user    => 'root',
       hour    => '6',
       minute  => '5',
+  }
+
+  Marketplace::Overlay {
+    app     => $codename,
+    cluster => $cluster,
+    env     => $env,
+  }
+
+  marketplace::overlay {
+    "frappe::deploysettings::${name}":
+      content => template('marketplace/apps/frappe/admin/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "frappe::fabfile::${name}":
+      content => template('marketplace/apps/frappe/admin/fabfile.py'),
+      filename => 'fabfile.py';
   }
 
   if $update_on_commit {
