@@ -85,9 +85,9 @@ define marketplace::apps::olympia::admin_instance(
   }
 
   marketplace::apps::olympia::symlinks { $app_dir:
-    cluser => $cluster,
-    env    => $env,
-    netapp => $netapp_storage_root,
+    cluster => $cluster,
+    env     => $env,
+    netapp  => $netapp_storage_root,
   }
 
   file {
