@@ -97,7 +97,7 @@ define marketplace::apps::zamboni::admin_instance(
     env               => $env,
     ssh_key           => $ssh_key,
     update_on_commit  => $update_on_commit,
-    zamboni_dir       => $project_dir,
+    zamboni_dir       => regsubst("${project_dir}/current", 'src', 'www'),
   }
 
   marketplace::apps::transonic::admin_instance { "${project_dir}/transonic":
