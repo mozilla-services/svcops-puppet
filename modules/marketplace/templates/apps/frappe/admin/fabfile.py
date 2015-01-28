@@ -27,7 +27,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'recommendation.settings.local'
 
 
 def managecmd(cmd, run_dir=SRC):
-    with lcd(run_dir=SRC):
+    with lcd(run_dir):
         local('%s manage.py %s' % (PYTHON, cmd))
 
 
