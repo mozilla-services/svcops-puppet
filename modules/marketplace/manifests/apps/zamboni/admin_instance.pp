@@ -149,6 +149,8 @@ define marketplace::apps::zamboni::admin_instance(
 
   marketplace::apps::zamboni::symlinks::fireplace { $app_dir:
     require       => Git::Clone[$app_dir],
+    cluster       => $cluster,
+    env           => $env,
     fireplace_dir => "/data/${cluster}/www/${domain}-fireplace/current",
   }
 
