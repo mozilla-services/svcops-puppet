@@ -63,6 +63,7 @@ define marketplace::apps::olympia::admin_instance(
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $scl_name = undef,
   $signing_server = undef,
+  $preliminary_signing_server = undef,
   $ssh_key = undef,
   $update_on_commit = false,
   $update_ref = 'origin/master',
