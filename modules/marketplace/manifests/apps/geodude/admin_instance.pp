@@ -22,18 +22,31 @@ define marketplace::apps::geodude::admin_instance(
     repo => 'https://github.com/mozilla/geodude.git',
   }
 
-  marketplace::overlay { "geodude::deploysettings::${name}":
-    app      => $project_name,
-    cluster  => $cluster,
-    content  => template('marketplace/apps/geodude/deploysettings.py'),
-    env      => $env,
-    filename => 'deploysettings.py',
+  Marketplace::Overlay {
+    app     => $project_name,
+    cluster => $cluster,
+    env     => $env,
+  }
+
+  marketplace::overlay {
+    "geodude::deploysettings::${name}":
+      content  => template('marketplace/apps/geodude/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "geodude::settings::${name}":
+      content  => template('marketplace/apps/geodude/settings/settings.py'),
+      filename => 'settings.py';
   }
 
   file {
     "${geodude_dir}/deploysettings.py":
       require => Git::Clone[$geodude_dir],
       content => template('marketplace/apps/geodude/deploysettings.py');
+  }
+
+  file {
+    "${geodude_dir}/settings.py":
+      content => template('marketplace/apps/geodude/settings/settings.py');
   }
 
   dreadnot::stack {
@@ -43,11 +56,6 @@ define marketplace::apps::geodude::admin_instance(
       github_url    => 'https://github.com/mozilla/geodude',
       git_url       => 'git://github.com/mozilla/geodude.git',
       project_dir   => $geodude_dir;
-  }
-
-  file {
-    "${geodude_dir}/settings.py":
-      content => template('marketplace/apps/geodude/settings/settings.py');
   }
 
   if $update_on_commit {
