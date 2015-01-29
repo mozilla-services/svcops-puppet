@@ -22,6 +22,14 @@ define marketplace::apps::geodude::admin_instance(
     repo => 'https://github.com/mozilla/geodude.git',
   }
 
+  marketplace::overlay { "geodude::deploysettings::${name}":
+    app      => $project_name,
+    cluster  => $cluster,
+    content  => template('marketplace/apps/geodude/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
+  }
+
   file {
     "${geodude_dir}/deploysettings.py":
       require => Git::Clone[$geodude_dir],
