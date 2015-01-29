@@ -87,6 +87,7 @@ def deploy_jenkins():
 
     rpm.local_install()
     execute(syncdb, os.path.join(rpm.install_to, 'frappe', 'src'))
+    rpm.remote_install(['web'])
     helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
 
 
