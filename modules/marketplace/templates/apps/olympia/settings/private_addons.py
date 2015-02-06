@@ -17,9 +17,5 @@ DOMAIN = '<%= @domain %>'
 <% if @addons_static_url -%>
 STATIC_URL = '<%= @addons_static_url %>'
 <% end -%>
-<% if @signing_server -%>
 SIGNING_SERVER = '<%= @signing_server %>'
-<% end -%>
-<% if @preliminary_signing_server -%>
 PRELIMINARY_SIGNING_SERVER = '<%= @preliminary_signing_server %>'
-<% end -%>
