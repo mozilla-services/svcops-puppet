@@ -14,6 +14,23 @@ define marketplace::apps::solitude::deploysettings(
 ) {
   $solitude_dir = $name
 
+  $app = $is_proxy ? {
+    true    => 'solitude-proxy',
+    default => 'solitude',
+  }
+
+  Marketplace::Overlay {
+    app     => $app,
+    cluster => $cluster,
+    env     => $env,
+  }
+
+  marketplace::overlay {
+    "solitude::deploysettings::${name}":
+      content  => template('marketplace/apps/solitude/deploysettings.py'),
+      filename => 'deploysettings.py';
+  }
+
   file {
     "${solitude_dir}/deploysettings.py":
       content => template('marketplace/apps/solitude/deploysettings.py');
