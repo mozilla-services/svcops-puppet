@@ -37,29 +37,26 @@ define marketplace::apps::solitude::proxy_settings(
       "solitude::proxy_settings::${name}/solitude":
         ensure   => 'directory',
         filename => 'solitude';
-      "solitude::proxy_settings::${name}/solitude/solitude":
-        ensure   => 'directory',
-        filename => 'solitude/solitude';
 
       "solitude::proxy_settings::${name}/solitude/settings":
         ensure   => 'directory',
-        filename => 'solitude/solitude/settings';
+        filename => 'solitude/settings';
 
       "solitude::proxy_settings::${name}/solitude/settings/sites":
         ensure   => 'directory',
-        filename => 'solitude/solitude/settings/sites';
+        filename => 'solitude/settings/sites';
 
       "solitude::proxy_settings::${name}/solitude/settings/sites/${site}":
         ensure   => 'directory',
-        filename => "solitude/solitude/settings/sites/${site}";
+        filename => "solitude/settings/sites/${site}";
 
       "solitude::proxy_settings::${name}/solitude/settings/local.py":
         content  => "from .sites.${site}.proxy import *\n",
-        filename => 'solitude/solitude/settings/local.py';
+        filename => 'solitude/settings/local.py';
 
       "solitude::proxy_settings::${name}/solitude/settings/sites/${site}/private_base.py":
         content  => template('marketplace/apps/solitude/proxy_settings.py'),
-        filename => "solitude/solitude/settings/sites/${site}/private_base.py";
+        filename => "solitude/settings/sites/${site}/private_base.py";
     }
   }
 

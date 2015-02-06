@@ -38,29 +38,26 @@ define marketplace::apps::solitude::settings(
       "solitude::settings::${name}/solitude":
         ensure   => 'directory',
         filename => 'solitude';
-      "solitude::settings::${name}/solitude/solitude":
-        ensure   => 'directory',
-        filename => 'solitude/solitude';
 
       "solitude::settings::${name}/solitude/settings":
         ensure   => 'directory',
-        filename => 'solitude/solitude/settings';
+        filename => 'solitude/settings';
 
       "solitude::settings::${name}/solitude/settings/sites":
         ensure   => 'directory',
-        filename => 'solitude/solitude/settings/sites';
+        filename => 'solitude/settings/sites';
 
       "solitude::settings::${name}/solitude/settings/sites/${site}":
         ensure   => 'directory',
-        filename => "solitude/solitude/settings/sites/${site}";
+        filename => "solitude/settings/sites/${site}";
 
       "solitude::settings::${name}/solitude/settings/local.py":
         content  => "from .sites.${site}.db import *\n",
-        filename => 'solitude/solitude/settings/local.py';
+        filename => 'solitude/settings/local.py';
 
       "solitude::settings::${name}/solitude/settings/sites/${site}/private_base.py":
         content  => template('marketplace/apps/solitude/settings.py'),
-        filename => "solitude/solitude/settings/sites/${site}/private_base.py";
+        filename => "solitude/settings/sites/${site}/private_base.py";
     }
   }
 
