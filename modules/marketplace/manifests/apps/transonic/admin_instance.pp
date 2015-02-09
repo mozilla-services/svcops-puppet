@@ -21,6 +21,14 @@ define marketplace::apps::transonic::admin_instance(
       content => template('marketplace/apps/transonic/deploysettings.py');
   }
 
+  marketplace::overlay { "${project_name}::deploysettings::${name}":
+    app      => $project_name,
+    cluster  => $cluster,
+    content  => template('marketplace/apps/transonic/deploysettings.py'),
+    env      => $env,
+    filename => 'deploysettings.py',
+  }
+
   dreadnot::stack {
     $domain:
       require       => File["${transonic_dir}/deploysettings.py"],

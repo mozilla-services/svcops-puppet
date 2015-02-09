@@ -62,8 +62,8 @@ define marketplace::apps::olympia::admin_instance(
   $env = 'dev',
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $scl_name = undef,
-  $signing_reviewer_server = '',
   $signing_server = '',
+  $preliminary_signing_server = '',
   $ssh_key = undef,
   $update_on_commit = false,
   $update_ref = 'origin/master',
@@ -85,7 +85,9 @@ define marketplace::apps::olympia::admin_instance(
   }
 
   marketplace::apps::olympia::symlinks { $app_dir:
-    netapp => $netapp_storage_root,
+    cluster => $cluster,
+    env     => $env,
+    netapp  => $netapp_storage_root,
   }
 
   file {
@@ -96,6 +98,38 @@ define marketplace::apps::olympia::admin_instance(
     "${app_dir}/sites/${env}/private_addons.py":
       require => Git::Clone[$app_dir],
       content => template('marketplace/apps/olympia/settings/private_addons.py');
+  }
+
+  Marketplace::Overlay {
+    app     => 'olympia',
+    cluster => $cluster,
+    env     => $env,
+  }
+
+  marketplace::overlay {
+    "olympia::deploysettings::${name}":
+      content  => template('marketplace/apps/olympia/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "olympia::settings::${name}::sites":
+      ensure   => 'directory',
+      filename => 'sites';
+
+    "olympia::settings::${name}::sites/env":
+      ensure   => 'directory',
+      filename => "sites/${env}";
+
+    "olympia::settings::${name}/settings_local.py":
+      content  => "from sites.${env}.settings_addons import *",
+      filename => 'settings_local.py';
+
+    "olympia::settings::${name}/private_base.py":
+      content  => template('marketplace/apps/olympia/settings/private_base.py'),
+      filename => "sites/${env}/private_base.py";
+
+    "olympia::settings::${name}/private_addons.py":
+      content  => template('marketplace/apps/olympia/settings/private_addons.py'),
+      filename => "sites/${env}/private_addons.py";
   }
 
   dreadnot::stack { $dreadnot_name:

@@ -7,6 +7,7 @@ define marketplace::apps::frappe::admin_instance(
   $settings,
   $ssh_key,
   $data_path = undef,
+  $dreadnot = false,
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $scl_name = undef,
   $update_on_commit = false,
@@ -26,8 +27,11 @@ define marketplace::apps::frappe::admin_instance(
     'marketplace::apps::frappe::settings',
     { "${domain}" => $settings},
     {
-      'project_dir' => $project_dir,
+      'cluster'     => $cluster,
+      'codename'    => $codename,
       'domain'      => $domain,
+      'env'         => $env,
+      'project_dir' => $project_dir,
       'require'     => Git::Clone[$project_dir],
     }
   )
@@ -35,16 +39,13 @@ define marketplace::apps::frappe::admin_instance(
   file {
     "${project_dir}/deploysettings.py":
       content => template('marketplace/apps/frappe/admin/deploysettings.py');
+
     "${project_dir}/fabfile.py":
       content => template('marketplace/apps/frappe/admin/fabfile.py');
-  }->
-  dreadnot::stack {
-    $domain:
-      require       => File["${project_dir}/deploysettings.py"],
-      instance_name => $dreadnot_instance,
-      github_url    => 'https://github.com/grafos-ml/frappe',
-      git_url       => 'git://github.com/grafos-ml/frappe',
-      project_dir   => $project_dir;
+
+    "${project_dir}/requirements.prod.txt":
+      content => template('marketplace/apps/frappe/admin/requirements.prod.txt');
+
   }
 
   cron {
@@ -55,10 +56,41 @@ define marketplace::apps::frappe::admin_instance(
       minute  => '5',
   }
 
-  if $update_on_commit {
-    go_freddo::branch { "${codename}_${domain}_${env}":
-      app    => $codename,
-      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+  Marketplace::Overlay {
+    app     => $codename,
+    cluster => $cluster,
+    env     => $env,
+  }
+
+  marketplace::overlay {
+    "frappe::deploysettings::${name}":
+      content => template('marketplace/apps/frappe/admin/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "frappe::fabfile::${name}":
+      content => template('marketplace/apps/frappe/admin/fabfile.py'),
+      filename => 'fabfile.py';
+
+    "frappe::requirements::${name}":
+      content => template('marketplace/apps/frappe/admin/requirements.prod.txt'),
+      filename => 'requirements.prod.txt';
+  }
+
+  if $dreadnot {
+    dreadnot::stack {
+      $domain:
+        require       => File["${project_dir}/deploysettings.py"],
+        instance_name => $dreadnot_instance,
+        github_url    => 'https://github.com/grafos-ml/frappe',
+        git_url       => 'git://github.com/grafos-ml/frappe',
+        project_dir   => $project_dir;
+    }
+
+    if $update_on_commit {
+      go_freddo::branch { "${codename}_${domain}_${env}":
+        app    => $codename,
+        script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
+      }
     }
   }
 }

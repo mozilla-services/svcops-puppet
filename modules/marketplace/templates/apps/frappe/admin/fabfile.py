@@ -2,7 +2,7 @@ import os
 from os.path import join as pjoin
 
 import fabdeploytools.envs
-from fabric.api import env, lcd, local, task
+from fabric.api import env, lcd, local, task, execute
 from fabdeploytools import helpers
 
 import deploysettings as settings
@@ -26,8 +26,8 @@ APP_DATA = pjoin(settings.DATA_PATH, 'dumped-apps', 'apps')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'recommendation.settings.local'
 
 
-def managecmd(cmd):
-    with lcd(SRC):
+def managecmd(cmd, run_dir=SRC):
+    with lcd(run_dir):
         local('%s manage.py %s' % (PYTHON, cmd))
 
 
@@ -48,8 +48,13 @@ def pre_update(ref):
 
 
 @task
+def syncdb(run_dir=SRC):
+    managecmd('syncdb', run_dir)
+
+
+@task
 def update():
-    managecmd('syncdb')
+    syncdb()
 
 
 @task
@@ -62,6 +67,27 @@ def deploy():
                    package_dirs=['frappe', 'venv'],
                    root=ROOT)
 
+    helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
+
+
+@task
+def build():
+    execute(create_virtualenv)
+
+
+@task
+def deploy_jenkins():
+    rpm = helpers.build_rpm(name=settings.PROJECT_NAME,
+                            app_dir='frappe',
+                            env=settings.ENV,
+                            cluster=settings.CLUSTER,
+                            domain=settings.DOMAIN,
+                            package_dirs=['frappe', 'venv'],
+                            root=ROOT)
+
+    rpm.local_install()
+    execute(syncdb, os.path.join(rpm.install_to, 'frappe', 'src'))
+    rpm.remote_install(['web'])
     helpers.restart_uwsgi(getattr(settings, 'UWSGI', []))
 
 

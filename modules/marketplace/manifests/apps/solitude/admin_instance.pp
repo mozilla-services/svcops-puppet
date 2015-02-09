@@ -29,6 +29,8 @@ define marketplace::apps::solitude::admin_instance(
       'project_dir' => $project_dir,
       'require'     => Git::Clone[$app_dir],
       'site'        => $env,
+      'env'         => $env,
+      'cluster'     => $deploy_settings['cluster'],
     }
   )
 

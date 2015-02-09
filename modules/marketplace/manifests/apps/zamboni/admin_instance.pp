@@ -44,6 +44,11 @@ define marketplace::apps::zamboni::admin_instance(
     }
   )
 
+  Marketplace::Apps::Zamboni::Aeskeys {
+    cluster => $cluster,
+    env     => $env,
+  }
+
   create_resources(
     marketplace::apps::zamboni::aeskeys,
     {"${project_dir}" => $aeskeys},
@@ -92,7 +97,7 @@ define marketplace::apps::zamboni::admin_instance(
     env               => $env,
     ssh_key           => $ssh_key,
     update_on_commit  => $update_on_commit,
-    zamboni_dir       => $project_dir,
+    zamboni_dir       => regsubst("${project_dir}/current", 'src', 'www'),
   }
 
   marketplace::apps::transonic::admin_instance { "${project_dir}/transonic":
@@ -144,6 +149,8 @@ define marketplace::apps::zamboni::admin_instance(
 
   marketplace::apps::zamboni::symlinks::fireplace { $app_dir:
     require       => Git::Clone[$app_dir],
+    cluster       => $cluster,
+    env           => $env,
     fireplace_dir => "/data/${cluster}/www/${domain}-fireplace/current",
   }
 

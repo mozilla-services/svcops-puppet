@@ -42,6 +42,33 @@ define marketplace::apps::zippy::admin_instance(
       project_dir   => $zippy_dir;
   }
 
+  Marketplace::Overlay {
+    app      => $codename,
+    cluster  => $cluster,
+    env      => $env,
+  }
+  marketplace::overlay {
+    "${codename}::deploysettings::${name}":
+      content  => template('marketplace/apps/zippy/deploysettings.py'),
+      filename => 'deploysettings.py';
+
+    "${codename}::settings::${name}/fabfile.py":
+      content  => template('marketplace/apps/zippy/fabfile.py'),
+      filename => 'fabfile.py';
+
+    "${codename}::settings::${name}/lib":
+      ensure   => 'directory',
+      filename => 'lib';
+
+    "${codename}::settings::${name}/lib/config":
+      ensure   => 'directory',
+      filename => 'lib/config';
+
+    "${codename}::settings::${name}/local.js":
+      content  => template('marketplace/apps/zippy/local.js'),
+      filename => 'lib/config/local.js';
+  }
+
   if $update_on_commit {
     go_freddo::branch { "${codename}_${domain}_${env}":
       app    => $codename,
