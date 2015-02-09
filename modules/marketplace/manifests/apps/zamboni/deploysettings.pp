@@ -8,7 +8,7 @@ define marketplace::apps::zamboni::deploysettings(
   $celery_service_mkt_prefix,
   $celery_service_prefix = false,
   $cron_user = 'mkt_prod',
-  $dev = false
+  $dev = false,
   $load_testing = 'False', # must be a python boolean
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
   $scl = undef,
