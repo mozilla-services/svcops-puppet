@@ -8,6 +8,7 @@ define marketplace::apps::zamboni(
   $newrelic_domain = undef,
   $newrelic_license_key = '',
   $nginx_settings = undef,
+  $scl = undef,
   $settings_module = 'settings_local_mkt',
   $timeout = '90',
   $user = 'mkt_prod',
@@ -41,6 +42,7 @@ define marketplace::apps::zamboni(
       home      => "${app_dir}/venv",
       user      => $user,
       workers   => $workers,
+      scl       => $scl,
       environ   => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
   }
 
