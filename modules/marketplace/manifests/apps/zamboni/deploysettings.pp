@@ -11,7 +11,7 @@ define marketplace::apps::zamboni::deploysettings(
   $dev = false,
   $load_testing = 'False', # must be a python boolean
   $pyrepo = 'https://pyrepo.addons.mozilla.org/',
-  $scl = undef,
+  $scl_name = undef,
   $update_ref = false,
   $uwsgi = '', # should be string separated by ";"
 ) {

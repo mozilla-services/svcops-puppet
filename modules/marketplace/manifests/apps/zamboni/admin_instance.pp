@@ -13,7 +13,7 @@ define marketplace::apps::zamboni::admin_instance(
   $ssh_key,
   $update_on_commit = false,
   $webpay_settings = undef,
-  $scl = undef,
+  $scl_name = undef,
 ) {
   $instance_name = $name
   $codename = 'zamboni'
@@ -66,7 +66,7 @@ define marketplace::apps::zamboni::admin_instance(
       domain                    => $domain,
       env                       => $env,
       ssh_key                   => $ssh_key,
-      scl                       => $scl,
+      scl_name                  => $scl_name,
     }
   )
 
