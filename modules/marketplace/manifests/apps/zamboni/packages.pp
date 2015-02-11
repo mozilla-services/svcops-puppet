@@ -22,6 +22,7 @@ class marketplace::apps::zamboni::packages {
     'python27-MySQL-python',
     'python27-m2crypto',
     'python27-python',
+    'python27-python-jinja2',
     'python27-python-lxml',
     'python27-uwsgi',
     'totem',
