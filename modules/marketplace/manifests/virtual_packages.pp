@@ -34,6 +34,12 @@ class marketplace::virtual_packages {
     'python27-python-jinja2':
       ensure => '2.6-9.el6';
 
+    'python27-python-simplejson':
+      ensure => '3.0.5-2.el6';
+
+    'python27-python-Pillow':
+      ensure => '2.3.0-1.el6';
+
     'python27-python-lxml':
       ensure => '2.2.6-1';
 
