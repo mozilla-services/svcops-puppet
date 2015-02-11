@@ -31,6 +31,9 @@ class marketplace::virtual_packages {
     'python-lxml':
       ensure => '2.2.6-1';
 
+    'python27-python-jinja2':
+      ensure => '2.6-9.el6';
+
     'python27-python-lxml':
       ensure => '2.2.6-1';
 
