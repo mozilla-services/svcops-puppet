@@ -29,7 +29,6 @@ class marketplace::apps::zamboni::packages {
     'python27-python-lxml',
     'python27-python-markupsafe',
     'python27-python-simplejson',
-    'python27-python-simplejson',
     'python27-uwsgi',
     'totem',
     'tracemonkey',
