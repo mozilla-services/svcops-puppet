@@ -65,7 +65,7 @@ class marketplace::virtual_packages {
       ensure => '1.2.3-4';
 
     'python27-m2crypto':
-      ensure => '0.21.1-1';
+      ensure => '0.22.3-2.el6';
 
     'python27-python':
       ensure => '2.7.5-7.el6';
