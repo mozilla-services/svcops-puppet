@@ -4,6 +4,7 @@ define marketplace::apps::zamboni::celery_instance(
   $app_dir = undef,
   $env = 'prod',
   $marketplace_password = undef,
+  $scl = undef,
   $settings_module = 'settings_local_mkt',
   $user = $marketplace_private::mkt::any::prod::params::mkt_user,
   $workers = '24',
@@ -22,6 +23,7 @@ define marketplace::apps::zamboni::celery_instance(
     workers => $workers,
     user    => $user,
     environ => $environ,
+    scl     => $scl,
   }
 
   celery::service {
@@ -37,7 +39,6 @@ define marketplace::apps::zamboni::celery_instance(
 
     "marketplace-${env}-devhub":
       args => '-Q devhub,images';
-
   }
 
   rabbitmq_user {

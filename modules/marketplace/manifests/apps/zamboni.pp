@@ -4,10 +4,11 @@ define marketplace::apps::zamboni(
   $app_dir,
   $port, # if this gunicorn_set is turned on, this is prefixed with 10 and 11.
   $appmodule = 'wsgi.zamboni:application',
-  $environ = '',
+  $environ = false,
   $newrelic_domain = undef,
   $newrelic_license_key = '',
   $nginx_settings = undef,
+  $scl = undef,
   $settings_module = 'settings_local_mkt',
   $timeout = '90',
   $user = 'mkt_prod',
@@ -33,6 +34,11 @@ define marketplace::apps::zamboni(
     }
   }
 
+  $_environ = $environ ? {
+    false   => "DJANGO_SETTINGS_MODULE=${settings_module}",
+    default => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
+  }
+
   uwsgi::instance {
     $worker_name:
       app_dir   => "${app_dir}/zamboni",
@@ -41,7 +47,8 @@ define marketplace::apps::zamboni(
       home      => "${app_dir}/venv",
       user      => $user,
       workers   => $workers,
-      environ   => "DJANGO_SETTINGS_MODULE=${settings_module},${environ}",
+      scl       => $scl,
+      environ   => $_environ,
   }
 
   if $nginx_settings {

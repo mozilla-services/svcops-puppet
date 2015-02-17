@@ -31,6 +31,24 @@ class marketplace::virtual_packages {
     'python-lxml':
       ensure => '2.2.6-1';
 
+    'python27-pyOpenSSL':
+      ensure => '0.13.1-1.el6';
+
+    'python27-python-crypto':
+      ensure => '2.6.1-2.el6';
+
+    'python27-python-markupsafe':
+      ensure => '0.18-1.el6';
+
+    'python27-python-simplejson':
+      ensure => '2.3.2-1.el6';
+
+    'python27-python-jinja2':
+      ensure => '2.7.2-1.el6';
+
+    'python27-python-Pillow':
+      ensure => '2.3.0-2.el6';
+
     'python27-python-lxml':
       ensure => '2.2.6-1';
 
@@ -47,7 +65,7 @@ class marketplace::virtual_packages {
       ensure => '1.2.3-4';
 
     'python27-m2crypto':
-      ensure => '0.21.1-1';
+      ensure => '0.22.3-2.el6';
 
     'python27-python':
       ensure => '2.7.5-7.el6';
