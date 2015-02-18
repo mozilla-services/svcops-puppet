@@ -15,9 +15,6 @@ define marketplace::apps::zamboni::symlinks::fireplace(
     }
 
     marketplace::overlay {
-      "zamboni::symlinks::fireplace::${name}::media":
-        ensure   => 'directory',
-        filename => 'media';
 
       "zamboni::symlinks::fireplace::${name}::media::fireplace":
         ensure   => 'link',

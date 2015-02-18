@@ -16,6 +16,10 @@ define marketplace::apps::zamboni::symlinks(
     }
 
     marketplace::overlay {
+      "zamboni::symlinks::${name}::media":
+        ensure   => 'directory',
+        filename => 'media';
+
       "zamboni::symlinks::${name}::mkt":
         ensure   => 'directory',
         filename => 'mkt';
