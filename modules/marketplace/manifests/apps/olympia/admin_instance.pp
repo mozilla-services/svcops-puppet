@@ -13,8 +13,6 @@ define marketplace::apps::olympia::admin_instance(
   $caches_default_location,
   $databases_default_url,
   $databases_slave_url,
-  $dreadnot_instance,
-  $dreadnot_name,
   $email_blacklist,
   $email_host,
   $es_hosts,
@@ -65,7 +63,6 @@ define marketplace::apps::olympia::admin_instance(
   $signing_server = '',
   $preliminary_signing_server = '',
   $ssh_key = undef,
-  $update_on_commit = false,
   $update_ref = 'origin/master',
   $uwsgi = 'addons-olympia-dev',
 ) {
@@ -132,22 +129,8 @@ define marketplace::apps::olympia::admin_instance(
       filename => "sites/${env}/private_addons.py";
   }
 
-  dreadnot::stack { $dreadnot_name:
-    instance_name => $dreadnot_instance,
-    project_dir   => $app_dir,
-    github_url    => 'https://github.com/mozilla/olympia',
-    git_url       => 'https://github.com/mozilla/olympia.git',
-  }
-
   file { "${app_dir}/deploysettings.py":
     require => Git::Clone[$app_dir],
     content => template('marketplace/apps/olympia/deploysettings.py');
-  }
-
-  if $update_on_commit {
-    go_freddo::branch { "${codename}_${domain}_${env}":
-      app    => $codename,
-      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
-    }
   }
 }

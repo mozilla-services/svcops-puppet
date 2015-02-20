@@ -5,13 +5,11 @@ define marketplace::apps::zamboni::admin_instance(
   $cluster,
   $deploy_settings, # zamboni::deploysettings hash
   $domain,
-  $dreadnot_instance,
   $env,
   $netapp_root,
   $settings, # zamboni::settings hash
   $settings_site,
   $ssh_key,
-  $update_on_commit = false,
   $webpay_settings = undef,
   $scl_name = undef,
 ) {
@@ -80,13 +78,11 @@ define marketplace::apps::zamboni::admin_instance(
         cluster           => $cluster,
         cron_name         => "webpay-${env}",
         domain            => "${domain}-webpay",
-        dreadnot_instance => $dreadnot_instance,
         env               => $env,
         scl_name          => 'python27',
         ssh_key           => $ssh_key,
         statsd_prefix     => "webpay-${env}",
         syslog_tag        => "http_app_webpay_${env}",
-        update_on_commit  => $update_on_commit,
         uwsgi             => "webpay-${env}"
       }
     )
@@ -95,53 +91,31 @@ define marketplace::apps::zamboni::admin_instance(
   marketplace::apps::fireplace::admin_instance { "${project_dir}/fireplace":
     cluster           => $cluster,
     domain            => "${domain}-fireplace",
-    dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
-    update_on_commit  => $update_on_commit,
     zamboni_dir       => regsubst("${project_dir}/current", 'src', 'www'),
   }
 
   marketplace::apps::transonic::admin_instance { "${project_dir}/transonic":
     cluster           => $cluster,
     domain            => "${domain}-transonic",
-    dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
-    update_on_commit  => $update_on_commit,
   }
 
   marketplace::apps::marketplace_operator_dashboard::admin_instance { "${project_dir}/marketplace-operator-dashboard":
     cluster           => $cluster,
     domain            => "${domain}-marketplace-operator-dashboard",
-    dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
-    update_on_commit  => $update_on_commit,
   }
 
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
     cluster           => $cluster,
     domain            => "${domain}-spartacus",
-    dreadnot_instance => $dreadnot_instance,
     env               => $env,
     ssh_key           => $ssh_key,
-    update_on_commit  => $update_on_commit,
     webpay_dir        => "${project_dir}-webpay",
-  }
-
-  dreadnot::stack { $domain:
-    github_url    => 'https://github.com/mozilla/zamboni',
-    git_url       => 'git://github.com/mozilla/zamboni.git',
-    instance_name => $dreadnot_instance,
-    project_dir   => $app_dir,
-  }
-
-  if $update_on_commit {
-    go_freddo::branch { "${codename}_${domain}_${env}":
-      app    => $codename,
-      script => "/usr/local/bin/dreadnot.deploy -e ${dreadnot_instance} ${domain}",
-    }
   }
 
   marketplace::apps::zamboni::symlinks { $app_dir:
