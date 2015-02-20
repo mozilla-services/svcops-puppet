@@ -1,6 +1,9 @@
 # marketplace virtual packages
 class marketplace::virtual_packages {
   @package {
+    'firefox':
+      ensure => 'installed';
+
     'MySQL-python':
       ensure => '1.2.3-0.3.c1.1.el6';
 
