@@ -7,7 +7,7 @@ class marketplace::utils::sync_packaged_apps(
   $zamboni = '/data/mkt.prod/www/marketplace.firefox.com/current/zamboni',
 ) {
 
-  $cron_prefix = "cd ${zamboni}; DJANGO_SETTINGS_MODULE=settings_local_mkt ../venv/bin/python manage.py list_packaged_apps"
+  $cron_prefix = "source /opt/rh/python27/enable && cd ${zamboni} && DJANGO_SETTINGS_MODULE=settings_local_mkt ../venv/bin/python manage.py list_packaged_apps"
 
   file { '/root/bin/sync_packaged_apps':
     content => template('marketplace/utils/sync_packaged_apps.py'),
