@@ -4,6 +4,7 @@ define marketplace::apps::olympia::celery_instance(
   $env = 'prod',
   $password = undef,
   $settings_module = 'settings_local',
+  $scl = undef,
   $user = $olympia_private::mkt::any::prod::params::mkt_user,
   $workers = '6',
 ){
@@ -20,6 +21,7 @@ define marketplace::apps::olympia::celery_instance(
     workers => $workers,
     user    => $user,
     environ => $environ,
+    scl     => $scl,
   }
 
   celery::service {
