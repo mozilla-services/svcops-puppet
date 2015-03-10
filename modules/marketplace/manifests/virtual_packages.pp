@@ -50,7 +50,7 @@ class marketplace::virtual_packages {
       ensure => '2.7.2-1.el6';
 
     'python27-python-Pillow':
-      ensure => '2.3.0-2.el6';
+      ensure => '2.7.0-1.el6';
 
     'python27-python-lxml':
       ensure => '2.2.6-1';
