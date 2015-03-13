@@ -124,21 +124,26 @@ define marketplace::apps::zamboni::admin_instance(
   }
 
   marketplace::apps::zamboni::symlinks::fireplace { $app_dir:
-    require       => Git::Clone[$app_dir],
     cluster       => $cluster,
     env           => $env,
     fireplace_dir => "/data/${cluster}/www/${domain}-fireplace/current",
   }
 
   marketplace::apps::zamboni::symlinks::discoplace { $app_dir:
+    cluster        => $cluster,
+    env            => $env,
     discoplace_dir => "/data/${cluster}/www/${domain}-discoplace/current",
   }
 
   marketplace::apps::zamboni::symlinks::transonic { $app_dir:
+    cluster       => $cluster,
+    env           => $env,
     transonic_dir => "/data/${cluster}/www/${domain}-transonic/current",
   }
 
   marketplace::apps::zamboni::symlinks::marketplace_operator_dashboard { $app_dir:
+    cluster                            => $cluster,
+    env                                => $env,
     marketplace_operator_dashboard_dir => "/data/${cluster}/www/${domain}-marketplace-operator-dashboard/current",
   }
 }
