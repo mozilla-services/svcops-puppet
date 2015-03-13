@@ -129,12 +129,6 @@ define marketplace::apps::zamboni::admin_instance(
     fireplace_dir => "/data/${cluster}/www/${domain}-fireplace/current",
   }
 
-  marketplace::apps::zamboni::symlinks::discoplace { $app_dir:
-    cluster        => $cluster,
-    env            => $env,
-    discoplace_dir => "/data/${cluster}/www/${domain}-discoplace/current",
-  }
-
   marketplace::apps::zamboni::symlinks::transonic { $app_dir:
     cluster       => $cluster,
     env           => $env,
