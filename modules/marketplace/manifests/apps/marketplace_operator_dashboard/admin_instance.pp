@@ -5,25 +5,17 @@ define marketplace::apps::marketplace_operator_dashboard::admin_instance(
   $env,
   $ssh_key,
   $project_name = 'marketplace-operator-dashboard',
+  $zamboni_dir = undef,
 ) {
-  $marketplace_operator_dashboard_dir = $name
-  $codename = 'marketplace-operator-dashboard'
+  $project_dir = $name
 
-  git::clone { $marketplace_operator_dashboard_dir:
-    repo => 'https://github.com/mozilla/marketplace-operator-dashboard.git',
-  }
-
-  marketplace::overlay { "marketplace_operator_dashboard::deploysettings::${name}":
-    app      => $project_name,
-    cluster  => $cluster,
-    content  => template('marketplace/apps/marketplace_operator_dashboard/deploysettings.py'),
-    env      => $env,
-    filename => 'deploysettings.py',
-  }
-
-  file {
-    "${marketplace_operator_dashboard_dir}/deploysettings.py":
-      require => Git::Clone[$marketplace_operator_dashboard_dir],
-      content => template('marketplace/apps/marketplace_operator_dashboard/deploysettings.py');
+  marketplace::apps::commonplace::deploysettings {
+    "${project_dir}/${project_name}":
+      cluster      => $cluster,
+      domain       => $domain,
+      env          => $env,
+      project_name => $project_name,
+      ssh_key      => $ssh_key,
+      zamboni_dir  => $zamboni_dir,
   }
 }

@@ -5,25 +5,17 @@ define marketplace::apps::transonic::admin_instance(
   $env,
   $ssh_key,
   $project_name = 'transonic',
+  $zamboni_dir = undef,
 ) {
-  $transonic_dir = $name
-  $codename = 'transonic'
+  $project_dir = $name
 
-  git::clone { $transonic_dir:
-    repo => 'https://github.com/mozilla/transonic.git',
-  }
-
-  file {
-    "${transonic_dir}/deploysettings.py":
-      require => Git::Clone[$transonic_dir],
-      content => template('marketplace/apps/transonic/deploysettings.py');
-  }
-
-  marketplace::overlay { "${project_name}::deploysettings::${name}":
-    app      => $project_name,
-    cluster  => $cluster,
-    content  => template('marketplace/apps/transonic/deploysettings.py'),
-    env      => $env,
-    filename => 'deploysettings.py',
+  marketplace::apps::commonplace::deploysettings {
+    "${project_dir}/${project_name}":
+      cluster      => $cluster,
+      domain       => $domain,
+      env          => $env,
+      project_name => $project_name,
+      ssh_key      => $ssh_key,
+      zamboni_dir  => $zamboni_dir,
   }
 }
