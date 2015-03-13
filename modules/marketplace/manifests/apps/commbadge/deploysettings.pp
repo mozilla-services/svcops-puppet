@@ -5,7 +5,7 @@ define marketplace::apps::commbadge::deploysettings(
   $env,
   $ssh_key,
   $project_name = 'commbadge',
-  $zamboni_dir = undef,
+  $zamboni_dir = hiera('marketplace::zamboni_dir')
 ) {
   $project_dir = $name
 
@@ -16,6 +16,6 @@ define marketplace::apps::commbadge::deploysettings(
       env          => $env,
       project_name => $project_name,
       ssh_key      => $ssh_key,
-      zamboni_dir  => $zamboni_dir,
+      zamboni_dir  => $zamboni_dir[$env],
   }
 }

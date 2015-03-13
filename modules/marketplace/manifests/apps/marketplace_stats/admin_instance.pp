@@ -5,7 +5,7 @@ define marketplace::apps::marketplace_stats::admin_instance(
   $env,
   $ssh_key,
   $project_name = 'marketplace-stats',
-  $zamboni_dir = undef,
+  $zamboni_dir = hiera('marketplace::zamboni_dir')
 ) {
   $project_dir = $name
 
@@ -16,6 +16,6 @@ define marketplace::apps::marketplace_stats::admin_instance(
       env          => $env,
       project_name => $project_name,
       ssh_key      => $ssh_key,
-      zamboni_dir  => $zamboni_dir,
+      zamboni_dir  => $zamboni_dir[$env],
   }
 }
