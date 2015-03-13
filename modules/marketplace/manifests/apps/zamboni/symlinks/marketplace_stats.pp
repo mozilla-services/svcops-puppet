@@ -17,7 +17,7 @@ define marketplace::apps::zamboni::symlinks::marketplace_stats(
       "zamboni::symlinks::marketplace_stats::${name}::media::marketplace_stats":
         ensure   => 'link',
         filename =>  'media/marketplace-stats',
-        target   => "${marketplace_stats_dir}/marketplace_stats/src/media";
+        target   => "${marketplace_stats_dir}/marketplace-stats/src/media";
     }
   }
 
