@@ -101,6 +101,7 @@ define marketplace::apps::zamboni::admin_instance(
     domain            => "${domain}-transonic",
     env               => $env,
     ssh_key           => $ssh_key,
+    zamboni_dir       => regsubst("${project_dir}/current", 'src', 'www'),
   }
 
   marketplace::apps::marketplace_operator_dashboard::admin_instance { "${project_dir}/marketplace-operator-dashboard":
@@ -108,6 +109,7 @@ define marketplace::apps::zamboni::admin_instance(
     domain            => "${domain}-marketplace-operator-dashboard",
     env               => $env,
     ssh_key           => $ssh_key,
+    zamboni_dir       => regsubst("${project_dir}/current", 'src', 'www'),
   }
 
   marketplace::apps::spartacus::admin_instance { "${project_dir}/spartacus":
