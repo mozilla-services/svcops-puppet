@@ -16,14 +16,14 @@ define marketplace::apps::zamboni::symlinks::marketplace_stats(
     marketplace::overlay {
       "zamboni::symlinks::marketplace_stats::${name}::media::marketplace_stats":
         ensure   => 'link',
-        filename =>  'media/marketplace_stats',
+        filename =>  'media/marketplace-stats',
         target   => "${marketplace_stats_dir}/marketplace_stats/src/media";
     }
   }
 
   file {
-    "${zamboni_media}/marketplace_stats":
-      ensure => link,
-      target => "${marketplace_stats_dir}/marketplace_stats/src/media"
+    "${zamboni_media}/marketplace-stats":
+      ensure => 'link',
+      target => "${marketplace_stats_dir}/marketplace-stats/src/media",
   }
 }
