@@ -40,6 +40,12 @@ class marketplace::virtual_packages {
     'python27-python-crypto':
       ensure => '2.6.1-2.el6';
 
+    'python27-python-cryptography':
+      ensure => '0.8-1.el6';
+
+    'python27-python-cffi':
+      ensure => '0.9.1-1.el6';
+
     'python27-python-markupsafe':
       ensure => '0.18-1.el6';
 
