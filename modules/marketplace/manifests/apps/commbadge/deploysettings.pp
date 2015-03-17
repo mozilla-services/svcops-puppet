@@ -3,20 +3,19 @@ define marketplace::apps::commbadge::deploysettings(
   $cluster,
   $domain,
   $env,
-  $ssh_key
+  $ssh_key,
+  $project_name = 'commbadge',
+  $zamboni_dir = hiera('marketplace::zamboni_dir')
 ) {
-  $commbadge_dir = $name
+  $project_dir = $name
 
-  file {
-    "${commbadge_dir}/deploysettings.py":
-      content => template('marketplace/apps/commbadge/deploysettings.py');
-  }
-
-  marketplace::overlay { "commbadge::deploysettings::${name}":
-    app      => 'commbadge',
-    cluster  => $cluster,
-    content  => template('marketplace/apps/commbadge/deploysettings.py'),
-    env      => $env,
-    filename => 'deploysettings.py',
+  marketplace::apps::commonplace::deploysettings {
+    "${project_dir}/${project_name}":
+      cluster      => $cluster,
+      domain       => $domain,
+      env          => $env,
+      project_name => $project_name,
+      ssh_key      => $ssh_key,
+      zamboni_dir  => $zamboni_dir[$env],
   }
 }

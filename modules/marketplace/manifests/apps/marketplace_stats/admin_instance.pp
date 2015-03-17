@@ -4,22 +4,18 @@ define marketplace::apps::marketplace_stats::admin_instance(
   $domain,
   $env,
   $ssh_key,
+  $project_name = 'marketplace-stats',
+  $zamboni_dir = hiera('marketplace::zamboni_dir')
 ) {
   $project_dir = $name
-  $codename = 'marketplace-stats'
 
-  git::clone {
-    "${project_dir}/marketplace-stats":
-      repo => 'https://github.com/mozilla/marketplace-stats.git';
-  }
-
-  marketplace::apps::generic_js::deploysettings {
-    "${project_dir}/marketplace-stats":
+  marketplace::apps::commonplace::deploysettings {
+    "${project_dir}/${project_name}":
       cluster      => $cluster,
       domain       => $domain,
       env          => $env,
-      project_name => $codename,
+      project_name => $project_name,
       ssh_key      => $ssh_key,
-      require      => Git::Clone["${project_dir}/marketplace-stats"],
+      zamboni_dir  => $zamboni_dir[$env],
   }
 }
