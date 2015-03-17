@@ -50,7 +50,7 @@ class marketplace::virtual_packages {
       ensure => '0.18-1.el6';
 
     'python27-python-simplejson':
-      ensure => '2.3.2-1.el6';
+      ensure => 'absent';
 
     'python27-python-jinja2':
       ensure => '2.7.2-1.el6';
