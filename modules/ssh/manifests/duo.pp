@@ -6,10 +6,7 @@ class ssh::duo(
 ){
 
   package {
-    [
-      'duo_unix',
-      'libduo'
-    ]:
+    'duo_unix':
       ensure => 'installed';
   }->
 
