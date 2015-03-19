@@ -11,6 +11,7 @@ define marketplace::apps::trunion::admin_instance(
   $update_ref,
   $dev = false,
   $ca_certfile = '',
+  $cert_validity_lifetime = '3650',
   $dnbase_organization = 'Mozilla',
   $dnbase_organizational_unit = 'Mozilla Addons Dev',
   $permitted_issuers = '',
