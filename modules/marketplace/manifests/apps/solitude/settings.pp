@@ -12,7 +12,6 @@ define marketplace::apps::solitude::settings(
   $cache_prefix,
   $solitude_proxy,
   $sentry_dsn,
-  $paypal_url_whitelist,
   $aes_key_dir,
   $statsd_host,
   $statsd_port,
@@ -24,6 +23,7 @@ define marketplace::apps::solitude::settings(
   $s3_bucket='',
   $cluster = undef,
   $env = undef,
+  $paypal_url_whitelist = undef,
 ) {
   $settings_dir = "${project_dir}/solitude/solitude/settings"
 
