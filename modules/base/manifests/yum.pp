@@ -139,6 +139,13 @@ class base::yum {
     failovermethod => priority,
   }
 
+  @yumrepo { 'baculaenterprise':
+    descr    => "Bacula Enterprise",
+    baseurl  => 'https://mrepo.mozilla.org/mrepo/$releasever-$basearch/RPMS.baculaenterprise',
+    gpgcheck => 0,
+    enabled  => 1;
+  }
+
   file {
     '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL':
       ensure => present,
