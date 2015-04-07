@@ -19,6 +19,7 @@ define marketplace::apps::zamboni::settings(
   $graphite_prefix = 'zamboni-default',
   $heka_conf_sender_host = '127.0.0.1',
   $heka_conf_sender_port = '5565',
+  $iaf_override_apps = hiera('marketplace::iaf_override_apps'),
   $netapp_storage_root = '/tmp',
   $recaptcha_private_key = '',
   $recaptcha_public_key = '',
