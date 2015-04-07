@@ -58,6 +58,6 @@ PREVERIFIED_ACCOUNT_KEY = '<%= @preverified_account_key %>'
 
 IAF_OVERRIDE_APPS = [
 <% @iaf_override_apps.each do |val| -%>
-        '<%= val %>',
+        <%= val %>,
 <% end -%>
 ]
