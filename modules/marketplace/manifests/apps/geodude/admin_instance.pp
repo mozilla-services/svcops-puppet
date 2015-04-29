@@ -16,10 +16,6 @@ define marketplace::apps::geodude::admin_instance(
   $geodude_dir = $name
   $codename = 'geodude'
 
-  git::clone { $geodude_dir:
-    repo => 'https://github.com/mozilla/geodude.git',
-  }
-
   Marketplace::Overlay {
     app     => $project_name,
     cluster => $cluster,
@@ -34,16 +30,5 @@ define marketplace::apps::geodude::admin_instance(
     "geodude::settings::${name}":
       content  => template('marketplace/apps/geodude/settings/settings.py'),
       filename => 'settings.py';
-  }
-
-  file {
-    "${geodude_dir}/deploysettings.py":
-      require => Git::Clone[$geodude_dir],
-      content => template('marketplace/apps/geodude/deploysettings.py');
-  }
-
-  file {
-    "${geodude_dir}/settings.py":
-      content => template('marketplace/apps/geodude/settings/settings.py');
   }
 }

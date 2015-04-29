@@ -77,24 +77,10 @@ define marketplace::apps::olympia::admin_instance(
     $deploy_domain_ = $domain
   }
 
-  git::clone { $app_dir:
-    repo => 'https://github.com/mozilla/olympia.git',
-  }
-
   marketplace::apps::olympia::symlinks { $app_dir:
     cluster => $cluster,
     env     => $env,
     netapp  => $netapp_storage_root,
-  }
-
-  file {
-    "${app_dir}/sites/${env}/private_base.py":
-      require => Git::Clone[$app_dir],
-      content => template('marketplace/apps/olympia/settings/private_base.py');
-
-    "${app_dir}/sites/${env}/private_addons.py":
-      require => Git::Clone[$app_dir],
-      content => template('marketplace/apps/olympia/settings/private_addons.py');
   }
 
   Marketplace::Overlay {
@@ -127,10 +113,5 @@ define marketplace::apps::olympia::admin_instance(
     "olympia::settings::${name}/private_addons.py":
       content  => template('marketplace/apps/olympia/settings/private_addons.py'),
       filename => "sites/${env}/private_addons.py";
-  }
-
-  file { "${app_dir}/deploysettings.py":
-    require => Git::Clone[$app_dir],
-    content => template('marketplace/apps/olympia/deploysettings.py');
   }
 }

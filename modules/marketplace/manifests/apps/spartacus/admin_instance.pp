@@ -12,16 +12,6 @@ define marketplace::apps::spartacus::admin_instance(
   $spartacus_dir = $name
   $codename = 'spartacus'
 
-  git::clone { $spartacus_dir:
-    repo => 'https://github.com/mozilla/spartacus.git',
-  }
-
-  file {
-    "${spartacus_dir}/deploysettings.py":
-      require => Git::Clone[$spartacus_dir],
-      content => template('marketplace/apps/spartacus/deploysettings.py');
-  }
-
   marketplace::overlay { "spartacus::deploysettings::${name}":
     app      => $project_name,
     cluster  => $cluster,

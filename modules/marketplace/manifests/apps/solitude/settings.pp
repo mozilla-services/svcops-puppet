@@ -60,12 +60,4 @@ define marketplace::apps::solitude::settings(
         filename => "solitude/settings/sites/${site}/private_base.py";
     }
   }
-
-  file {
-    "${settings_dir}/local.py":
-      content => "from .sites.${site}.db import *\n";
-
-    "${settings_dir}/sites/${site}/private_base.py":
-      content => template('marketplace/apps/solitude/settings.py');
-  }
 }
