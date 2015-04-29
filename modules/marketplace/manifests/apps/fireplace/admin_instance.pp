@@ -22,10 +22,4 @@ define marketplace::apps::fireplace::admin_instance(
     env      => $env,
     filename => 'deploysettings.py',
   }
-
-  file {
-    "${fireplace_dir}/deploysettings.py":
-      require => Git::Clone[$fireplace_dir],
-      content => template('marketplace/apps/fireplace/deploysettings.py');
-  }
 }

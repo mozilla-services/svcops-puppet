@@ -59,12 +59,4 @@ define marketplace::apps::solitude::proxy_settings(
         filename => "solitude/settings/sites/${site}/private_base.py";
     }
   }
-
-  file {
-    "${settings_dir}/local.py":
-      content => "from .sites.${site}.proxy import *\n";
-
-    "${settings_dir}/sites/${site}/private_base.py":
-      content => template('marketplace/apps/solitude/proxy_settings.py');
-  }
 }
