@@ -20,18 +20,6 @@ define marketplace::apps::zippy::admin_instance(
   $zippy_dir = $name
   $codename = 'zippy'
 
-  git::clone { $zippy_dir:
-    repo => 'https://github.com/mozilla/zippy.git',
-  }->
-  file {
-    "${zippy_dir}/deploysettings.py":
-      content => template('marketplace/apps/zippy/deploysettings.py');
-    "${zippy_dir}/fabfile.py":
-      content => template('marketplace/apps/zippy/fabfile.py');
-    "${zippy_dir}/lib/config/local.js":
-      content => template('marketplace/apps/zippy/local.js');
-  }
-
   Marketplace::Overlay {
     app      => $codename,
     cluster  => $cluster,

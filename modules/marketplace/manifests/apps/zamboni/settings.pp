@@ -134,15 +134,4 @@ define marketplace::apps::zamboni::settings(
         filename => "sites/${env}/private_mkt.py";
     }
   }
-
-  file {
-    "${app_dir}/private_base.py":
-      content => template('marketplace/apps/zamboni/settings/private_base.py');
-
-    "${app_dir}/private_addons.py":
-      content => template('marketplace/apps/zamboni/settings/private_addons.py');
-
-    "${app_dir}/private_mkt.py":
-      content => template('marketplace/apps/zamboni/settings/private_mkt.py');
-  }
 }

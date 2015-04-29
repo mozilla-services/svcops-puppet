@@ -20,10 +20,4 @@ define marketplace::apps::zamboni::symlinks::transonic(
         target   => "${transonic_dir}/transonic/src/media";
     }
   }
-
-  file {
-    "${zamboni_media}/transonic":
-      ensure => link,
-      target => "${transonic_dir}/transonic/src/media"
-  }
 }

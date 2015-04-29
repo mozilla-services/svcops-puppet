@@ -16,25 +16,6 @@ define marketplace::apps::solitude::aeskeys(
   file { "${project_root}/aeskeys":
     ensure => 'directory';
   }
-  file {
-    "${project_root}/aeskeys/bango_signature.key":
-      content => $bango_signature_key;
-    "${project_root}/aeskeys/buyeremail.key":
-      content => $buyeremail_key;
-    "${project_root}/aeskeys/buyerpaypal.key":
-      content => $buyerpaypal_key;
-    "${project_root}/aeskeys/sellerbluevia.key":
-      content => $sellerbluevia_key;
-    "${project_root}/aeskeys/sellerpaypal_id.key":
-      content => $sellerpaypal_id_key;
-    "${project_root}/aeskeys/sellerpaypal_secret.key":
-      content => $sellerpaypal_secret_key;
-    "${project_root}/aeskeys/sellerpaypal_token.key":
-      content => $sellerpaypal_token_key;
-    "${project_root}/aeskeys/sellerproduct_secret.key":
-      content => $sellerproduct_secret_key;
-  }
-
   if $cluster and $env {
     Marketplace::Overlay {
       app     => 'solitude-aeskeys',

@@ -10,16 +10,6 @@ define marketplace::apps::yogafire::admin_instance(
   $yogafire_dir = $name
   $codename = 'yogafire'
 
-  git::clone { $yogafire_dir:
-    repo => 'https://github.com/mozilla/yogafire.git',
-  }
-
-  file {
-    "${yogafire_dir}/deploysettings.py":
-      require => Git::Clone[$yogafire_dir],
-      content => template('marketplace/apps/yogafire/deploysettings.py');
-  }
-
   marketplace::overlay { "${codename}::deploysettings::${name}":
     app      => $codename,
     cluster  => $cluster,

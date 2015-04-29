@@ -22,10 +22,4 @@ define marketplace::apps::zamboni::symlinks::fireplace(
         target   => "${fireplace_dir}/fireplace/src/media";
     }
   }
-
-  file {
-    "${zamboni_media}/fireplace":
-      ensure => 'link',
-      target => "${fireplace_dir}/fireplace/src/media";
-  }
 }

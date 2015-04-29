@@ -20,10 +20,4 @@ define marketplace::apps::zamboni::symlinks::marketplace_operator_dashboard(
         target   => "${marketplace_operator_dashboard_dir}/marketplace-operator-dashboard/src/media";
     }
   }
-
-  file {
-    "${zamboni_media}/marketplace-operator-dashboard":
-      ensure => 'link',
-      target => "${marketplace_operator_dashboard_dir}/marketplace-operator-dashboard/src/media",
-  }
 }
