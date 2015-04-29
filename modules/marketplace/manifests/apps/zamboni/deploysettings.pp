@@ -24,9 +24,4 @@ define marketplace::apps::zamboni::deploysettings(
     env      => $env,
     filename => 'deploysettings.py',
   }
-
-  file { "${zamboni_dir}/deploysettings.py":
-    content => template('marketplace/apps/zamboni/deploysettings.py'),
-  }
-
 }

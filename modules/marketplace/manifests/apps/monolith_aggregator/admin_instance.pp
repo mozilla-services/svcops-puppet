@@ -75,26 +75,4 @@ define marketplace::apps::monolith_aggregator::admin_instance(
       content  => template('marketplace/apps/monolith_aggregator/admin/solitude_aws_keys.ini'),
       filename => 'solitude_aws_keys.ini';
   }
-
-  file {
-    "${project_dir}/monolith-aggregator/aggregator.ini":
-      require => Git::Clone["${project_dir}/monolith-aggregator"],
-      content => template('marketplace/apps/monolith_aggregator/admin/aggregator.ini');
-
-    "${project_dir}/monolith-aggregator/auth.json":
-      require => Git::Clone["${project_dir}/monolith-aggregator"],
-      content => $ga_auth;
-
-    "${project_dir}/monolith-aggregator/monolith.password.ini":
-      require => Git::Clone["${project_dir}/monolith-aggregator"],
-      content => template('marketplace/apps/monolith_aggregator/admin/monolith.password.ini');
-
-    "${project_dir}/monolith-aggregator/solitude_aws_keys.ini":
-      require => Git::Clone["${project_dir}/monolith-aggregator"],
-      content => template('marketplace/apps/monolith_aggregator/admin/solitude_aws_keys.ini');
-
-    "${project_dir}/monolith-aggregator/deploysettings.py":
-      require => Git::Clone["${project_dir}/monolith-aggregator"],
-      content => template('marketplace/apps/monolith/deploysettings.py');
-  }
 }

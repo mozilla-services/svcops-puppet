@@ -6,13 +6,6 @@ define marketplace::apps::zamboni::aeskeys(
   $env = undef,
 ) {
   $project_root = $name
-  file { "${project_root}/aeskeys":
-    ensure => 'directory';
-  }
-  file {
-    "${project_root}/aeskeys/preverified_account.key":
-      content => $preverified_account_key;
-  }
 
   if $cluster and $env {
     Marketplace::Overlay {

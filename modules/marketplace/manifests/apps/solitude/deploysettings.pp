@@ -30,10 +30,4 @@ define marketplace::apps::solitude::deploysettings(
       content  => template('marketplace/apps/solitude/deploysettings.py'),
       filename => 'deploysettings.py';
   }
-
-  file {
-    "${solitude_dir}/deploysettings.py":
-      content => template('marketplace/apps/solitude/deploysettings.py');
-  }
-
 }
