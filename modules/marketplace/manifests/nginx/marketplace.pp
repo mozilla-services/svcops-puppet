@@ -11,7 +11,6 @@ define marketplace::nginx::marketplace(
   $commbadge_root = '',
   $discoplace_root = undef,
   $fireplace_root = '',
-  $landfill_dumps = undef,
   $marketplace_stats_root = '',
   $marketplace_operator_dashboard_root = '',
   $marketplace_worker_name = 'marketplace',
