@@ -3,6 +3,7 @@ define marketplace::apps::trunion::web_instance(
   $worker_name,
   $app_dir,
   $appmodule = 'trunion.run:application',
+  $auth_users = undef,
   $lazy_apps = undef,
   $max_requests = undef,
   $nginx_log_buffer = true,
@@ -27,6 +28,7 @@ define marketplace::apps::trunion::web_instance(
     $real_port = $port
   }
 
+
   uwsgi::instance {
     $worker_name:
       app_dir      => "${app_dir}/trunion",
@@ -38,6 +40,14 @@ define marketplace::apps::trunion::web_instance(
       port         => $real_port,
       user         => $user,
       workers      => $workers,
+  }
+
+  if $auth_users {
+    nginx::htpasswd {
+      $app_name:
+        auth_users => $auth_users,
+        before     => Nginx::Config[$app_name],
+    }
   }
 
   nginx::config {
