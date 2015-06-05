@@ -5,6 +5,7 @@ class hekad::common(
   $http_status_loggers = [],
   $log_output = false,
   $sandbox_hmac_key = '',
+  $stats_ticker_interval = 60,
   $statsd_address = '127.0.0.1:8125',
   $udp_listen_address = '127.0.0.1:5565',
 ) {
