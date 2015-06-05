@@ -11,7 +11,8 @@ type="StatAccumInput"
 legacy_namespaces = true
 emit_in_payload = true
 emit_in_fields = true
-ticker_interval = 5
+ticker_interval = <%= @stats_ticker_interval %>
+delete_idle_stats = true
 
 [StatsdInput]
 address = "<%= @statsd_address %>"
