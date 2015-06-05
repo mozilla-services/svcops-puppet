@@ -104,7 +104,7 @@ class marketplace::virtual_packages {
       ensure => 'installed';
 
     'tracemonkey':
-      ensure => '34.0a1-1';
+      ensure => '40.0a2-1.el6';
 
     'umemcache':
       ensure => '1.6.3-1';
