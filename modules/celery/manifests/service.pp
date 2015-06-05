@@ -17,7 +17,10 @@ define celery::service (
     include celery::user
   }
 
-  if $command {
+  if $command == 'celeryworker' {
+    $celery_command = "${python} ${app_dir}/manage.py celery worker --loglevel=${log_level} -c ${workers} ${args}"
+  }
+  elsif $command {
     $celery_command = $command
   }
   else {
@@ -27,7 +30,7 @@ define celery::service (
   if $scl {
     $extra_environ = "LD_LIBRARY_PATH=/opt/rh/${scl}/root/usr/lib64,PATH=/opt/rh/${scl}/root/usr/bin:/sbin:/usr/sbin:/bin:/usr/bin"
   } else {
-    $extra_environ = ""
+    $extra_environ = ''
   }
 
   $real_environ = join(reject([$environ, $extra_environ], '^$'), ',')
