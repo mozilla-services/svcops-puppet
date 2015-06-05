@@ -19,11 +19,12 @@ define marketplace::apps::zamboni::celery_instance(
 
   Celery::Service {
     app_dir => $zamboni_dir,
-    python  => $zamboni_python,
-    workers => $workers,
-    user    => $user,
+    command => 'celeryworker',
     environ => $environ,
+    python  => $zamboni_python,
     scl     => $scl,
+    user    => $user,
+    workers => $workers,
   }
 
   celery::service {
