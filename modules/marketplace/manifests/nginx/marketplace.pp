@@ -19,6 +19,7 @@ define marketplace::nginx::marketplace(
   $spartacus_root = undef,
   $template_file = 'marketplace/nginx/marketplace.conf',
   $transonic_root = '',
+  $marketplace_submission_root = '',
   $webpay_worker_name = 'webpay-marketplace',
 ) {
   $config_name = $name
@@ -57,6 +58,12 @@ define marketplace::nginx::marketplace(
     $marketplace_operator_dashboard_webroot = $marketplace_operator_dashboard_root
   } else {
     $marketplace_operator_dashboard_webroot = $webroot
+  }
+
+  if $marketplace_submission_root {
+    $marketplace_submission_webroot = $marketplace_submission_root
+  } else {
+    $marketplace_submission_webroot = $webroot
   }
 
   nginx::config {
