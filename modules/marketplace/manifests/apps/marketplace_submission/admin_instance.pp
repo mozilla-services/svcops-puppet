@@ -1,5 +1,5 @@
 # $name is the location of submission
-define marketplace::apps::marketplace_operator_dashboard::admin_instance(
+define marketplace::apps::marketplace_submission::admin_instance(
   $cluster,
   $domain,
   $env,
