@@ -16,7 +16,7 @@ define marketplace::apps::zamboni::symlinks::marketplace_submission(
     marketplace::overlay {
       "zamboni::symlinks::marketplace-submission::${name}::media::marketplace-submission":
         ensure   => 'link',
-        filename =>  'media/marketplace-submission',
+        filename =>  'media/submission',
         target   => "${marketplace_submission_dir}/marketplace-submission/src/media";
     }
   }
