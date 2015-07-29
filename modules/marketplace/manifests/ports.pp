@@ -15,6 +15,7 @@ class marketplace::ports {
   $addons_alt                     = '12016'
   $marketplace_alt                = '12017'
   $marketplace_feed               = '12018'
+  $marketplace_s3dev              = '12019'
   $marketplace_cn                 = '12021'
   $addons_olympia                 = '12030'
   $payments                       = '12040'
