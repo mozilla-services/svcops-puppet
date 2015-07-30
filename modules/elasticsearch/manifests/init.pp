@@ -25,6 +25,12 @@ class elasticsearch (
     require => Package[$package];
   }
 
+  file {
+    '/data/backup':
+      ensure => 'directory',
+      owner  => $user,
+  }
+
   if $plugins {
     class {
       'elasticsearch::plugins':
