@@ -12,17 +12,18 @@ define marketplace::apps::solitude::proxy_settings(
   $site,
   $statsd_host,
   $statsd_port,
+  $boku_merchant_id = '',
+  $boku_secret_key = '',
+  $cluster = undef,
+  $env = undef,
   $paypal_app_id = undef,
   $paypal_auth_password = undef,
   $paypal_auth_signature = undef,
   $paypal_auth_user = undef,
   $paypal_chains = undef,
-  $boku_merchant_id = '',
-  $boku_secret_key = '',
+  $site_url = undef,
   $zippy_paas_key = undef,
   $zippy_paas_secret = undef,
-  $cluster = undef,
-  $env = undef,
 ) {
   $settings_dir = "${project_dir}/solitude/solitude/settings"
 

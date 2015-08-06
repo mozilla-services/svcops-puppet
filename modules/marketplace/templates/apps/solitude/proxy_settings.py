@@ -24,3 +24,7 @@ ZIPPY_PAAS_SECRET = '<%= @zippy_paas_secret %>'
 
 BOKU_MERCHANT_ID = '<%= @boku_merchant_id %>'
 BOKU_SECRET_KEY = '<%= @boku_secret_key %>'
+
+<% if @site_url %>
+SITE_URL = '<%= @site_url %>'
+<% end -%>
