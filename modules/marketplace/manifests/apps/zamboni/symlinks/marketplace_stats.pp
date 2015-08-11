@@ -20,10 +20,4 @@ define marketplace::apps::zamboni::symlinks::marketplace_stats(
         target   => "${marketplace_stats_dir}/marketplace-stats/src/media";
     }
   }
-
-  file {
-    "${zamboni_media}/marketplace-stats":
-      ensure => 'link',
-      target => "${marketplace_stats_dir}/marketplace-stats/src/media",
-  }
 }

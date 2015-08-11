@@ -37,9 +37,4 @@ define marketplace::apps::frappe::settings(
       content  => template('marketplace/apps/frappe/admin/local.py'),
       filename => 'src/recommendation/settings/local.py';
   }
-
-  file {
-    "${settings_dir}/local.py":
-      content => template('marketplace/apps/frappe/admin/local.py');
-  }
 }

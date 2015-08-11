@@ -16,10 +16,6 @@ define marketplace::apps::frappe::admin_instance(
   $codename = 'frappe'
   $project_name = $codename
 
-  git::clone { $project_dir:
-    repo => 'https://github.com/grafos-ml/frappe',
-  }
-
   create_resources(
     'marketplace::apps::frappe::settings',
     { "${domain}" => $settings},
@@ -29,21 +25,8 @@ define marketplace::apps::frappe::admin_instance(
       'domain'      => $domain,
       'env'         => $env,
       'project_dir' => $project_dir,
-      'require'     => Git::Clone[$project_dir],
     }
   )
-
-  file {
-    "${project_dir}/deploysettings.py":
-      content => template('marketplace/apps/frappe/admin/deploysettings.py');
-
-    "${project_dir}/fabfile.py":
-      content => template('marketplace/apps/frappe/admin/fabfile.py');
-
-    "${project_dir}/requirements.prod.txt":
-      content => template('marketplace/apps/frappe/admin/requirements.prod.txt');
-  }
-
   cron {
     "frappe-daily-${env}":
       command => "cd ${project_dir} && /usr/bin/fab cron",
@@ -71,5 +54,4 @@ define marketplace::apps::frappe::admin_instance(
       content  => template('marketplace/apps/frappe/admin/requirements.prod.txt'),
       filename => 'requirements.prod.txt';
   }
-
 }

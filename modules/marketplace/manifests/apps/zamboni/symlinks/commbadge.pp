@@ -20,10 +20,4 @@ define marketplace::apps::zamboni::symlinks::commbadge(
         target   => "${commbadge_dir}/commbadge/src/media";
     }
   }
-
-  file {
-    "${zamboni_media}/commbadge":
-      ensure => link,
-      target => "${commbadge_dir}/commbadge/src/media"
-  }
 }
