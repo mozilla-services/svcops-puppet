@@ -4,6 +4,7 @@ define uwsgi::instance(
   $appmodule,
   $port,
   $user,
+  $buffer_size = '32768',
   $cache = undef,
   $environ = '',
   $harakiri = undef,
