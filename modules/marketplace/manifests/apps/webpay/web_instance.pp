@@ -29,14 +29,15 @@ define marketplace::apps::webpay::web_instance(
   }
 
   uwsgi::instance {$worker_name:
-    app_dir   => "${app_dir}/webpay",
-    appmodule => $appmodule,
-    port      => $real_port,
-    home      => "${app_dir}/venv",
-    user      => $user,
-    workers   => $workers,
-    scl       => $scl,
-    harakiri  => 240,
-    environ   => $environ,
+    app_dir     => "${app_dir}/webpay",
+    appmodule   => $appmodule,
+    buffer_size => '65536',
+    port        => $real_port,
+    home        => "${app_dir}/venv",
+    user        => $user,
+    workers     => $workers,
+    scl         => $scl,
+    harakiri    => 240,
+    environ     => $environ,
   }
 }
