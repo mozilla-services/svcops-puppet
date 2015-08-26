@@ -1,6 +1,6 @@
-# manages marketplace_submission media symlink
-define marketplace::apps::zamboni::symlinks::marketplace_submission(
-  $marketplace_submission_dir,
+# manages marketplace_content_tools media symlink
+define marketplace::apps::zamboni::symlinks::marketplace_content_tools(
+  $marketplace_content_tools_dir,
   $cluster = undef,
   $env = undef,
 ) {
@@ -14,10 +14,10 @@ define marketplace::apps::zamboni::symlinks::marketplace_submission(
     }
 
     marketplace::overlay {
-      "zamboni::symlinks::marketplace-submission::${name}::media::marketplace-submission":
+      "zamboni::symlinks::marketplace-content-tools::${name}::media::marketplace-content-tools":
         ensure   => 'link',
-        filename =>  'media/marketplace-submission',
-        target   => "${marketplace_submission_dir}/marketplace-submission/src/media";
+        filename =>  'media/marketplace-content-tools',
+        target   => "${marketplace_content_tools_dir}/marketplace-content-tools/src/media";
     }
   }
 }
