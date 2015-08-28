@@ -18,6 +18,7 @@ define marketplace::apps::olympia::celery_instance(
   Celery::Service {
     app_dir => $olympia_dir,
     python  => $olympia_python,
+    command => 'celeryworker',
     workers => $workers,
     user    => $user,
     environ => $environ,
