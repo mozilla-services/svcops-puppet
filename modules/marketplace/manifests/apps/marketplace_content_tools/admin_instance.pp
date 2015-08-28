@@ -1,10 +1,10 @@
-# $name is the location of submission
-define marketplace::apps::marketplace_submission::admin_instance(
+# $name is the location of content_tools
+define marketplace::apps::marketplace_content_tools::admin_instance(
   $cluster,
   $domain,
   $env,
   $ssh_key,
-  $project_name = 'marketplace-submission',
+  $project_name = 'marketplace-content-tools',
   $zamboni_dir = hiera('marketplace::zamboni_dir')
 ) {
   $project_dir = $name
