@@ -1,15 +1,16 @@
 # define celery service.
 define celery::service (
   $app_dir,
-  $user = 'celery',
+  $args = '',
   $command = undef,
-  $workers = '4',
-  $python = '/usr/bin/python',
   $environ = '',
   $log_level = 'INFO',
-  $args = '',
+  $project = undef,
+  $python = '/usr/bin/python',
+  $scl = undef,
   $stopwaitsecs = '300',
-  $scl = undef
+  $user = 'celery',
+  $workers = '4',
 ) {
   include supervisord::base
 
@@ -19,6 +20,9 @@ define celery::service (
 
   if $command == 'celeryworker' {
     $celery_command = "${python} ${app_dir}/manage.py celery worker --loglevel=${log_level} -c ${workers} ${args}"
+  }
+  elsif $command == 'standalone' {
+    $celery_command = "${python} ${app_dir}/../venv/bin/celery -A ${project} worker -E --loglevel=${log_level} -c ${workers} ${args}"
   }
   elsif $command {
     $celery_command = $command

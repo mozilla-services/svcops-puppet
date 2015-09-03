@@ -17,11 +17,13 @@ define marketplace::apps::olympia::celery_instance(
 
   Celery::Service {
     app_dir => $olympia_dir,
-    python  => $olympia_python,
-    workers => $workers,
-    user    => $user,
+    command => 'standalone',
     environ => $environ,
+    project => 'olympia',
+    python  => $olympia_python,
     scl     => $scl,
+    user    => $user,
+    workers => $workers,
   }
 
   celery::service {
