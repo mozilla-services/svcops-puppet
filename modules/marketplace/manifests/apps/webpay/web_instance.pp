@@ -31,7 +31,7 @@ define marketplace::apps::webpay::web_instance(
   uwsgi::instance {$worker_name:
     app_dir     => "${app_dir}/webpay",
     appmodule   => $appmodule,
-    buffer_size => '65536',
+    buffer_size => '262144',
     port        => $real_port,
     home        => "${app_dir}/venv",
     user        => $user,
